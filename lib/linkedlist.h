@@ -3,7 +3,6 @@
 
 #include "boolean.h"
 
-#define Nil NULL
 typedef int infotype;
 typedef struct tNode *address;
 typedef struct tNode {
