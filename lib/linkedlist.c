@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "linkedlist.h"
 
 // Test whether linked list is empty or not, first(L) = NULL
@@ -9,8 +11,8 @@ boolean isEmpty(linkedList L)
 // Empty linked list constructor
 void createEmpty(linkedList *L)
 {
-	*L.first = NULL;
-	*L.last = NULL;
+	first(*L) = NULL;
+	last(*L) = NULL;
 }
 
 // Allocate a new node with its content of X at return address
@@ -35,13 +37,13 @@ void deallocateNode(address *P)
 // Returns the first node that contains X
 address search(linkedList L, infotype X)
 {
-	address P = First(L);
+	address P = first(L);
 	boolean found = false;
 
 	while(!found && P != NULL) 
 	{
 		if(info(P)==X) found = true;
-		else P = Next(P);
+		else P = next(P);
 	}
 
 	if(found) return P;
@@ -49,34 +51,140 @@ address search(linkedList L, infotype X)
 }
 
 // Insert element containing X at the front of list
-void insertValueFirst(linkedList *L, infotype X);
+void insertValueFirst(linkedList *L, infotype X)
+{
+	address P = allocateNode(X);
+
+	if(P != NULL)
+	{
+		insertNodeFirst(L, P);
+	}
+}
 
 // Insert element containing X at the back of list
-void insertValueLast(linkedList *L, infotype X);
+void insertValueLast(linkedList *L, infotype X)
+{
+	address P = allocateNode(X);
+
+	if(P != NULL)
+	{
+		insertNodeLast(L, P);
+	}
+}
 
 // Insert element containing X at the front of list
-void deleteValueFirst(linkedList *L, infotype *X);
+void deleteValueFirst(linkedList *L, infotype *X)
+{
+	address P;
+	deleteNodeFirst(L, &P);
+	*X = info(P);
+}
 
 // Insert element containing X at the back of list
-void deleteValueLast(linkedList *L, infotype *X);
+void deleteValueLast(linkedList *L, infotype *X)
+{
+	address P;
+	deleteNodeLast(L, &P);
+	*X = info(P);
+}
 
 // Insert node at first if the node P has been allocated
-void insertNodeFirst(linkedList *L, address P);
+void insertNodeFirst(linkedList *L, address P)
+{
+	if(isEmpty(*L)) last(*L) = P;
+	
+	next(P) = first(*L); 
+	first(*L) = P;
+}
 
 // Insert node at last if the node P has been allocated
-void insertNodeLast(linkedList *L, address P);
+void insertNodeLast(linkedList *L, address P)
+{
+	if(isEmpty(*L)) first(*L) = P;
+	else next(last(*L)) = P;
+	
+	last(*L) = P;
+}
 
 // Insert node after Prev if the node P has been allocated
-void insertNodeAfter(linkedList *L, address P, address Prev);
+void insertNodeAfter(linkedList *L, address P, address Prev)
+{
+	next(P) = next(Prev);
+	next(Prev) = P;
+}
 
 // Delete first node and return it to P (no deallocation)
-void deleteNodeFirst(linkedList *L, address *P);
+void deleteNodeFirst(linkedList *L, address *P)
+{
+	*P = first(*L);
+	first(*L) = next(*P);
+	next(*P) = NULL;
+
+	if(first(*L)==NULL) last(*L) = NULL; 
+}
 
 // Delete last node and return it to P (no deallocation)
-void deleteNodeLast(linkedList *L, address *P);
+void deleteNodeLast(linkedList *L, address *P)
+{
+	*P = last(*L);
+
+	address prec = NULL;
+	address ls = first(*L);
+
+	while(ls != last(*L))
+	{
+		prec = ls;
+		ls = next(ls);
+	}
+
+	if(prec == NULL)
+	{
+		first(*L) = NULL;
+		last(*L) = NULL;	
+	}
+	else
+	{
+		next(prec) = NULL;
+		last(*L) = prec;
+	}
+
+}
 
 // Delete node after Prev and return it to P (no deallocation)
-void deleteNodeAfter(linkedList *L, address *P, address Prev);
+void deleteNodeAfter(linkedList *L, address *P, address Prev)
+{
+	*P = next(Prev);
+	next(Prev) = next(*P);
+	next(*P) = NULL;
+}
 
 // Return linked list length
-int length(linkedList L);
+int length(linkedList L)
+{
+	address P = first(L);
+	int result = 0;
+
+	while(P != NULL)
+	{
+		P = next(P);
+		result++;
+	}
+
+	return result;
+}
+
+void printInfo (linkedList L)
+{
+    printf("[");
+    if(!isEmpty(L))
+    {
+        address P=first(L);
+        while(next(P)!=NULL)
+        {
+            printf("%d,",info(P));
+            P = next(P);
+        }
+        printf("%d", info(P));
+    }
+    printf("]");
+}

@@ -67,4 +67,7 @@ void deleteNodeAfter(linkedList *L, address *P, address Prev);
 // Return linked list length
 int length(linkedList L);
 
+// Print linked list content (if infotype integer)
+void printInfo(linkedList L);
+
 #endif
