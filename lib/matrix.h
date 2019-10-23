@@ -1,62 +1,64 @@
-/* ********** TYPE Matrix definition with index dan coordinate ********** */
+/* ********** TYPE matrix definition with index dan coordinate ********** */
 
-#ifndef ReadMatrix_H
-#define ReadMatrix_H
+#ifndef matrix_H
+#define matrix_H
 
 #include "boolean.h"
+#include "point.h"
+#include "pcolor.h"
 
 /* minimum and maximum map size in row and column */
-#define RowMin 1
-#define RowMax 31
-#define ColMin 1
-#define ColMax 21
-#define EmptyField ' '
+#define rowMin 1
+#define rowMax 31
+#define colMin 1
+#define colMax 21
+#define emptyField ' '
 
 typedef int index; /* index row, column */
-typedef int ElType;
+typedef buildings building;
 typedef struct {
-    ElType Mem[RowMax+1][ColMax+1];
-    int NRowEff; /* defined row size for max*/
-    int NColEff; /* defined col size for max */
-} Matrix;
-/* 11 <= NRowEff <= 31 and 11<= NColEff <= 21 */
-/* Indeks used: [0..RowMax][0..ColMax] */
+    buildingCoord Mem[rowMax+1][colMax+1];
+    int nRowEff; /* defined row size for max*/
+    int nColEff; /* defined col size for max */
+} matrix;
+/* 11 <= nRowEff <= 31 and 11<= nColEff <= 21 */
+/* Indeks used: [0..rowMax][0..colMax] */
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
-/* *** Matrix Constructor *** */
-void createEmpty (int NR, int NC, Matrix * M);
+/* *** matrix Constructor *** */
+void createEmpty (int NR, int NC, matrix * M);
 /* Creating "empty" matrix ready to use*/
 /* I.S. NR dan NC are valid */
 /* F.S. Matriks M created as defined above */
 
 /* *** Selector *** */
-#define NRowEff(M) (M).NRowEff
-#define NColEff(M) (M).NColEff
-#define Elmt(M,i,j) (M).Mem[(i)][(j)]
+#define nRowEff(M) (M).nRowEff
+#define nColEff(M) (M).nColEff
+#define building(M,i,j) (M).Mem[(i)][(j)].building
 
-/* *** Selector "Matrix" *** */
+/* *** Selector "matrix" *** */
 boolean isIdxValid (int i, int j);
 /* Returns true if i, j is a valid index */
 
 /* *** Selector: for a defined matrix M: *** */
-index getFirstIdxRow (Matrix M);
+index getFirstIdxRow (matrix M);
 /* Returns lowest index row M */
-index getFirstIdxCol (Matrix M);
+index getFirstIdxCol (matrix M);
 /* Returns lowest index column M */
-index getLastIdxRow (Matrix M);
+index getLastIdxRow (matrix M);
 /* Returns highest index row M */
-index getLastIdxCol (Matrix M);
+index getLastIdxCol (matrix M);
 /* Returns highest index column M */
-boolean isIdxEff (Matrix M, index i, index j);
+boolean isIdxEff (matrix M, index i, index j);
 /* Returns true if i, j is effective index for M */
 
 /* ********** Read/Write ********** */
-void insertStructure (Matrix * M, int Row, int Col);
+void insertStructure (matrix * M, buildingCoord C);
 /* I.S. IsIdxValid(NR,NC) */
 /* F.S. defined effective element of M , Size NR x NC */
-/* Process: MakeMatrix(M,NR,NC) and write effective value */
+/* Process: Makematrix(M,NR,NC) and write effective value */
 /* then read element value per row and column */
-/* Example: Jika NR = 15 dan NC = 10, then matrix entry :
+/* Example: if NR = 15 dan NC = 10, then matrix entry (provided every structure already inserted) :
 C       V   ​T​ ​C​
   C            
 T      V     ​C​ 
@@ -69,7 +71,7 @@ T      V     ​C​
 ​C​ T           C
 NB: depends on coordinate points
 */
-void writeMatrix (Matrix M);
+void writematrix (matrix M);
 /* I.S. M defined */
 /* F.S. Value of M(i,j) printed per row per column*/
 /* Process: print per row and per column*/

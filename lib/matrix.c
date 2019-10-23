@@ -1,70 +1,61 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "ReadMatrix.h"
+#include "matrix.h"
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
-/* *** Matrix Constructor *** */
-void createEmpty (int NR, int NC, Matrix * M)
+/* *** matrix Constructor *** */
+void createEmpty (int NR, int NC, matrix * M)
 /* Creating "empty" matrix ready to use*/
 /* I.S. NR dan NC are valid */
 /* F.S. Matriks M created as defined above */
 {
-    NRowEff(*M)=NR+1;
-    NColEff(*M)=NC+1;
+    //Map size
+    nRowEff(*M)=NR+1;
+    nColEff(*M)=NC+1;
     //+1 for "*" border (upper and left border using zero (0) index)
-    //structures in the map defined in [1..RowMax-1] and [1..ColMax-1]
+    //structures in the map defined in [1..rowMax-1] and [1..colMax-1]
     //every fiend is EmptyField (' ')
     //to fill the blank with corresponding structure, use InsertStructure
-    for(int i=1;i<=NR;i++)
-    {
-        for(int j=1;j<=NC;j++)
-        {
-            Elmt(*M,i,j)=EmptyField;
-        };
-    };
 }
 
-/* *** Selector "Matrix" *** */
+/* *** Selector "matrix" *** */
 boolean isIdxValid (int i, int j)
 /* Returns true if i, j is a valid index */
 {
-    return((i>=RowMin && i<=RowMax) && (j>=ColMin && j<=ColMax));
+    return((i>=rowMin && i<=rowMax) && (j>=colMin && j<=colMax));
 }
 
 /* *** Selector: for a defined matrix M: *** */
-index getFirstIdxRow (Matrix M)
+index getFirstIdxRow (matrix M)
 /* Returns lowest index row M */
 {
-    return(RowMin);
+    return(rowMin);
 }
-index getFirstIdxCol (Matrix M)
+index getFirstIdxCol (matrix M)
 /* Returns lowest index column M */
 {
-    return(ColMin);
+    return(colMin);
 }
-index getLastIdxRow (Matrix M)
+index getLastIdxRow (matrix M)
 /* Returns highest index row M */
 {
-    return(NRowEff(M));
+    return(nRowEff(M));
 }
-index getLastIdxCol (Matrix M)
+index getLastIdxCol (matrix M)
 /* Returns highest index column M */
 {
-    return(NColEff(M));
+    return(nColEff(M));
 }
-boolean isIdxEff (Matrix M, index i, index j)
+boolean isIdxEff (matrix M, index i, index j)
 /* Returns true if i, j is effective index for M */
 {
     return(i==getLastIdxRow(M) && j==getLastIdxCol(M));
 }
 /* ********** Read/Write ********** */
-void insertStructure (Matrix * M, int Row, int Col)
+void insertStructure (matrix * M, buildingCoord C)
 /* I.S. isIdxValid(NR,NC) */
 /* F.S. defined effective element of M , Size NR x NC */
-/* Process: MakeMatrix(M,NB,NK) and write effective value */
+/* Process: Makematrix(M,NB,NK) and write effective value */
 /* then read element value per row and column */
-/* Example: Jika NR = 15 dan NC = 10, then matrix entry :
+/* Example: if NR = 15 dan NC = 10, then matrix entry (provided every structure already inserted) :
 C       V   ​T​ ​C​
   C            
 T      V     ​C​ 
@@ -78,9 +69,9 @@ T      V     ​C​
 NB: depends on coordinate points
 */
 {
-    //WIP
+    building(*M,row(C),col(C)) = build(C);
 }
-void writeMatrix (Matrix M)
+void writematrix (matrix M)
 /* I.S. M defined */
 /* F.S. Value of M(i,j) printed per row per column*/
 /* Process: print per row and per column*/
@@ -100,11 +91,24 @@ void writeMatrix (Matrix M)
 */
 {
     int i,j;
+    char t;
     for(i=0;i<=getLastIdxRow(M);i++)
     {
         for(j=0;j<getLastIdxCol(M);j++)
         {
-            if (i!=0 && j!=0 && i!=getLastIdxRow(M)){printf("%c",Elmt(M,i,j));}
+            if (i!=0 && j!=0 && i!=getLastIdxRow(M))
+            {
+                //building type determiner
+                if (type(building(M,i,j))==1){t="C";}
+                else if (type(building(M,i,j))==2){t="T";}
+                else if (type(building(M,i,j))==3){t="F";}
+                else if (type(building(M,i,j))==4){t="V";}
+                else{t=emptyField;}//undefined building (building not exist at the coordinate)
+                //ownership determiner
+                if (owner(building(M,i,j))==1){print_red(t);}//player 1's, red
+                else if (owner(building(M,i,j))==2){print_blue(t);}//player 2's, blue
+                else {printf("%c",t);}//neurtral's, standard white
+            }
             else{printf("*");}
         };
         printf("*\n");
