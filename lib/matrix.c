@@ -71,7 +71,7 @@ NB: depends on coordinate points
 {
     building(*M,row(C),col(C)) = build(C);
 }
-void writematrix (matrix M)
+void writeMatrix (matrix M)
 /* I.S. M defined */
 /* F.S. Value of M(i,j) printed per row per column*/
 /* Process: print per row and per column*/
@@ -99,17 +99,17 @@ void writematrix (matrix M)
             if (i!=0 && j!=0 && i!=getLastIdxRow(M))
             {
                 //building type determiner
-                if (type(building(M,i,j))==1){t="C";}
-                else if (type(building(M,i,j))==2){t="T";}
-                else if (type(building(M,i,j))==3){t="F";}
-                else if (type(building(M,i,j))==4){t="V";}
+                if (type(building(M,i,j))==1) t="C";
+                else if (type(building(M,i,j))==2) t="T";
+                else if (type(building(M,i,j))==3) t="F";
+                else if (type(building(M,i,j))==4) t="V";
                 else{t=emptyField;}//undefined building (building not exist at the coordinate)
                 //ownership determiner
-                if (owner(building(M,i,j))==1){print_red(t);}//player 1's, red
-                else if (owner(building(M,i,j))==2){print_blue(t);}//player 2's, blue
-                else {printf("%c",t);}//neurtral's, standard white
+                if (owner(building(M,i,j))==1) print_red(t);//player 1's, red
+                else if (owner(building(M,i,j))==2) print_blue(t);//player 2's, blue
+                else printf("%c",t);//neurtral's, standard white
             }
-            else{printf("*");}
+            else printf("*");
         };
         printf("*\n");
     };

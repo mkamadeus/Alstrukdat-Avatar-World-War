@@ -71,7 +71,7 @@ T      V     ​C​
 ​C​ T           C
 NB: depends on coordinate points
 */
-void writematrix (matrix M);
+void writeMatrix (matrix M);
 /* I.S. M defined */
 /* F.S. Value of M(i,j) printed per row per column*/
 /* Process: print per row and per column*/
