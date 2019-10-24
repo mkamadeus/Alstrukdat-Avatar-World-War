@@ -5,55 +5,65 @@
 #include "stack.h"
 
 void createStack(stack * S){
-    int *content;
-    content = (int *) malloc (sizeof(int) * 5);
+    Top(*S) = NULL;
+}
 
-    if(content == NULL){
-        printf("Failed to create stack");
+void deallocate(address * P){
+    free(P);
+}
+
+void deleteAll(stack * S){
+    int temp;
+    while(!isEmpty(*S)){
+        pop(S, &temp);
     }
-
-    content(S) = content;
-    capacity(*S) = 5;
-    top(*S) = 0;
 }
 
-void dealocate(stack * S){
-    free(content(S));
-    capacity(*S) = 0;
-    top(*S) = 0;
-}
+address allocate(int X){
+    address P = (address)malloc(sizeof(stackList));
+	if(P != NULL){
+		Info(P) = X;
+		Next(P) = NULL;
+	}
 
-void resize(stack * S){
-    content(S) = (int *) realloc (content(S), sizeof(int) * (capacity(*S) * 2));
-    capacity(*S)++;
-}
-
-boolean isFull(stack S){
-    return (capacity(S) == top(S));
+	return P;
 }
 
 boolean isEmpty(stack S){
-    return (top(S) == 0);
+    return (Top(S) == NULL);
 }
 
 void push(stack * S, int data){
-    if(isFull(*S)){
-        resize(S);
+    address P = allocate(data);
+    if(P != NULL){
+        if(isEmpty(*S)){
+            Top(*S) = P;
+        }
+        else{
+            Next(P) = Top(*S);
+            Top(*S) = P;
+        }
     }
-    top(*S)++;
-    content(S)[top(*S)] = data;
 }
 
 int peek(stack * S){
-    return (content(S)[top(*S)]);
+    return (Info(Top(*S)));
 }
 
 void pop(stack * S, int * out){
     if(isEmpty(*S)){
-        printf("Stack kosong");
+        printf("Stack kosong\n");
     }
     else{
-        *out = content(S)[top(*S)];
-        top(*S)--;
+        address X;
+        delA(S, &X);
+        *out = Info(X);
+        deallocate(&X);
     }
+}
+
+void delA(stack * S, address *P){
+    *P = Top(*S);
+    Top(*S) = Next(*P);
+    Next(*P) = NULL;
 }

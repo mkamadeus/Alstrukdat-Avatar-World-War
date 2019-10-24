@@ -6,32 +6,29 @@
 
 #include "boolean.h"
 
-#define Nil -1
 
+typedef int infotype;
+typedef struct tStacklist *address;
+typedef struct tStacklist{
+    infotype info;
+    address next;
+} stackList;
 typedef struct{
-    int capacity;
-    int top;
-    int *content;
-}stack;
+    address top;
+} stack;
 
 /* SELEKTOR */
-#define capacity(S) (S).capacity
-#define top(S) (S).top
-#define content(S) (S)->content
+#define Top(L) ((L).top)
+#define Info(P) (P)->info
+#define Next(P) (P)->next
 
 /* --------------------------------- */
 
 void createStack(stack * S);
-/* Membuat stack dengan size 1 */
+/* Membuat stack dengan */
 
 void dealocate(stack * S);
 /* Menghapus stack */
-
-void resize(stack * S);
-/* Menambahkan size stack sebanyak 1 */
-
-boolean isFull(stack S);
-/* return true jika penuh */
 
 boolean isEmpty(stack S);
 /* return true jika kosong */
@@ -44,5 +41,8 @@ int peek(stack * S);
 
 void pop(stack * S, int * out);
 /* Menyimpan content top ke out dan menghapus content top */
+
+void delA(stack * S, address * P);
+/* Menghapus address top dan menyimpannya ke P */
 
 #endif
