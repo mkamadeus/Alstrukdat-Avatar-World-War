@@ -1,0 +1,9 @@
+{
+  "editor.insertSpaces": false,
+  "editor.tabSize": 4,
+  "files.associations": {
+    "*.ejs": "html",
+    "*.sass": "css",
+    "linkedlist.h": "c"
+  }
+}
