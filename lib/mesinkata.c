@@ -1,8 +1,3 @@
-/* NAMA : RAFAEL SEAN PUTRA */
-/* NIM : 13518119 */
-/* TANGGAL : 20 September 2019 */
-/* program mesinkata.c */
-
 # include "mesinkata.h"
 
 /* State Mesin Kata */
@@ -10,9 +5,7 @@ boolean EndKata;
 Kata CKata;
 
 void IgnoreBlank()
-/* Mengabaikan satu atau beberapa BLANK
-   I.S. : CC sembarang
-   F.S. : CC ≠ BLANK atau CC = MARK */
+/* Mengabaikan satu atau lebih Blank */
 {
     /* KAMUS LOKAL */
 
@@ -57,12 +50,7 @@ void ADVKATA()
 }
 
 void SalinKata()
-/* Mengakuisisi kata, menyimpan dalam CKata
-   I.S. : CC adalah karakter pertama dari kata
-   F.S. : CKata berisi kata yang sudah diakuisisi;
-          CC = BLANK atau CC = MARK;
-          CC adalah karakter sesudah karakter terakhir yang diakuisisi.
-          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+/* Mengakuisisi kata, menyimpan dalam CKata */
 {
     /* KAMUS LOKAL*/
     int i;

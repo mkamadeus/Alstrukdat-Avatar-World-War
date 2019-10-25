@@ -20,9 +20,7 @@ extern boolean EndKata;
 extern Kata CKata;
 
 void IgnoreBlank();
-/* Mengabaikan satu atau beberapa BLANK
-   I.S. : CC sembarang
-   F.S. : CC ≠ BLANK atau CC = MARK */
+/* Mengabaikan satu atau lebih Blank */
 
 void STARTKATA();
 /* I.S. : CC sembarang
@@ -38,11 +36,6 @@ void ADVKATA();
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 
 void SalinKata();
-/* Mengakuisisi kata, menyimpan dalam CKata
-   I.S. : CC adalah karakter pertama dari kata
-   F.S. : CKata berisi kata yang sudah diakuisisi;
-          CC = BLANK atau CC = MARK;
-          CC adalah karakter sesudah karakter terakhir yang diakuisisi.
-          Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+/* Mengakuisisi kata, menyimpan dalam CKata */
 
 #endif
