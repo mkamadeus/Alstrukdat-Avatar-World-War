@@ -31,39 +31,29 @@ void show(buildings C){
 void makeCastle(buildings * C, own P){
     owner(*C) = P;
     type(*C) = 1;
-    level(*C) = 1;
+    changeLevel(C, 1);
     troops(*C) = 40;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 40;
-    defense(*C) = false;
 }
 
 void makeTower(buildings * C, own P){
     owner(*C) = P;
     type(*C) = 2;
-    level(*C) = 1;
+    changeLevel(C, 1);
     troops(*C) = 30;
-    troops_regen(*C) = 5;
-    max_troops(*C) = 20;
-    defense(*C) = true;
 }
 
 void makeFort(buildings * C, own P){
     owner(*C) = P;
     type(*C) = 3;
-    level(*C) = 1;
+    changeLevel(C, 1);
     troops(*C) = 80;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 20;
 }
 
 void makeVillage(buildings * C, own P){
     owner(*C) = P;
     type(*C) = 4;
-    level(*C) = 1;
+    changeLevel(C, 1);
     troops(*C) = 20;
-    troops_regen(*C) = 5;
-    max_troops(*C) = 20;
 }
 
 void changeLevel(buildings * C, int level){
