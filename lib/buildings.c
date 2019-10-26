@@ -68,107 +68,37 @@ void makeVillage(buildings * C, own P){
 
 void changeLevel(buildings * C, int level){
     if(type(*C) == 1){
-        if(level == 1){
-            level(*C) = 1;
-            troops_regen(*C) = 10;
-            max_troops(*C) = 40;
-            defense(*C) = false;
-        }
-        else if(level == 2){
-            level(*C) = 2;
-            troops_regen(*C) = 15;
-            max_troops(*C) = 60;
-            defense(*C) = false;
-        }
-        else if(level == 3){
-            level(*C) = 3;
-            troops_regen(*C) = 20;
-            max_troops(*C) = 80;
-            defense(*C) = false; 
-        }
-        else{       //level == 4
-            level(*C) = 4;
-            troops_regen(*C) = 25;
-            max_troops(*C) = 100;
-            defense(*C) = false;
-        }
+        int A[4] = {10,15,20,25};
+        int M[4] = {40,60,80,100};
+        boolean P[4] = {0,0,0,0};
+        level(*C) = level;
+        troops_regen(*C) = A[level+1];
+        max_troops(*C) = M[level+1];
+        defense(*C) = P[level+1];
     }
     else if(type(*C) == 2){
-        if(level == 1){
-            level(*C) = 1;
-            troops_regen(*C) = 5;
-            max_troops(*C) = 20;
-            defense(*C) = true;
-        }
-        else if(level == 2){
-            level(*C) = 2;
-            troops_regen(*C) = 10;
-            max_troops(*C) = 30;
-            defense(*C) = true;
-        }
-        else if(level == 3){
-            level(*C) = 3;
-            troops_regen(*C) = 20;
-            max_troops(*C) = 40;
-            defense(*C) = true;
-        }
-        else{       //level == 4
-            level(*C) = 4;
-            troops_regen(*C) = 30;
-            max_troops(*C) = 50;
-            defense(*C) = true;
-        }
+        int A[4] = {5,10,20,30};
+        int M[4] = {20,30,40,50};
+        boolean P[4] = {1,1,1,1};
+        level(*C) = level;
+        troops_regen(*C) = A[level+1];
+        max_troops(*C) = M[level+1];
+        defense(*C) = P[level+1];
     }
     else if(type(*C) == 3){
-        if(level(*C) == 1){
-            level(*C) = 1;
-            troops_regen(*C) = 10;
-            max_troops(*C) = 20;
-            defense(*C) = false;
-        }
-        else if(level(*C) == 2){
-            level(*C) = 2;
-            troops_regen(*C) = 20;
-            max_troops(*C) = 40;
-            defense(*C) = false;
-        }
-        else if(level(*C) == 3){
-            level(*C) = 3;
-            troops_regen(*C) = 30;
-            max_troops(*C) = 60;
-            defense(*C) = true;
-        }
-        else{       //level == 4
-            level(*C) = 4;
-            troops_regen(*C) = 40;
-            max_troops(*C) = 80;
-            defense(*C) = true;
-        }
+        int A[4] = {10,20,30,40};
+        int M[4] = {20,40,60,80};
+        boolean P[4] = {0,0,1,1};
+        troops_regen(*C) = A[level+1];
+        max_troops(*C) = M[level+1];
+        defense(*C) = P[level+1];
     }
     else{       //type(*C) == 4
-        if(level(*C) == 1){
-            level(*C) = 1;
-            troops_regen(*C) = 5;
-            max_troops(*C) = 20;
-            defense(*C) = false;
-        }
-        else if(level(*C) == 2){
-            level(*C) = 2;
-            troops_regen(*C) = 10;
-            max_troops(*C) = 30;
-            defense(*C) = false;
-        }
-        else if(level(*C) == 3){
-            level(*C) = 3;
-            troops_regen(*C) = 15;
-            max_troops(*C) = 40;
-            defense(*C) = false;
-        }
-        else{       //level == 4
-            level(*C) = 4;
-            troops_regen(*C) = 20;
-            max_troops(*C) = 50;
-            defense(*C) = false;
-        }
+        int A[4] = {5,10,15,20};
+        int M[4] = {20,30,40,50};
+        boolean P[4] = {0,0,0,0};
+        troops_regen(*C) = A[level+1];
+        max_troops(*C) = M[level+1];
+        defense(*C) = P[level+1];
     }
 }
