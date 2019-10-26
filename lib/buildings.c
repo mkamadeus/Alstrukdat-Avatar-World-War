@@ -66,130 +66,109 @@ void makeVillage(buildings * C, own P){
     max_troops(*C) = 20;
 }
 
-void levelOneCastle(buildings * C){
-    level(*C) = 1;
-    type(*C) = 1;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 40;
-    defense(*C) = false;
-}
-
-void levelTwoCastle(buildings * C){
-    level(*C) = 2;
-    type(*C) = 1;
-    troops_regen(*C) = 15;
-    max_troops(*C) = 60;
-    defense(*C) = false;
-}
-
-void levelThreeCastle(buildings * C){
-    level(*C) = 3;
-    type(*C) = 1;
-    troops_regen(*C) = 20;
-    max_troops(*C) = 80;
-    defense(*C) = false;
-}
-
-void levelFourCastle(buildings * C){
-    level(*C) = 4;
-    type(*C) = 1;
-    troops_regen(*C) = 25;
-    max_troops(*C) = 100;
-    defense(*C) = false;
-}
-
-void levelOneTower(buildings * C){
-    level(*C) = 1;
-    type(*C) = 2;
-    troops_regen(*C) = 5;
-    max_troops(*C) = 20;
-    defense(*C) = true;
-}
-
-void levelTwoTower(buildings * C){
-    level(*C) = 2;
-    type(*C) = 2;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 30;
-    defense(*C) = true;
-}
-
-void levelThreeTower(buildings * C){
-    level(*C) = 3;
-    type(*C) = 2;
-    troops_regen(*C) = 20;
-    max_troops(*C) = 40;
-    defense(*C) = true;
-}
-
-void levelFourTower(buildings * C){
-    level(*C) = 4;
-    type(*C) = 2;
-    troops_regen(*C) = 30;
-    max_troops(*C) = 50;
-    defense(*C) = true;
-}
-
-void levelOneFort(buildings * C){
-    level(*C) = 1;
-    type(*C) = 3;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 20;
-    defense(*C) = false;
-}
-
-void levelTwoFort(buildings * C){
-    level(*C) = 2;
-    type(*C) = 3;
-    troops_regen(*C) = 20;
-    max_troops(*C) = 40;
-    defense(*C) = false;
-}
-
-void levelThreeFort(buildings * C){
-    level(*C) = 3;
-    type(*C) = 3;
-    troops_regen(*C) = 30;
-    max_troops(*C) = 60;
-    defense(*C) = true;
-}
-
-void levelFourFort(buildings * C){
-    level(*C) = 4;
-    type(*C) = 3;
-    troops_regen(*C) = 40;
-    max_troops(*C) = 80;
-    defense(*C) = true;
-}
-
-void levelOneVillage(buildings * C){
-    level(*C) = 1;
-    type(*C) = 4;
-    troops_regen(*C) = 5;
-    max_troops(*C) = 20;
-    defense(*C) = false;
-}
-
-void levelTwoVillage(buildings * C){
-    level(*C) = 2;
-    type(*C) = 4;
-    troops_regen(*C) = 10;
-    max_troops(*C) = 30;
-    defense(*C) = false;
-}
-
-void levelThreeVillage(buildings * C){
-    level(*C) = 3;
-    type(*C) = 4;
-    troops_regen(*C) = 15;
-    max_troops(*C) = 40;
-    defense(*C) = false;
-}
-
-void levelFourVillage(buildings * C){
-    level(*C) = 4;
-    type(*C) = 4;
-    troops_regen(*C) = 20;
-    max_troops(*C) = 50;
-    defense(*C) = false;
+void changeLevel(buildings * C, int level){
+    if(type(*C) == 1){
+        if(level == 1){
+            level(*C) = 1;
+            troops_regen(*C) = 10;
+            max_troops(*C) = 40;
+            defense(*C) = false;
+        }
+        else if(level == 2){
+            level(*C) = 2;
+            troops_regen(*C) = 15;
+            max_troops(*C) = 60;
+            defense(*C) = false;
+        }
+        else if(level == 3){
+            level(*C) = 3;
+            troops_regen(*C) = 20;
+            max_troops(*C) = 80;
+            defense(*C) = false; 
+        }
+        else{       //level == 4
+            level(*C) = 4;
+            troops_regen(*C) = 25;
+            max_troops(*C) = 100;
+            defense(*C) = false;
+        }
+    }
+    else if(type(*C) == 2){
+        if(level == 1){
+            level(*C) = 1;
+            troops_regen(*C) = 5;
+            max_troops(*C) = 20;
+            defense(*C) = true;
+        }
+        else if(level == 2){
+            level(*C) = 2;
+            troops_regen(*C) = 10;
+            max_troops(*C) = 30;
+            defense(*C) = true;
+        }
+        else if(level == 3){
+            level(*C) = 3;
+            troops_regen(*C) = 20;
+            max_troops(*C) = 40;
+            defense(*C) = true;
+        }
+        else{       //level == 4
+            level(*C) = 4;
+            troops_regen(*C) = 30;
+            max_troops(*C) = 50;
+            defense(*C) = true;
+        }
+    }
+    else if(type(*C) == 3){
+        if(level(*C) == 1){
+            level(*C) = 1;
+            troops_regen(*C) = 10;
+            max_troops(*C) = 20;
+            defense(*C) = false;
+        }
+        else if(level(*C) == 2){
+            level(*C) = 2;
+            troops_regen(*C) = 20;
+            max_troops(*C) = 40;
+            defense(*C) = false;
+        }
+        else if(level(*C) == 3){
+            level(*C) = 3;
+            troops_regen(*C) = 30;
+            max_troops(*C) = 60;
+            defense(*C) = true;
+        }
+        else{       //level == 4
+            level(*C) = 4;
+            troops_regen(*C) = 40;
+            max_troops(*C) = 80;
+            defense(*C) = true;
+        }
+    }
+    else{       //type(*C) == 4
+        if(level(*C) == 1){
+            level(*C) = 1;
+            troops_regen(*C) = 5;
+            max_troops(*C) = 20;
+            defense(*C) = false;
+        }
+        else if(level(*C) == 2){
+            level(*C) = 2;
+            troops_regen(*C) = 10;
+            max_troops(*C) = 30;
+            defense(*C) = false;
+        }
+        else if(level(*C) == 3){
+            level(*C) = 3;
+            troops_regen(*C) = 15;
+            max_troops(*C) = 40;
+            defense(*C) = false;
+        }
+        else{       //level == 4
+            level(*C) = 4;
+            troops_regen(*C) = 20;
+            max_troops(*C) = 50;
+            defense(*C) = false;
+        }
+    }
 }

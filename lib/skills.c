@@ -9,52 +9,10 @@
 void instantUpgrade(buildings * C, stack * S, stack * level){
     /* TO DO */
     /* DEBUG */
-
     push(S, 8);
     push(level, level(*C));
-    if(type(*C) == 1){
-        if(level(*C) == 1){
-            levelTwoCastle(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeCastle(C);
-        }
-        else if(level(*C) == 3){
-            levelFourCastle(C);
-        }
-    }
-    else if(type(*C) == 2){
-        if(level(*C) == 1){
-            levelTwoTower(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeTower(C);
-        }
-        else if(level(*C) == 3){
-            levelFourTower(C);
-        }
-    }
-    else if(type(*C) == 3){
-        if(level(*C) == 1){
-            levelTwoFort(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeFort(C);
-        }
-        else if(level(*C) == 3){
-            levelFourFort(C);
-        }
-    }
-    else{       //type(*C) == 4
-        if(level(*C) == 1){
-            levelTwoVillage(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeVillage(C);
-        }
-        else if(level(*C) == 3){
-            levelFourVillage(C);
-        }
+    if(level(*C) != 4){
+        changeLevel(C, level(*C)+1);
     }
 }
 
@@ -63,7 +21,7 @@ void inverseInstantUpgrade(buildings * C, stack * level){
     /* DEBUG */
     int level_;
     pop(level, &level_);
-    level(*C) = level_;
+    changeLevel(C, level_);
 }
 
 void instantReinforcement(buildings * C, stack * S){
@@ -93,4 +51,22 @@ void inverseBarrage(buildings * C, stack * troop){
     int troop_;
     pop(troop, &troop_);
     troops(*C) = troop_;
+}
+
+void attackUp(boolean * ignore, stack * S){
+    push(S, 11);
+    *ignore = true;
+}
+
+void inverseAttackUp(boolean * ignore){
+    *ignore = false;
+}
+
+void criticalHit(boolean * critical, stack * S){
+    push(S, 12);
+    *critical = true;
+}
+
+void inverseCriticalHit(boolean * critical){
+    *critical = false;
 }

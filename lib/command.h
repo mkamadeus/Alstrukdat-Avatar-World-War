@@ -11,9 +11,12 @@
 /* LIST INVERS */
 /* 1 = inverseLevelUp */
 /* 2 = inverseAttack */
+/* 3 = inverseMove */
 /* 8 = inverseInstantUpgrade */
 /* 9 = inverseInstantReinforcement */
 /* 10 = inverseBarrage */
+/* 11 = inverseAttackUp */
+/* 12 = inverseCriticalHit */
 
 /* --------------------------------- */
 
@@ -37,5 +40,14 @@ void attack(buildings * C1, buildings * C2, boolean ignore, own P, stack * level
 
 void inverseAttack(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1, stack * troops2);
 /* Mengembalikan kondisi sebelum diserang */
+
+void undo(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S);
+/* Melakukan undo */
+
+void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2);
+/* Memindahkan troops sebanyak troopsCount dari buildings C1 ke buildings C2 */
+
+void inverseMove(buildings * C1, buildings * C2, stack * troops1, stack * troops2);
+/* inverse dari Move */
 
 #endif

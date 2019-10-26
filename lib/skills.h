@@ -30,4 +30,16 @@ void barrage(buildings * C, stack * troop, stack * s);
 void inverseBarrage(buildings * C, stack * troop);
 /* Inverse dari Barrage */
 
+void attackUp(boolean * ignore, stack * S);
+/* Defense musuh diignore */
+
+void inverseAttackUp(boolean * ignore, stack * S);
+/* Inverse dari attackUp */
+
+void criticalHit(boolean * critical, stack * S);
+/* Pasukan saat menyerang hanya berkurang setengah */
+
+void inverseCriticalHit(boolean * critical);
+/* inverse dari criticalHit */
+
 #endif
