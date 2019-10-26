@@ -11,6 +11,9 @@
 /* LIST INVERS */
 /* 1 = inverseLevelUp */
 /* 2 = inverseAttack */
+/* 8 = inverseInstantUpgrade */
+/* 9 = inverseInstantReinforcement */
+/* 10 = inverseBarrage */
 
 /* --------------------------------- */
 

@@ -262,21 +262,11 @@ void attack(buildings * C1, buildings * C2, boolean ignore, own P, stack * level
     push(S, 2);
 
     if(ignore){
-        if(defense(*C1)){
-            troops(*C1) -= troops(*C2)*3/4;
-        }
-        else{
-            troops(*C1) -= troops(*C2);
-        }
+        troops(*C1) -= troops(*C2);
         troops(*C2) -= temp;
     }
     else{
-        if(defense(*C1)){
-        troops(*C1) -= troops(*C2)*3/4;
-        }
-        else{
-            troops(*C1) -= troops(*C2);
-        }
+        troops(*C1) -= troops(*C2);
         if(defense(*C2)){
             troops(*C2) -= temp*3/4;
         }

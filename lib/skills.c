@@ -6,9 +6,12 @@
 #include "stack.h"
 #include "skills.h"
 
-void instantUpgrade(buildings * C){
+void instantUpgrade(buildings * C, stack * S, stack * level){
     /* TO DO */
     /* DEBUG */
+
+    push(S, 8);
+    push(level, level(*C));
     if(type(*C) == 1){
         if(level(*C) == 1){
             levelTwoCastle(C);
@@ -55,19 +58,39 @@ void instantUpgrade(buildings * C){
     }
 }
 
-void instantReinforcement(buildings * C){
+void inverseInstantUpgrade(buildings * C, stack * level){
+    /* TO DO */
+    /* DEBUG */
+    int level_;
+    pop(level, &level_);
+    level(*C) = level_;
+}
+
+void instantReinforcement(buildings * C, stack * S){
     /* QUESTION */
     /* Apakah bisa bertambah lebih dari Max Troops? */
+    /* BISA */
+    push(S, 9);
     troops(*C) += 5;
 }
 
-void barrage(buildings * C){
+void inverseInstantReinforcement(buildings * C){
+    troops(*C) -= 5;
+}
+
+void barrage(buildings * C, stack * troop, stack * S){
+    /* TO DO */ 
+    /* DEBUG */
+    push(S, 10);
+    push(troop, troops(*C));
     troops(*C) -= 10;
     if(troops(*C) < 0){
         troops(*C) = 0;
     }
 }
 
-void attackUp(own P){
-    
+void inverseBarrage(buildings * C, stack * troop){
+    int troop_;
+    pop(troop, &troop_);
+    troops(*C) = troop_;
 }
