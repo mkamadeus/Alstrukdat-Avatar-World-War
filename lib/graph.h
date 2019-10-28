@@ -30,12 +30,16 @@ typedef struct {
 
 void createEmpty(graph* G);
 
+// Allocate node for incoming node
 uAddress allocateNodeU(infotype N);
 
+// Allocate node for child node
 vAddress allocateNodeV(infotype N);
 
+// Make empty graph with nodeCount nodes
 void createGraph(graph *G, int nodeCount);
 
+// Make connections from node to [connections]
 void insertConnections(graph *G, int node, int *connections, int connectionsCount);
 
 #endif

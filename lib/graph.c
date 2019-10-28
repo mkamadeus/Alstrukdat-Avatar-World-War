@@ -5,6 +5,7 @@ void createEmpty(graph* G)
 	first(*G) = NULL;	
 }
 
+// Allocate node for incoming node
 uAddress allocateNodeU(infotype N)
 {
 	uAddress P = (uAddress)malloc(sizeof(nodeU));
@@ -17,6 +18,7 @@ uAddress allocateNodeU(infotype N)
 	return P;
 }
 
+// Allocate node for child node
 vAddress allocateNodeV(infotype N)
 {
 	vAddress P = (vAddress)malloc(sizeof(nodeV));
@@ -28,6 +30,7 @@ vAddress allocateNodeV(infotype N)
 	return P;
 }
 
+// Make empty graph with nodeCount nodes
 void createGraph(graph *G, int nodeCount)
 {
 	uAddress P = allocateNodeU(1);
@@ -42,6 +45,7 @@ void createGraph(graph *G, int nodeCount)
 
 }
 
+// Make connections from node to [connections]
 void insertConnections(graph *G, int node, int *connections, int connectionsCount)
 {
 	uAddress P = first(*G);
