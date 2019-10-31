@@ -4,6 +4,7 @@
   "files.associations": {
     "*.ejs": "html",
     "*.sass": "css",
-    "linkedlist.h": "c"
+    "linkedlist.h": "c",
+    "stdlib.h": "c"
   }
 }

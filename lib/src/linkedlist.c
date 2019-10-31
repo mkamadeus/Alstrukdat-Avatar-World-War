@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "linkedlist.h"
+#include "../include/linkedlist.h"
 
 // Test whether linked list is empty or not, first(L) = NULL
 boolean isEmpty(linkedList L)
