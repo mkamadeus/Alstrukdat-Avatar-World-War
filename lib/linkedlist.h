@@ -29,7 +29,7 @@ void createEmpty(linkedList *L);
 address allocateNode(infotype X);
 
 // Deallocate node at address P
-void deallocateNode(address *P);
+void deallocateNode(address P);
 
 // Returns the first node that contains X
 address search(linkedList L, infotype X);

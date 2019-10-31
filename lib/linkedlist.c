@@ -29,9 +29,9 @@ address allocateNode(infotype X)
 }
 
 // Deallocate node at address P
-void deallocateNode(address *P)
+void deallocateNode(address P)
 {
-	free(*P);
+	free(P);
 }
 
 // Returns the first node that contains X
@@ -55,10 +55,7 @@ void insertValueFirst(linkedList *L, infotype X)
 {
 	address P = allocateNode(X);
 
-	if(P != NULL)
-	{
-		insertNodeFirst(L, P);
-	}
+	if(P != NULL) insertNodeFirst(L, P);
 }
 
 // Insert element containing X at the back of list
@@ -66,10 +63,7 @@ void insertValueLast(linkedList *L, infotype X)
 {
 	address P = allocateNode(X);
 
-	if(P != NULL)
-	{
-		insertNodeLast(L, P);
-	}
+	if(P != NULL) insertNodeLast(L, P);
 }
 
 // Insert element containing X at the front of list
@@ -78,6 +72,7 @@ void deleteValueFirst(linkedList *L, infotype *X)
 	address P;
 	deleteNodeFirst(L, &P);
 	*X = info(P);
+	deallocateNode(P);
 }
 
 // Insert element containing X at the back of list
@@ -86,6 +81,7 @@ void deleteValueLast(linkedList *L, infotype *X)
 	address P;
 	deleteNodeLast(L, &P);
 	*X = info(P);
+	deallocateNode(P);
 }
 
 // Insert node at first if the node P has been allocated
