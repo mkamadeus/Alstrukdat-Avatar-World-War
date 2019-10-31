@@ -19,222 +19,31 @@ void showBuildings(int * N){
 void levelUp(buildings * C, stack * S){
     /* TO DO */
     /* Menambahkan showBuildings */
+    /* DEBUG */
 
     int minus, remains;
     minus = max_troops(*C) / 2;
     remains = troops(*C) - minus;
-    if(type(*C) == 1){
-        if(level(*C) == 1){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelTwoCastle(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
+    if(level(*C) != 4){
+        if(remains >= 0){
+            push(S, 1);
+            troops(*C) = remains;
+            changeLevel(C, level(*C)+1);
         }
-        else if(level(*C) == 2){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelThreeCastle(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 3){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelFourCastle(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else{       //Level 4
-            printf("Bangunan sudah mencapai level maksimum\n");
+        else{
+            printf("Pasukan tidak mencukupi\n");
         }
     }
-    else if(type(*C) == 2){
-        if(level(*C) == 1){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelTwoTower(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 2){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelThreeTower(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 3){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelFourTower(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else{       //Level 4
-            printf("Bangunan sudah mencapai level maksimum\n");
-        }
-    }
-    else if(type(*C) == 3){
-        if(level(*C) == 1){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelTwoFort(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 2){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelThreeFort(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 3){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelFourFort(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else{       //Level 4
-            printf("Bangunan sudah mencapai level maksimum\n");
-        }
-    }
-    else{           //Types 4 
-        if(level(*C) == 1){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelTwoVillage(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 2){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelThreeVillage(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else if(level(*C) == 3){
-            if(remains >= 0){
-                push(S, 1);
-                troops(*C) = remains;
-                levelFourVillage(C);
-            }
-            else{
-                printf("Pasukan tidak mencukupi\n");
-            }
-        }
-        else{       //Level 4
-            printf("Bangunan sudah mencapai level maksimum\n");
-        }
+    else{
+        printf("Bangunan sudah mencapai level maksimum\n");
     }
 }
 
 void inverseLevelUp(buildings * C){
     int plus;
-    if(type(*C) == 1){
-        if(level(*C) == 4){
-            plus = 40;
-            levelThreeCastle(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 3){
-            plus = 30;
-            levelTwoCastle(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 2){
-            plus = 20;
-            levelOneCastle(C);
-            troops(*C) += plus;
-        }
-    }
-    else if(type(*C) == 2){
-        if(level(*C) == 4){
-            plus = 20;
-            levelThreeTower(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 3){
-            plus = 15;
-            levelTwoTower(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 2){
-            plus = 10;
-            levelOneTower(C);
-            troops(*C) += plus;
-        }
-    }
-    else if(type(*C) == 3){
-        if(level(*C) == 4){
-            plus = 30;
-            levelThreeFort(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 3){
-            plus = 20;
-            levelTwoFort(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 2){
-            plus = 10;
-            levelOneFort(C);
-            troops(*C) += plus;
-        }
-    }
-    else{       //Type 4
-        if(level(*C) == 4){
-            plus = 20;
-            levelThreeVillage(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 3){
-            plus = 15;
-            levelTwoVillage(C);
-            troops(*C) += plus;
-        }
-        else if (level(*C) == 2){
-            plus = 10;
-            levelOneVillage(C);
-            troops(*C) += plus;
-        }
-    }
+    changeLevel(C, level(*C)-1);
+    plus = max_troops(*C)/2;
+    troops(*C) += plus;
 }
 
 boolean isMax(buildings C){
@@ -248,12 +57,12 @@ void increaseTroops(buildings * C){
     }
 }
 
-void attack(buildings * C1, buildings * C2, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S){
+void attack(buildings * C1, buildings * C2, boolean critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S){
     /* C1 menyerang C2 */
     /* TO DO */
     /* Debug */
 
-    int temp = troops(*C1);
+    int temp = troops(*C2);
 
     push(troops1, troops(*C1));
     push(troops2, troops(*C2));
@@ -262,43 +71,26 @@ void attack(buildings * C1, buildings * C2, boolean ignore, own P, stack * level
     push(S, 2);
 
     if(ignore){
-        if(defense(*C1)){
-            troops(*C1) -= troops(*C2)*3/4;
-        }
-        else{
-            troops(*C1) -= troops(*C2);
-        }
-        troops(*C2) -= temp;
+        troops(*C2) -= troops(*C1);
     }
     else{
-        if(defense(*C1)){
-        troops(*C1) -= troops(*C2)*3/4;
-        }
-        else{
-            troops(*C1) -= troops(*C2);
-        }
         if(defense(*C2)){
-            troops(*C2) -= temp*3/4;
+            troops(*C2) -= troops(*C1)*3/4;
         }
         else{
-            troops(*C2) -= temp;
+            troops(*C2) -= troops(*C1);
         }
+    }
+    if(critical){
+        troops(*C1) -= temp/2;
+    }
+    else{
+        troops(*C1) -= temp;
     }
 
     if(troops(*C2) <= 0){
         owner(*C2) = P;
-        if(type(*C2) == 1){
-            levelOneCastle(C2);
-        }
-        else if(type(*C2) == 2){
-            levelOneTower(C2);
-        } 
-        else if(type(*C2) == 3){
-            levelOneFort(C2);
-        }
-        else{       // type(*C2) == 4
-            levelOneVillage(C2);
-        }
+        changeLevel(C2, 1);
         troops(*C2) = troops(*C1);
         troops(*C1) = 0;
     }
@@ -333,4 +125,30 @@ void undo(buildings * C1, buildings * C2, stack * level, stack * before, stack *
     else if(command == 2){
         inverseAttack(C1, C2, level, before, troops1, troops2);
     }
+}
+
+void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2){
+    /* Memindahkan pasukan dari C1 ke C2 */
+    /* TO DO */
+    /* DEBUG */
+    push(S, 3);
+    int troopsCount;
+    do{
+        scanf("%d", troopsCount);
+        if(troopsCount > troops(*C1)){
+            printf("Jumlah pasukan tidak mencukupi\n");
+        }
+    } while(troopsCount > troops(*C1));
+    troops(*C1) -= troopsCount;
+    troops(*C2) += troopsCount;
+}
+
+void inverseMove(buildings * C1, buildings * C2, stack * troops1, stack * troops2){
+    /* TO DO */
+    /* DEBUG */
+    int troops_1, troops_2;
+    pop(troops1, &troops_1);
+    pop(troops2, &troops_2);
+    troops(*C1) = troops_1;
+    troops(*C2) = troops_2;
 }

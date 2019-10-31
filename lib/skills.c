@@ -6,68 +6,67 @@
 #include "stack.h"
 #include "skills.h"
 
-void instantUpgrade(buildings * C){
+void instantUpgrade(buildings * C, stack * S, stack * level){
     /* TO DO */
     /* DEBUG */
-    if(type(*C) == 1){
-        if(level(*C) == 1){
-            levelTwoCastle(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeCastle(C);
-        }
-        else if(level(*C) == 3){
-            levelFourCastle(C);
-        }
-    }
-    else if(type(*C) == 2){
-        if(level(*C) == 1){
-            levelTwoTower(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeTower(C);
-        }
-        else if(level(*C) == 3){
-            levelFourTower(C);
-        }
-    }
-    else if(type(*C) == 3){
-        if(level(*C) == 1){
-            levelTwoFort(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeFort(C);
-        }
-        else if(level(*C) == 3){
-            levelFourFort(C);
-        }
-    }
-    else{       //type(*C) == 4
-        if(level(*C) == 1){
-            levelTwoVillage(C);
-        }
-        else if(level(*C) == 2){
-            levelThreeVillage(C);
-        }
-        else if(level(*C) == 3){
-            levelFourVillage(C);
-        }
+    push(S, 8);
+    push(level, level(*C));
+    if(level(*C) != 4){
+        changeLevel(C, level(*C)+1);
     }
 }
 
-void instantReinforcement(buildings * C){
+void inverseInstantUpgrade(buildings * C, stack * level){
+    /* TO DO */
+    /* DEBUG */
+    int level_;
+    pop(level, &level_);
+    changeLevel(C, level_);
+}
+
+void instantReinforcement(buildings * C, stack * S){
     /* QUESTION */
     /* Apakah bisa bertambah lebih dari Max Troops? */
+    /* BISA */
+    push(S, 9);
     troops(*C) += 5;
 }
 
-void barrage(buildings * C){
+void inverseInstantReinforcement(buildings * C){
+    troops(*C) -= 5;
+}
+
+void barrage(buildings * C, stack * troop, stack * S){
+    /* TO DO */ 
+    /* DEBUG */
+    push(S, 10);
+    push(troop, troops(*C));
     troops(*C) -= 10;
     if(troops(*C) < 0){
         troops(*C) = 0;
     }
 }
 
-void attackUp(own P){
-    
+void inverseBarrage(buildings * C, stack * troop){
+    int troop_;
+    pop(troop, &troop_);
+    troops(*C) = troop_;
+}
+
+void attackUp(boolean * ignore, stack * S){
+    push(S, 11);
+    *ignore = true;
+}
+
+void inverseAttackUp(boolean * ignore){
+    *ignore = false;
+}
+
+void criticalHit(boolean * critical, stack * S){
+    push(S, 12);
+    *critical = true;
+}
+
+void inverseCriticalHit(boolean * critical){
+    *critical = false;
 }
