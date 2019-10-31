@@ -1,3 +1,6 @@
+/* File: graph.h */
+/* File yang berkaitan dengan representasi graph */
+
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
