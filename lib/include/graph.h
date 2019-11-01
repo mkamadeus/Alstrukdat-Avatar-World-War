@@ -29,6 +29,7 @@ typedef struct {
 #define next(P) (P)->next
 #define child(P) (P)->child
 #define first(L) ((L).first)
+
 #define firstChild(L) ((L).firstChild)
 
 void createEmpty(graph* G);
