@@ -15,9 +15,8 @@
 #define emptyField ' '
 
 typedef int index; /* index row, column */
-typedef buildings building;
 typedef struct {
-    buildingCoord Mem[rowMax+1][colMax+1];
+    buildingCoord *buildingPtr[rowMax+1][colMax+1];
     int nRowEff; /* defined row size for max*/
     int nColEff; /* defined col size for max */
 } matrix;
@@ -34,7 +33,7 @@ void createEmpty (int NR, int NC, matrix * M);
 /* *** Selector *** */
 #define nRowEff(M) (M).nRowEff
 #define nColEff(M) (M).nColEff
-#define building(M,i,j) (M).Mem[(i)][(j)].building
+#define buildingPtr(M,i,j) (M).buildingPtr[(i)][(j)]
 
 /* *** Selector "matrix" *** */
 boolean isIdxValid (int i, int j);
