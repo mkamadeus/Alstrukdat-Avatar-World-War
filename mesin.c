@@ -1,4 +1,5 @@
 # include "mesin.h"
+# include <stdio.h>
 
 void IgnoreBlank()
 /* Mengabaikan satu atau lebih Blank */
