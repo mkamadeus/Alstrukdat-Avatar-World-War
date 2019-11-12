@@ -36,23 +36,23 @@ typedef struct {
 
 /* --------------------------------- */
 
-void show(buildings C);
 /* Mengeluarkan status bangunan */
+void show(buildings C);
 
-void makeCastle(buildings * C, own P);
 /* sebuah objek castle terbentuk */
+void makeCastle(buildings * C, own P);
 
-void makeTower(buildings * C, own P);
 /* sebuah objek tower terbentuk */
+void makeTower(buildings * C, own P);
 
-void makeFort(buildings * C, own P);
 /* sebuah objek fort terbentuk */
+void makeFort(buildings * C, own P);
 
-void makeVillage(buildings * C, own P);
 /* sebuah objek village terbentuk */
+void makeVillage(buildings * C, own P);
 
-void changeLevel(buildings * C, int level);
 /* Mengganti level bangunan */
+void changeLevel(buildings * C, int level);
 
 #endif
 
