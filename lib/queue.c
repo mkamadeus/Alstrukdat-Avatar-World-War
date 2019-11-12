@@ -2,45 +2,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-infotype Head(Queue Q){
-	return Indeks(First(Q));
+void createEmpty (queue * Q, int Max)
+{
+	Q->first = Nil;
+	Q->count = 0;
+	Q->maxElement = Max;
 }
 
-infotype Tail(Queue Q){
-	return Indeks(Last(Q));
+boolean IsEmpty (queue Q)
+{
+	return (first(Q) == Nil);
 }
 
-infotype InfoHead(Queue Q){
-	return Info(First(Q));
-}
-
-infotype InfoTail(Queue Q){
-	return Info(Last(Q));
-}
-
-
-boolean IsEmpty (Queue Q){
-	return (First(Q) == Nil && Last(Q) == Nil);
-}
-
-address Alokasi (infotype X){
-	address P;
-	P = (address)malloc(sizeof(Elmtq));
-	if (P == Nil){
-		return Nil;
-	}
-	Indeks(P) = 0;
-	Info(P) = X;
-	Next(P) = Nil;
-	return P;
-}
-
-
-boolean IsFull (Queue Q){
+boolean IsFull (queue Q)
+{
 	return (NBElmt(Q) == MaxEl(Q));
 }
 
-int NBElmt (Queue Q){
+int NBElmt (queue Q)
+{
 	int x = 0;
 	if (IsEmpty(Q)){
 		return x;
@@ -54,13 +34,9 @@ int NBElmt (Queue Q){
 	return x;
 }
 
-void CreateEmpty (Queue * Q, int Max){
-	Q->First = Nil;
-	Q->Last = Nil;
-	Q->MaxEl = Max;
-}
 
-void DeAlokasi(Queue * Q){
+void DeAlokasi(queue * Q)
+{
 	MaxEl(*Q) = 0;
 	address n = First(*Q);
 	address o = Next(First(*Q));
@@ -74,7 +50,8 @@ void DeAlokasi(Queue * Q){
 	}
 }
 
-void Add (Queue * Q, infotype X){
+void Add (queue * Q, infotype X)
+{
 	if (IsEmpty(*Q)){
 		address l = Alokasi(X);
 		Indeks(l) = 1;
@@ -91,7 +68,8 @@ void Add (Queue * Q, infotype X){
 	}
 }
 
-void Del (Queue * Q, infotype * X){
+void Del (queue * Q, infotype * X)
+{
 	if(Next(First(*Q)) == Nil){
 		First(*Q) = Nil;
 		Last(*Q) = Nil;
