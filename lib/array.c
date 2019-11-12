@@ -1,7 +1,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "tubesarray.h"
+#include "array.h"
 
 void makeEmptyArray(TabInt * T, int maxel)
 /* I.S. T sembarang */
@@ -29,7 +29,7 @@ void bacaIsi(TabInt *T, buildings C)
 }
 
 /* CAUTION: ARRAY MUST NOT EMPTY */
-void tulisIsiTab(TabInt T) // buat apa?
+void tulisIsiTab(TabInt T)
 /*Prints every building available on field*/
 {
     printf("Building on field:\n");
