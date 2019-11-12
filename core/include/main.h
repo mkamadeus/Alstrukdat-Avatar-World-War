@@ -3,6 +3,5 @@
 
 #include <stdio.h>
 #include "menu.h"
-#include "../../lib/include/buildings.h"
 
 #endif

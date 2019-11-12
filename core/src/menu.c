@@ -12,3 +12,9 @@ void menu()
 
 	printf("Game start.\n");	
 }
+
+void mapSelection(char* mapName)
+{
+	printf("Input map filename: ");
+	scanf("%s", mapName);
+}

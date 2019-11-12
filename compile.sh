@@ -5,5 +5,5 @@ if [ $? -eq 0 ]; then
     ./main
 	rm main
 else
-    echo Compilation failed, exiting.
+    echo Compilation failed, aborted.
 fi
