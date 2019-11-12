@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "boolean.h"
-#include "buildings.h"
-#include "command.h"
-#include "stack.h"
+#include "../include/boolean.h"
+#include "../include/buildings.h"
+#include "../include/command.h"
+#include "../include/stack.h"
 
 
 void showBuildings(int * N){

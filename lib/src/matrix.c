@@ -1,5 +1,4 @@
-#include "matrix.h"
-#include <stdio.h>
+#include "../include/matrix.h"
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
 /* *** matrix Constructor *** */

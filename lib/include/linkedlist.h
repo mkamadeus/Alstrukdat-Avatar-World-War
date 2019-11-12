@@ -1,3 +1,6 @@
+/* File: linkedlist.h */
+/* File yang berkaitan dengan list linier */
+
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 

@@ -1,4 +1,5 @@
-/* ********** TYPE matrix definition with index dan coordinate ********** */
+/* File: matrix.h */
+/* File yang berkaitan dengan matriks*/
 
 #ifndef matrix_H
 #define matrix_H
@@ -6,6 +7,7 @@
 #include "boolean.h"
 #include "point.h"
 #include "pcolor.h"
+#include <stdio.h>
 
 /* minimum and maximum map size in row and column */
 #define rowMin 1
