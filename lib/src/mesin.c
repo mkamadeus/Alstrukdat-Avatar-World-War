@@ -1,4 +1,4 @@
-# include "mesin.h"
+# include "../include/mesin.h"
 # include <stdio.h>
 
 void IgnoreBlank()
