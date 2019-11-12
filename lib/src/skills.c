@@ -24,7 +24,7 @@ void inverseInstantUpgrade(buildings * C, stack * level){
     changeLevel(C, level_);
 }
 
-void instantReinforcement(buildings * C, stack * S){
+void instantReinforcement(buildingddds * C, stack * S){
     /* QUESTION */
     /* Apakah bisa bertambah lebih dari Max Troops? */
     /* BISA */
