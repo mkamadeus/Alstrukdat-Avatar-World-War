@@ -12,34 +12,34 @@
 
 /* --------------------------------- */
 
-void instantUpgrade(buildings * C, stack * S, stack * level);
 /* Seluruh bangunan yang dimiliki pemain akan naik 1 level */
+void instantUpgrade(buildings * C, stack * S, stack * level);
 
-void inverseInstantUpgrade(buildings * C, stack * level);
 /* Inverse dari instantUpgrade */
+void inverseInstantUpgrade(buildings * C, stack * level);
 
-void instantReinforcement(buildings * C, stack * S);
 /* Troops seluruh bangunan akan bertambah sebanyak 5 */
+void instantReinforcement(buildings * C, stack * S);
 
-void inverseInstantReinforcement(buildings * C);
 /* Inverse dari instantReinforcement */
+void inverseInstantReinforcement(buildings * C);
 
-void barrage(buildings * C, stack * troop, stack * s);
 /* Troops pada seluruh bangunan musuh akan berkurang sebanyak 10 */
+void barrage(buildings * C, stack * troop, stack * s);
 
-void inverseBarrage(buildings * C, stack * troop);
 /* Inverse dari Barrage */
+void inverseBarrage(buildings * C, stack * troop);
 
-void attackUp(boolean * ignore, stack * S);
 /* Defense musuh diignore */
+void attackUp(boolean * ignore, stack * S);
 
-void inverseAttackUp(boolean * ignore, stack * S);
 /* Inverse dari attackUp */
+void inverseAttackUp(boolean * ignore, stack * S);
 
-void criticalHit(boolean * critical, stack * S);
 /* Pasukan saat menyerang hanya berkurang setengah */
+void criticalHit(boolean * critical, stack * S);
 
-void inverseCriticalHit(boolean * critical);
 /* inverse dari criticalHit */
+void inverseCriticalHit(boolean * critical);
 
 #endif
