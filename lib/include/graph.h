@@ -1,3 +1,6 @@
+/* File: graph.h */
+/* File yang berkaitan dengan representasi graph */
+
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
@@ -26,6 +29,7 @@ typedef struct {
 #define next(P) (P)->next
 #define child(P) (P)->child
 #define first(L) ((L).first)
+
 #define firstChild(L) ((L).firstChild)
 
 void createEmpty(graph* G);

@@ -1,4 +1,5 @@
-/* ********** TYPE matrix definition with index dan coordinate ********** */
+/* File: matrix.h */
+/* File yang berkaitan dengan matriks*/
 
 #ifndef matrix_H
 #define matrix_H

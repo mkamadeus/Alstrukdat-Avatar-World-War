@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "boolean.h"
-#include "buildings.h"
-#include "command.h"
-#include "stack.h"
-#include "skills.h"
+#include "../include/boolean.h"
+#include "../include/buildings.h"
+#include "../include/command.h"
+#include "../include/stack.h"
+#include "../include/skills.h"
 
 void instantUpgrade(buildings * C, stack * S, stack * level){
     /* TO DO */
@@ -24,7 +24,7 @@ void inverseInstantUpgrade(buildings * C, stack * level){
     changeLevel(C, level_);
 }
 
-void instantReinforcement(buildings * C, stack * S){
+void instantReinforcement(buildingddds * C, stack * S){
     /* QUESTION */
     /* Apakah bisa bertambah lebih dari Max Troops? */
     /* BISA */

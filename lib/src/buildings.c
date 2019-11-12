@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "buildings.h"
+#include "../include/buildings.h"
 
 void show(buildings C){
     printf("Owner = %d\n", owner(C));
