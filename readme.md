@@ -1,7 +1,9 @@
 # Alstrukdat : Avatar World War
 > A time when the Avatar dissappeared, a world war happens.
 
-![Fan Art Image](https://s1.zerochan.net/Avatar%3A.The.Last.Airbender.600.374938.jpg)
+<p align="center">
+    <img src="https://s1.zerochan.net/Avatar%3A.The.Last.Airbender.600.374938.jpg" alt="Fan Art Image">
+</p>
 
 This is a project/game in order to fulfill the requirements of the study of Alstrukdat. This game is awesome, try to play this game!
 
