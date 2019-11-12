@@ -35,10 +35,10 @@ boolean isMax(buildings C);
 void increaseTroops(buildings * C);
 /* Menambah jumlah troops sebanyak troops_regen */
 
-void attack(buildings * C1, buildings * C2, boolean critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S);
+void attack(buildings * C1, buildings * C2, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit);
 /* Melakukan attack */
 
-void inverseAttack(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1, stack * troops2);
+void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
 /* Mengembalikan kondisi sebelum diserang */
 
 void undo(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S);

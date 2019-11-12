@@ -5,7 +5,6 @@
 #include "../include/command.h"
 #include "../include/stack.h"
 
-
 void showBuildings(int * N){
     /* TO DO */
     /* Menunggu ADT List*/
@@ -57,75 +56,97 @@ void increaseTroops(buildings * C){
     }
 }
 
-void attack(buildings * C1, buildings * C2, boolean critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S){
+void attack(buildings * C1, buildings * C2, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
     /* C1 menyerang C2 */
     /* TO DO */
     /* Debug */
-
-    int temp = troops(*C2);
 
     push(troops1, troops(*C1));
     push(troops2, troops(*C2));
     push(level, level(*C2));
     push(before, owner(*C2));
+    if(*critical){
+        push(crit, 1);
+    }
+    else{
+        push(crit, 0);
+    }
     push(S, 2);
 
-    if(ignore){
+    int troopsAttacked;
+    int troopsAttack = troops(*C1);
+
+    if(ignore && !(*critical)){
+        troopsAttacked = troops(*C2);
         troops(*C2) -= troops(*C1);
+    }
+    else if((ignore && (*critical)) || ((*critical) && !ignore)){
+        troopsAttacked = troops(*C2)/2;
+        troops(*C2) -= 2*troops(*C1);
+        *critical = false;
     }
     else{
         if(defense(*C2)){
+            troopsAttacked = 4*troops(*C2)/3;
             troops(*C2) -= troops(*C1)*3/4;
         }
         else{
+            troopsAttacked = troops(*C2);
             troops(*C2) -= troops(*C1);
         }
     }
-    if(critical){
-        troops(*C1) -= temp/2;
-    }
-    else{
-        troops(*C1) -= temp;
-    }
+
+    printf("troopsAttack = %d\n", troopsAttack);
+    printf("troopsAttacked = %d\n", troopsAttacked);
 
     if(troops(*C2) <= 0){
         owner(*C2) = P;
         changeLevel(C2, 1);
-        troops(*C2) = troops(*C1);
+        troops(*C2) = troopsAttack - troopsAttacked;
         troops(*C1) = 0;
     }
 
-    if(troops(*C1) < 0){
-        troops(*C1) = 0;
-    }    
+    troops(*C1) = 0;
 }
 
-void inverseAttack(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1, stack * troops2){
+void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
     /* TO DO */
     /* DEBUG */
 
     int v_troops1, v_troops2, v_level;
+    int v_critical;
     own v_before;
     pop(before, &v_before);
     pop(troops1, &v_troops1);
     pop(troops2, &v_troops2);
     pop(level, &v_level);
+    pop(crit, &v_critical);
+    if(v_critical == 1){
+        *critical = true;
+    }
+    else{
+        *critical = false;
+    }
     level(*C2) = v_level;
     troops(*C2) = v_troops2;
     troops(*C1) = v_troops1;
     owner(*C2) = v_before;
+    *critical = v_critical;
 }
 
-void undo(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S){
-    int command;
-    pop(S, &command);
-    if(command == 1){
-        inverseLevelUp(C1);
-    }
-    else if(command == 2){
-        inverseAttack(C1, C2, level, before, troops1, troops2);
-    }
-}
+// void undo(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S, stack * crit){
+//     int command;
+//     pop(S, &command);
+//     if(command == 1){
+//         inverseLevelUp(C1);
+//     }
+//     else if(command == 2){
+//         inverseAttack(C1, C2, critical, level, before, troops1, troops2, crit);
+//     }
+//     else if(command == 3){
+//         inverseMove(C1, C2, troops1, troops2);
+//     }
+// }
 
 void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2){
     /* Memindahkan pasukan dari C1 ke C2 */
