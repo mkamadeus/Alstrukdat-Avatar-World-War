@@ -5,8 +5,8 @@
 #include "buildings.h"
 
 typedef struct {
-    buildings building;
-	int row; /* row   */
+    buildings *building;
+	int row; /* row  */
 	int col; /* col */
 } buildingCoord;
 /*reading in config*/
@@ -16,11 +16,11 @@ typedef struct {
 /* *** coordinate selector *** */
 #define row(C) (C).row //Y pos
 #define col(C) (C).col //X pos
-#define build(C) (C).building
+#define build(C) (C).*building
 
 /* *** Primitive Prototype *** */
 /* *** Constructor *** */
-buildingCoord makeBuildingCoord (buildings building, int row, int col);
+buildingCoord makeBuildingCoord (buildings *building, int row, int col);
 
 /* *** Read/Write  *** */
 void writeBuildingCoord (buildingCoord C);

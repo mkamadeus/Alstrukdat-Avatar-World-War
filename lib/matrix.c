@@ -1,4 +1,5 @@
 #include "matrix.h"
+#include <stdio.h>
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
 /* *** matrix Constructor *** */
@@ -10,6 +11,11 @@ void createEmpty (int NR, int NC, matrix * M)
     //Map size
     nRowEff(*M)=NR+1;
     nColEff(*M)=NC+1;
+    for(int i=1;i<=nRowEff(*M);i++)
+        for(int j=1;j<=nColEff(*M);j++)
+        {
+            buildingPtr(*M,i,j) = NULL; // give null pointer
+        }
     //+1 for "*" border (upper and left border using zero (0) index)
     //structures in the map defined in [1..rowMax-1] and [1..colMax-1]
     //every fiend is EmptyField (' ')
@@ -69,7 +75,7 @@ T      V     ​C​
 NB: depends on coordinate points
 */
 {
-    building(*M,row(C),col(C)) = build(C);
+    buildingPtr(*M,row(C),col(C)) = C.building;
 }
 void writeMatrix (matrix M)
 /* I.S. M defined */
@@ -99,14 +105,14 @@ void writeMatrix (matrix M)
             if (i!=0 && j!=0 && i!=getLastIdxRow(M))
             {
                 //building type determiner
-                if (type(building(M,i,j))==1) t="C";
-                else if (type(building(M,i,j))==2) t="T";
-                else if (type(building(M,i,j))==3) t="F";
-                else if (type(building(M,i,j))==4) t="V";
+                if (buildingPtr(M,i,j)->building->type==1) t="C";
+                else if (buildingPtr(M,i,j)->building->type==2) t="T";
+                else if (buildingPtr(M,i,j)->building->type==3) t="F";
+                else if (buildingPtr(M,i,j)->building->type==4) t="V";
                 else{t=emptyField;}//undefined building (building not exist at the coordinate)
                 //ownership determiner
-                if (owner(building(M,i,j))==1) print_red(t);//player 1's, red
-                else if (owner(building(M,i,j))==2) print_blue(t);//player 2's, blue
+                if (buildingPtr(M,i,j)->building->owner==1) print_red(t);//player 1's, red
+                else if (buildingPtr(M,i,j)->building->owner==2) print_blue(t);//player 2's, blue
                 else printf("%c",t);//neurtral's, standard white
             }
             else printf("*");
