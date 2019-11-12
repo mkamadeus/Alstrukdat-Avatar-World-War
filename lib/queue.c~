@@ -1,0 +1,72 @@
+#include "queue.h"
+#include <stdlib.h>
+
+void createEmpty (queue * Q, int Max){
+	Head(*Q) = 0;
+	Count(*Q) = 0;
+	maxEl(*Q) = Max;
+}
+
+void Alokasi (queue *Q, int Max){
+	*Q -> T = (infotype*)malloc(Max*sizeof(infotype));
+}
+/* *** Destruktor *** */
+void deAlokasi(queue * Q){
+	maxEl(*Q) = 0;
+	Count(*Q) = 0;
+	address temp1,temp2;
+	temp1 = Head(Q);
+	temp2 = Next(temp1);
+	while(temp2 != Nil){
+		free(temp1);
+		temp1 = temp2;
+		temp2 = Next(temp2);
+	}
+}
+/* Proses: Mengembalikan memori Q */
+/* I.S. Q pernah dialokasi */
+/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
+/* ********* Prototype ********* */
+boolean isEmpty (queue Q){
+	return(Head(Q) == Nil);
+}
+
+boolean isFull (queue *Q){
+	return(Count(Q) == maxEl(Q));
+}
+
+
+int nbElmt (queue Q){
+	return(Count(Q));
+}
+
+
+/* *** Primitif Add/Delete *** */
+void Add (queue * Q, infotype X){
+	address P = Head(*Q);
+	if(isEmpty(*Q)){
+		address alokasi = Alokasi(X);
+		Head(*Q) = alokasi;
+	}
+	else{
+		address alokasi = Alokasi(X);
+		while(Next(P)!= Nil){
+			P = Next(P);
+		}
+		Next(P) = alokasi;
+	}
+	Count(*Q) = Count(*Q) + 1;
+}
+
+void Del (queue * Q, infotype * X){
+	*X = InfoHead(*Q);
+	address P = Head(*Q);
+	if (Next(P) == Nil){
+		Head(*Q) = Nil;
+	}
+	else{
+		Head(*Q) = Next(Head(*Q));
+	}
+	Next(P) = Nil;
+	Count(*Q)--;
+}

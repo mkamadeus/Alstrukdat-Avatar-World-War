@@ -1,17 +1,19 @@
-/* File : queuelistlinier.h */
+/* File : queue.h */
 /* contoh ADT list berkait dengan representasi fisik pointer  */
 /* Representasi address dengan pointer */
 /* isi adalah integer */
 
-#ifndef queuelistlinier_H
-#define queuelistlinier_H
+#ifndef queue_H
+#define queue_H
 
 #include "boolean.h"
-#define Nil NULL
+#define unDef -1
+#define Max 10
 typedef int infotype;
 typedef int address;
 typedef struct {
-	address first;
+	infotype *T;
+	address HEAD;
 	int count;
 	int maxElement;
 } queue;
@@ -21,31 +23,32 @@ typedef struct {
 /* ********* AKSES (Selektor) ********* */
 /* Jika Q adalah queue, maka akses elemen : */
 
-#define Head(P) (P)->first
-#define InfoHead(P) (P)->info
-#define Count()
-#define MaxEl(Q) (Q).maxElement
+#define Head(Q) (Q).HEAD
+#define Count(Q) (Q).count
+#define Tail(Q) (Q).HEAD+(Q).count-1
+#define infoHead(Q) (Q).T[(Q).HEAD]
+#define infoTail(Q) (Q).T[((Q).HEAD+(Q).count-1)%(Q).maxElement]
+#define maxEl(Q) (Q).maxElement
 
 /* *** Kreator *** */
-void createEmpty (queue * Q, int Max);
+void createEmpty (queue * Q);
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
-
 /* *** Destruktor *** */
-void DeAlokasi(queue * Q);
+void deAlokasi(queue * Q);
 /* Proses: Mengembalikan memori Q */
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 /* ********* Prototype ********* */
-boolean IsEmpty (queue Q);
+boolean isEmpty (queue Q);
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (queue Q);
+boolean isFull (queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
-int NBElmt (queue Q);
+int nbElmt (queue Q);
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 
