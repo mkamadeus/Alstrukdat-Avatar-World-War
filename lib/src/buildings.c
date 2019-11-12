@@ -86,6 +86,7 @@ void changeLevel(buildings * C, int level){
         int A[4] = {10,20,30,40};
         int M[4] = {20,40,60,80};
         boolean P[4] = {0,0,1,1};
+        level(*C) = level;
         troops_regen(*C) = A[level-1];
         max_troops(*C) = M[level-1];
         defense(*C) = P[level-1];
@@ -94,6 +95,7 @@ void changeLevel(buildings * C, int level){
         int A[4] = {5,10,15,20};
         int M[4] = {20,30,40,50};
         boolean P[4] = {0,0,0,0};
+        level(*C) = level;
         troops_regen(*C) = A[level-1];
         max_troops(*C) = M[level-1];
         defense(*C) = P[level-1];
