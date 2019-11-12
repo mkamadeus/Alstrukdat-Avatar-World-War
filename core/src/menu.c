@@ -1,6 +1,14 @@
 #include "../include/menu.h"
 
-int main()
+void menu()
 {
+	printf("Avatar World War Splash Screen\n");
+	printf("\n");
+	printf("Press ENTER to continue...\n");
 
+	// Enter confirmation
+	char enter = 0;
+	while (enter != '\r' && enter != '\n') { enter = getchar(); }
+
+	printf("Game start.\n");	
 }

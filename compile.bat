@@ -1,0 +1,1 @@
+gcc -lm -o main ./core/src/*.c ./lib/src/*.c
