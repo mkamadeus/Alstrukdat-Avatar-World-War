@@ -1,19 +1,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "boolean.h"
 #include "tubesarray.h"
 
-void MakeEmpty (TabInt * T, int maxel)
+void makeEmptyArray(TabInt * T, int maxel)
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 {
-    TI(*T) = (int *) malloc ((maxel+1)*sizeof(int));
+    TI(*T) = (ElType *) malloc ((maxel+1)*sizeof(ElType));
     Neff(*T)=0;
     MaxEl(*T)=maxel;
 }
 
-void Dealokasi(TabInt *T)
+void dealokasiArray(TabInt *T)
 /* I.S. T terdefinisi; */
 /* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
 {
@@ -22,82 +21,61 @@ void Dealokasi(TabInt *T)
 	Neff(*T)=0;
 }
 
-void BacaIsi(TabInt *T)
-/* I.S. T sembarang dan sudah dialokasikan sebelumnya */
-/* F.S. Tabel T terdefinisi */
-/* Proses : membaca banyaknya elemen T dan mengisi nilainya */
-/* 1. Baca banyaknya elemen diakhiri enter, misalnya N */
-/*    Pembacaan diulangi sampai didapat N yang benar yaitu 0 <= N <= MaxElement(T) */
-/*    Jika N tidak valid, tidak diberikan pesan kesalahan */
-/* 2. Jika 0 < N <= MaxElement(T); Lakukan N kali: Baca elemen mulai dari indeks
-      IdxMin satu per satu diakhiri enter */
-/*    Jika N = 0; hanya terbentuk T kosong */
+void bacaIsi(TabInt *T, buildings C)
+/*add pointer inside array to building*/
 {
-    IdxType n, i = -1;
-    while ( (n < 0) || (n > MaxEl(*T)) ) 
-    {
-        scanf("%d", &n);
-    }
-
-    if (n > 0) 
-    {
-        Neff(*T) = n;
-        for (i = IdxMin; i < IdxMin+n; i++) 
-        {
-            scanf("%d\n", &(Elmt(*T,i)));
-        }
-    }
-    else
-    {
-		MakeEmpty(&*T, MaxEl(*T));
-	}
+    Neff(*T)++;
+    Elmt(*T,Neff(*T)) = &C;
 }
 
-void TulisIsiTab(TabInt T)
-/* Proses : Menuliskan isi tabel dengan traversal, tabel ditulis di antara kurung siku;
-   antara dua elemen dipisahkan dengan separator "koma", tanpa tambahan karakter di depan,
-   di tengah, atau di belakang, termasuk spasi dan enter */
-/* I.S. T boleh kosong */
-/* F.S. Jika T tidak kosong: [e1,e2,...,en] */
-/* Contoh : jika ada tiga elemen bernilai 1, 20, 30 akan dicetak: [1,20,30] */
-/* Jika tabel kosong : menulis [] */
+/* CAUTION: ARRAY MUST NOT EMPTY */
+void tulisIsiTab(TabInt T) // buat apa?
+/*Prints every building available on field*/
 {
-    if (IsEmpty(T)) 
+    printf("Building on field:\n");
+    for(int i = 1;i<=Neff(T);i++)
     {
-        printf("[]");
-    } 
-    else 
-    {
-        IdxType i, l = GetLastIdx(T);
-        printf("[%d", Elmt(T,IdxMin));
-        for (i = IdxMin+1; i <= l; i++) 
-        {
-            printf(",%d", Elmt(T,i));
-        }
-        printf("]");
+        printf("%d.\n");
+        show(*(Elmt(T, i)));
+        printf("=====================\n");
     }
 }
 
-IdxType Search1(TabInt T, ElType X)
-/* Search apakah ada elemen tabel T yang bernilai X */
-/* Jika ada, menghasilkan indeks i terkecil, dengan elemen ke-i = X */
-/* Jika tidak ada, mengirimkan IdxUndef */
-/* Menghasilkan indeks tak terdefinisi (IdxUndef) jika tabel T kosong */
-/* Skema Searching yang digunakan bebas */
+void printOnType(TabInt T, char X)
+/* Print based on type*/
 {
-    if (IsEmpty(T)) 
+    if (X == 'C'|| X == 'T'|| X == 'V'|| X == 'F' )
     {
-		return IdxUndef;
-	}
-
-    IdxType i, l = GetLastIdx(T);
-    for (i = IdxMin; i <= l; i++) 
-    {
-        if (Elmt(T,i) == X) 
+        printf("Building on field:\n");
+        for(int i = 1;i<=Neff(T);i++)
         {
-            return i;
+            if(Elmt(T,i)->type == X)
+            {
+                printf("%d.\n");
+                show(*(Elmt(T, i)));
+                printf("=====================\n");
+            }
         }
     }
-
-    return IdxUndef;
+    else printf("Salah input goblok\n");
 }
+
+void printOnOwner(TabInt T, own X)
+/* Print based on owner*/
+{
+    if (X == 1|| X == 2|| X == 0)//nunggu fix ownershipnya
+    {
+        printf("Building on field:\n");
+        for(int i = 1;i<=Neff(T);i++)
+        {
+            if(Elmt(T,i)->owner == X)
+            {
+                printf("%d.\n");
+                show(*(Elmt(T, i)));
+                printf("=====================\n");
+            }
+        }
+    }
+    else printf("Salah input goblok\n");
+}
+
