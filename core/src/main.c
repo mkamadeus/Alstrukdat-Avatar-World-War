@@ -112,7 +112,12 @@ int main()
 				move(Build(bangunan,moved),Build(bangunan,moved2),&S, &troops1, &troops2);
 			}
 			else if(strcmp(str, "SKILL") == 0){
-
+				dealocate(&S);
+				dealocate(&level);
+				dealocate(&before);
+				dealocate(&troops1);
+				dealocate(&troops2);
+				dealocate(&crit);
 			}
 			else if(strcmp(str, "END_TURN") == 0){
 				if(isExtraTurn){
@@ -123,6 +128,12 @@ int main()
 					changeTurn(&turn);
 					printf("Sekarang giliran player %d\n", turn);
 				}
+				dealocate(&S);
+				dealocate(&level);
+				dealocate(&before);
+				dealocate(&troops1);
+				dealocate(&troops2);
+				dealocate(&crit);
 			}
 		}while(strcmp(str,"END_TURN") != 0);
 	}
