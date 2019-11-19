@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../include/array.h"
 
-void makeEmptyArray(TabInt * T, int maxel)
+void makeEmptyArray(buildingsArray * T, int maxel)
 /* I.S. T sembarang */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 {
@@ -12,7 +12,7 @@ void makeEmptyArray(TabInt * T, int maxel)
     MaxEl(*T)=maxel;
 }
 
-void dealokasiArray(TabInt *T)
+void dealokasiArray(buildingsArray *T)
 /* I.S. T terdefinisi; */
 /* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
 {
@@ -21,7 +21,7 @@ void dealokasiArray(TabInt *T)
 	Neff(*T)=0;
 }
 
-void bacaIsi(TabInt *T, buildings C)
+void bacaIsi(buildingsArray *T, buildings C)
 /*add pointer inside array to building*/
 {
     Neff(*T)++;
@@ -29,7 +29,7 @@ void bacaIsi(TabInt *T, buildings C)
 }
 
 /* CAUTION: ARRAY MUST NOT EMPTY */
-void tulisIsiTab(TabInt T)
+void tulisIsiTab(buildingsArray T)
 /*Prints every building available on field*/
 {
     printf("Building on field:\n");
@@ -41,7 +41,7 @@ void tulisIsiTab(TabInt T)
     }
 }
 
-void printOnType(TabInt T, char X)
+void printOnType(buildingsArray T, char X)
 /* Print based on type*/
 {
     if (X == 'C'|| X == 'T'|| X == 'V'|| X == 'F' )
@@ -60,7 +60,7 @@ void printOnType(TabInt T, char X)
     else printf("Salah input goblok\n");
 }
 
-void printOnOwner(TabInt T, own X)
+void printOnOwner(buildingsArray T, own X)
 /* Print based on owner*/
 {
     if (X == 1|| X == 2|| X == 0)//nunggu fix ownershipnya

@@ -24,10 +24,10 @@ typedef struct
   ElType *TI; /* memori tempat penyimpan elemen (container) */
   int Neff;   /* >=0, banyaknya elemen efektif */
   int MaxEl;  /* ukuran elemen */
-} TabInt;
+} buildingsArray;
 /* Indeks yang digunakan [IdxMin..MaxEl] */
-/* Jika T adalah TabInt, cara deklarasi dan akses: */
-/* Deklarasi : T : TabInt */
+/* Jika T adalah buildingsArray, cara deklarasi dan akses: */
+/* Deklarasi : T : buildingsArray */
 /* Maka cara akses:
    T.Neff  untuk mengetahui banyaknya elemen
    T.TI    untuk mengakses seluruh nilai elemen tabel
@@ -45,27 +45,27 @@ typedef struct
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
-void makeEmptyArray(TabInt *T, int maxel);
+void makeEmptyArray(buildingsArray *T, int maxel);
 /* I.S. T sembarang, maxel > 0 */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas maxel + 1 */
 
-void dealokasiArray(TabInt *T);
+void dealokasiArray(buildingsArray *T);
 /* I.S. T terdefinisi; */
 /* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi tabel dari pembacaan *** */
-void bacaIsi(TabInt *T, buildings C);
+void bacaIsi(buildingsArray *T, buildings C);
 /*add pointer inside array to building*/
-void tulisIsiTab(TabInt T);
+void tulisIsiTab(buildingsArray T);
 /*Prints every building available on field*/
 
 /* ********** SEARCHING ********** */
 /* ***  Perhatian : Tabel boleh kosong!! *** */
-void printOnType(TabInt T, char X);
+void printOnType(buildingsArray T, char X);
 /* Print based on type*/
 
-void printOnOwner(TabInt T, own X);
+void printOnOwner(buildingsArray T, own X);
 /* Print based on owner*/
 
 #endif
