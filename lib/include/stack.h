@@ -8,13 +8,13 @@
 
 
 typedef int infotype;
-typedef struct tStacklist *address;
+typedef struct tStacklist *address_;
 typedef struct tStacklist{
     infotype info;
-    address next;
+    address_ next;
 } stackList;
 typedef struct{
-    address top;
+    address_ top;
 } stack;
 
 /* SELEKTOR */
@@ -42,7 +42,7 @@ int peek(stack * S);
 void pop(stack * S, int * out);
 /* Menyimpan content top ke out dan menghapus content top */
 
-void delA(stack * S, address * P);
+void delA(stack * S, address_ * P);
 /* Menghapus address top dan menyimpannya ke P */
 
 #endif
