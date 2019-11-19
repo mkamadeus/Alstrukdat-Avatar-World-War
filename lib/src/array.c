@@ -21,7 +21,7 @@ void dealokasiArray(TabInt *T)
 	Neff(*T)=0;
 }
 
-void bacaIsi(TabInt *T, buildings C)
+void bacaIsi(TabInt *T, buildingCoord C)
 /*add pointer inside array to building*/
 {
     Neff(*T)++;
@@ -36,7 +36,7 @@ void tulisIsiTab(TabInt T)
     for(int i = 1;i<=Neff(T);i++)
     {
         printf("%d.\n");
-        show(*(Elmt(T, i)));
+        show(*(Elmt(T, i))->building);
         printf("=====================\n");
     }
 }
@@ -49,10 +49,10 @@ void printOnType(TabInt T, char X)
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Elmt(T,i)->type == X)
+            if(Elmt(T,i)->building->type == X)
             {
                 printf("%d.\n");
-                show(*(Elmt(T, i)));
+                show(*(Elmt(T, i))->building);
                 printf("=====================\n");
             }
         }
@@ -68,10 +68,10 @@ void printOnOwner(TabInt T, own X)
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Elmt(T,i)->owner == X)
+            if(Elmt(T,i)->building->owner == X)
             {
                 printf("%d.\n");
-                show(*(Elmt(T, i)));
+                show(*(Elmt(T, i))->building);
                 printf("=====================\n");
             }
         }

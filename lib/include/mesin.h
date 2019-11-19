@@ -14,13 +14,7 @@ typedef struct {
 } Point;
 
 typedef struct {
-    char B;
-    int IdX;
-    int IdY;
-} Buildings;
-
-typedef struct {
-    Buildings BI[IdxMax+1];
+    buildingCoord *BI[IdxMax+1];
     int Neff;
 } BArray;
 
@@ -35,7 +29,7 @@ int BacaAngka();
 Point Peta ();
 /* Fungsi Peta membaca dan mengirim ukuran peta permainan */
 
-Buildings Bangunan();
+buildings Bangunan();
 /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
 
 int BacaFile ();

@@ -1,4 +1,5 @@
 # include "../include/mesin.h"
+# include "../include/array.h"
 # include <stdio.h>
 
 void IgnoreBlank()
@@ -51,42 +52,37 @@ Point Peta ()
     return P;
 }
 
-Buildings Bangunan()
+buildingCoord Bangunan()
 /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
 {
-    Buildings tempB;
-    int x, y, temp;
+    buildings B;
+    int row, col, temp;
 
     IgnoreBlank();
-    tempB.B = CC;
+    if (CC == 'C') 
+    B = CC;
     ADV();
     IgnoreBlank();
-    x = 0;
+    row = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        x = x * 10;
-        temp = CC - "";
-        x = x + temp;
+        temp = (int)CC;
+        row = row * 10 + (int)CC;
         ADV();
     }
     IgnoreBlank();
-    y = 0;
+    col = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        y = y * 10;
-        temp = CC - "";
-        y = y + temp;
+        col = col * 10 + (int)CC;
         ADV();
     }
-    tempB.IdX = x;
-    tempB.IdY = y;
-
-    return tempB;
+    return makeBuildingCoord (&B,row,col);
 }
 
 int BacaFile () {
     Point P;
     int n, i, j;
-    Buildings B;
-    BArray BArr;
+    buildingCoord B;
+    TabInt BArr;
     int M[IdxMax][IdxMax];
 
     START();
@@ -94,11 +90,11 @@ int BacaFile () {
     P = Peta();
     IgnoreBlank();
     n = BacaAngka();
-    BArr.BI[n+1];
+    makeEmptyArray(&BArr,n);
     IgnoreBlank();
     for (i = 1; i <= n; i++) {
         B = Bangunan();
-        BArr.BI[i] = B;
+        bacaIsi(&BArr,B);
     }
     IgnoreBlank();
     for (i = 1;i <= n; i++) {

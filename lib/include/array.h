@@ -9,6 +9,7 @@
 
 #include "boolean.h"
 #include "buildings.h"
+#include "point.h"
 
 /*  Kamus Umum */
 #define IdxMin 1
@@ -18,7 +19,7 @@
 
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType; /* type indeks */
-typedef buildings *ElType;  /* type elemen tabel */
+typedef buildingCoord *ElType;  /* type elemen tabel */
 typedef struct
 {
   ElType *TI; /* memori tempat penyimpan elemen (container) */
@@ -55,7 +56,7 @@ void dealokasiArray(TabInt *T);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi tabel dari pembacaan *** */
-void bacaIsi(TabInt *T, buildings C);
+void bacaIsi(TabInt *T, buildingCoord C);
 /*add pointer inside array to building*/
 void tulisIsiTab(TabInt T);
 /*Prints every building available on field*/
