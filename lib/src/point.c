@@ -8,6 +8,7 @@ buildingCoord makeBuildingCoord (buildings *building, int row, int col)
     row(C) = row;
     col(C) = col;
     C.building = building;
+    return C;
 }
 
 /* *** Write  *** */

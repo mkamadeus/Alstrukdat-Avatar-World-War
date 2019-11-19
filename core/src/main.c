@@ -40,12 +40,9 @@ int main()
 	F1 = makeBuildingCoord(&F, 5, 6);
 	makeEmptyArray(&bangunan, 5);
 	bacaIsi(&bangunan, &A1);
-	tulisIsiTab(bangunan);
 	bacaIsi(&bangunan, &B1);
 	bacaIsi(&bangunan, &E1);
 	bacaIsi(&bangunan, &F1);
-	printf("Neff = %d\n", Neff(bangunan));
-	show(*Build(bangunan,0));
 	createEmpty(&P1);
 	createEmpty(&P2);
 	for(int i = 1; i < 5; i++){
@@ -71,7 +68,8 @@ int main()
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Bangunan yang digunakan untuk menyerang: ");
 				scanf("%d", &penyerang);
-				penyerang = inputToIndex(turn, penyerang, P1, P2);
+				int temp = inputToIndex(turn, penyerang, P1, P2);
+				penyerang = temp;
 				address P2_ = first(P2);
 				while(P2_ != NULL){
 					show(*Build(bangunan,Info(P2_)));
@@ -85,7 +83,7 @@ int main()
 					P2_ = Next(P2_);
 				}
 				diserang = Info(P2_);
-				attack(Build(bangunan,penyerang), Build(bangunan,diserang), &critical, ignore, 1, &level, &before, &troops1, &troops2, &S, &crit);
+				attack(Build(bangunan,penyerang), Build(bangunan,diserang), &critical, ignore, turn, &level, &before, &troops1, &troops2, &S, &crit);
 				printf("Bangunanmu sekarang: \n");
 				show(*Build(bangunan,penyerang));
 				printf("\n");

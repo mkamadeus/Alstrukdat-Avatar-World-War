@@ -39,11 +39,13 @@ int inputToIndex(int turn, int input, linkedList P1, linkedList P2){
 		for(int i = 0; i < input-1; i++){
 			P1_ = Next(P1_);
 		}
+		return Info(P1_);
 	}
 	else{
 		address P2_ = first(P2);
 		for(int i = 0; i < input-1; i++){
 			P2_ = Next(P2_);
 		}
+		return Info(P2_);
 	}
 }
