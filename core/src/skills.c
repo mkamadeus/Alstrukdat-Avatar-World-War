@@ -68,7 +68,7 @@ void instantReinforcement(buildingsArray *buildingsID, linkedList listPlayer)
 /* Troops pada seluruh bangunan musuh akan berkurang sebanyak 10 */
 void barrage(buildingsArray *buildingsID, linkedList listEnemy)
 {
-    address P = first(listPlayer);
+    address P = first(listEnemy);
     while(P != NULL)
     {
         if(troops(*Elmt(*buildingsID, info(P)))<=10) troops(*Elmt(*buildingsID, info(P)))=0;
