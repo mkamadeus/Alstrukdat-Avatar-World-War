@@ -9,6 +9,7 @@
 
 #include "boolean.h"
 #include "buildings.h"
+#include "point.h"
 
 /*  Kamus Umum */
 #define IdxMin 1
@@ -18,7 +19,7 @@
 
 /* Definisi elemen dan koleksi objek */
 typedef int IdxType; /* type indeks */
-typedef buildings *ElType;  /* type elemen tabel */
+typedef buildingCoord *ElType;  /* type elemen tabel */
 typedef struct
 {
   ElType *TI; /* memori tempat penyimpan elemen (container) */
@@ -42,6 +43,7 @@ typedef struct
 #define TI(T) (T).TI
 #define Elmt(T, i) (T).TI[(i)]
 #define MaxEl(T) (T).MaxEl
+#define Build(T,i) (Elmt(T, i))->building
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */

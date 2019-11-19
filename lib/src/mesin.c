@@ -16,89 +16,78 @@ int BacaAngka() {
     int n, temp;
     IgnoreBlank();
     while ((CC != EOF) && (CC != BLANK)) {
-        n = n * 10;
-        temp = CC - "";
-        n = n + temp;
+        n = n *10 + (int)CC;
         ADV();
     }
     IgnoreBlank();
     return n;
 }
 
-Point Peta ()
+matrix Peta (matrix *map)
 /* Fungsi Peta membaca dan mengirim ukuran peta permainan */
 {
-    int i, x, y, temp;
-    Point P;
+    int i, row, col, temp;
 
-    x = 0;
+    row = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        x = x * 10;
-        temp = CC - "";
-        x = x + temp;
+        row = row * 10 + (int)CC;
         ADV();
     }
     IgnoreBlank();
-    y = 0;
+    col = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        y = y * 10;
-        temp = CC - "";
-        y = y + temp;
+        col = col * 10 + (int)CC;
         ADV();
     }
-    P.X = x;
-    P.Y = y;
-    return P;
+    createEmpty(row,col,map);
+    return *map;
 }
 
-Buildings Bangunan()
+buildingCoord Bangunan()
 /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
 {
-    Buildings tempB;
-    int x, y, temp;
+    buildings B;
+    int row, col;
 
     IgnoreBlank();
-    tempB.B = CC;
+    if (CC == 'C') makeCastle(&B,0);
+    else if (CC == 'F') makeFort(&B,0);
+    else if (CC == 'T') makeTower(&B,0);
+    else if (CC == 'V') makeVillage(&B,0);//kondisikan ownernya
     ADV();
     IgnoreBlank();
-    x = 0;
+    row = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        x = x * 10;
-        temp = CC - "";
-        x = x + temp;
+        row = row * 10 + (int)CC;
         ADV();
     }
     IgnoreBlank();
-    y = 0;
+    col = 0;
     while ((CC != EOF) && (CC != BLANK)) {
-        y = y * 10;
-        temp = CC - "";
-        y = y + temp;
+        col = col * 10 + (int)CC;
         ADV();
     }
-    tempB.IdX = x;
-    tempB.IdY = y;
-
-    return tempB;
+    return makeBuildingCoord (&B,row,col);
 }
 
 int BacaFile () {
-    Point P;
+    matrix map;
     int n, i, j;
-    Buildings B;
-    BArray BArr;
-    int M[IdxMax][IdxMax];
+    buildingCoord B;
+    TabInt BArr;
+    int M[IdxMax][IdxMax];//graph (?)
 
     START();
     IgnoreBlank();
-    P = Peta();
+    map = Peta(&map);
     IgnoreBlank();
     n = BacaAngka();
-    BArr.BI[n+1];
+    makeEmptyArray(&BArr,n);
     IgnoreBlank();
     for (i = 1; i <= n; i++) {
         B = Bangunan();
-        BArr.BI[i] = B;
+        bacaIsi(&BArr,B);
+        insertStructure(&map,B);
     }
     IgnoreBlank();
     for (i = 1;i <= n; i++) {
