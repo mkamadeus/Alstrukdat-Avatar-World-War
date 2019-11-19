@@ -36,7 +36,7 @@ void tulisIsiTab(TabInt T)
     for(int i = 1;i<=Neff(T);i++)
     {
         printf("%d.\n");
-        show(*(Elmt(T, i))->building);
+        show(*Build(T,i));
         printf("=====================\n");
     }
 }
@@ -49,10 +49,10 @@ void printOnType(TabInt T, char X)
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Elmt(T,i)->building->type == X)
+            if(Build(T,i)->type == X)
             {
                 printf("%d.\n");
-                show(*(Elmt(T, i))->building);
+                show(*Build(T,i));
                 printf("=====================\n");
             }
         }
@@ -68,10 +68,10 @@ void printOnOwner(TabInt T, own X)
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Elmt(T,i)->building->owner == X)
+            if(Build(T,i)->owner == X)
             {
                 printf("%d.\n");
-                show(*(Elmt(T, i))->building);
+                show(*Build(T,i));
                 printf("=====================\n");
             }
         }

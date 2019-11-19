@@ -43,6 +43,7 @@ typedef struct
 #define TI(T) (T).TI
 #define Elmt(T, i) (T).TI[(i)]
 #define MaxEl(T) (T).MaxEl
+#define Build(T,i) (Elmt(T, i))->building
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
