@@ -21,7 +21,7 @@ void dealokasiArray(buildingsArray *T)
 	Neff(*T)=0;
 }
 
-void bacaIsi(TabInt *T, buildings *C)
+void bacaIsi(buildingsArray *T, buildingCoord *C)
 /*add pointer inside array to building*/
 {
     Neff(*T)++;

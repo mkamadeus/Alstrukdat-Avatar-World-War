@@ -1,7 +1,7 @@
 #include "../include/main.h"
 
-#include "menu.c"
 #include "game.c"
+#include "menu.c"
 
 #include <string.h>
 
@@ -14,13 +14,15 @@ int main()
 
 	printf("You're now playing on %s.\n", mapName);
 
-	TabInt bangunan;
+	buildingsArray bangunan;
 	linkedList P1,P2;
 	buildings A,B,E,F;
+	buildingCoord A1,B1,E1,F1;
 	stack S,level,before,troops1,troops2,crit;
 	int penyerang, diserang, leveledUp, moved, moved2;
 	boolean critical = false;
 	boolean ignore = false;
+	boolean isExtraTurn = false;
 	int turn = 1;
     createStack(&S);
     createStack(&level);
@@ -32,16 +34,22 @@ int main()
 	makeTower(&B,1);
 	makeCastle(&E,2);
 	makeTower(&F,2);
+	A1 = makeBuildingCoord(&A, 1, 2);
+	B1 = makeBuildingCoord(&B, 2, 3);
+	E1 = makeBuildingCoord(&E, 3, 4);
+	F1 = makeBuildingCoord(&F, 5, 6);
 	makeEmptyArray(&bangunan, 5);
-	bacaIsi(&bangunan, &A);
-	bacaIsi(&bangunan, &B);
-	bacaIsi(&bangunan, &E);
-	bacaIsi(&bangunan, &F);
-	show(*TI(bangunan)[1]);
+	bacaIsi(&bangunan, &A1);
+	tulisIsiTab(bangunan);
+	bacaIsi(&bangunan, &B1);
+	bacaIsi(&bangunan, &E1);
+	bacaIsi(&bangunan, &F1);
+	printf("Neff = %d\n", Neff(bangunan));
+	show(*Build(bangunan,0));
 	createEmpty(&P1);
 	createEmpty(&P2);
 	for(int i = 1; i < 5; i++){
-		if(owner(*Elmt(bangunan,i)) == 1){
+		if(owner(*Build(bangunan,i)) == 1){
 			insertValueLast(&P1,i);
 		}
 		else{
@@ -66,7 +74,7 @@ int main()
 				penyerang = inputToIndex(turn, penyerang, P1, P2);
 				address P2_ = first(P2);
 				while(P2_ != NULL){
-					show(*TI(bangunan)[Info(P2_)]);
+					show(*Build(bangunan,Info(P2_)));
 					printf("==================================\n");
 					P2_ = Next(P2_);
 				}
@@ -77,12 +85,12 @@ int main()
 					P2_ = Next(P2_);
 				}
 				diserang = Info(P2_);
-				attack(Elmt(bangunan,penyerang), Elmt(bangunan,diserang), &critical, ignore, 1, &level, &before, &troops1, &troops2, &S, &crit);
+				attack(Build(bangunan,penyerang), Build(bangunan,diserang), &critical, ignore, 1, &level, &before, &troops1, &troops2, &S, &crit);
 				printf("Bangunanmu sekarang: \n");
-				show(*TI(bangunan)[penyerang]);
+				show(*Build(bangunan,penyerang));
 				printf("\n");
 				printf("Bangunan musuh sekarang: \n");
-				show(*TI(bangunan)[diserang]);
+				show(*Build(bangunan,diserang));
 			}
 			else if(strcmp(str, "LEVEL_UP") == 0){
 				printf("Daftar Bangunan: \n");
@@ -90,7 +98,7 @@ int main()
 				printf("Bangunan yang akan dilevel-Up: ");
 				scanf("%d", &leveledUp);
 				leveledUp = inputToIndex(turn, leveledUp, P1, P2);
-				levelUp(TI(bangunan)[leveledUp], &S);
+				levelUp(Build(bangunan,leveledUp), &S);
 			}
 			else if(strcmp(str, "MOVE") == 0){
 				printf("Daftar Bangunan: \n");
@@ -103,11 +111,20 @@ int main()
 				printf("Pilih Bangunan: ");
 				scanf("%d", &moved2);
 				moved2 = inputToIndex(turn, moved2, P1, P2);
-				move(TI(bangunan)[moved],TI(bangunan)[moved2],&S, &troops1, &troops2);
+				move(Build(bangunan,moved),Build(bangunan,moved2),&S, &troops1, &troops2);
+			}
+			else if(strcmp(str, "SKILL") == 0){
+
 			}
 			else if(strcmp(str, "END_TURN") == 0){
-				changeTurn(&turn);
-				printf("Sekarang giliran player %d\n", turn);
+				if(isExtraTurn){
+					printf("Sekarang giliranmu lagi");
+					isExtraTurn = false;
+				}
+				else{
+					changeTurn(&turn);
+					printf("Sekarang giliran player %d\n", turn);
+				}
 			}
 		}while(strcmp(str,"END_TURN") != 0);
 	}
