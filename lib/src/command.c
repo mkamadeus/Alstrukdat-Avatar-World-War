@@ -96,9 +96,6 @@ void attack(buildings * C1, buildings * C2, boolean * critical, boolean ignore, 
         }
     }
 
-    printf("troopsAttack = %d\n", troopsAttack);
-    printf("troopsAttacked = %d\n", troopsAttacked);
-
     if(troops(*C2) <= 0){
         owner(*C2) = P;
         changeLevel(C2, 1);
@@ -131,7 +128,6 @@ void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * l
     troops(*C2) = v_troops2;
     troops(*C1) = v_troops1;
     owner(*C2) = v_before;
-    *critical = v_critical;
 }
 
 // void undo(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S, stack * crit){

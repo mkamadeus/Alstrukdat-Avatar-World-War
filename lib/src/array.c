@@ -21,11 +21,11 @@ void dealokasiArray(buildingsArray *T)
 	Neff(*T)=0;
 }
 
-void bacaIsi(buildingsArray *T, buildings C)
+void bacaIsi(TabInt *T, buildings *C)
 /*add pointer inside array to building*/
 {
     Neff(*T)++;
-    Elmt(*T,Neff(*T)) = &C;
+    Elmt(*T,Neff(*T)) = C;
 }
 
 /* CAUTION: ARRAY MUST NOT EMPTY */

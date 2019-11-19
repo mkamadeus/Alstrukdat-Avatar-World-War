@@ -8,7 +8,7 @@ void createStack(stack * S){
     Top(*S) = NULL;
 }
 
-void deallocate(address * P){
+void deallocate(address_ * P){
     free(P);
 }
 
@@ -19,8 +19,8 @@ void deleteAll(stack * S){
     }
 }
 
-address allocate(int X){
-    address P = (address)malloc(sizeof(stackList));
+address_ allocate(int X){
+    address_ P = (address_)malloc(sizeof(stackList));
 	if(P != NULL){
 		Info(P) = X;
 		Next(P) = NULL;
@@ -34,7 +34,7 @@ boolean isEmpty(stack S){
 }
 
 void push(stack * S, int data){
-    address P = allocate(data);
+    address_ P = allocate(data);
     if(P != NULL){
         if(isEmpty(*S)){
             Top(*S) = P;
@@ -55,14 +55,14 @@ void pop(stack * S, int * out){
         printf("Stack kosong\n");
     }
     else{
-        address X;
+        address_ X;
         delA(S, &X);
         *out = Info(X);
         deallocate(&X);
     }
 }
 
-void delA(stack * S, address *P){
+void delA(stack * S, address_ *P){
     *P = Top(*S);
     Top(*S) = Next(*P);
     Next(*P) = NULL;

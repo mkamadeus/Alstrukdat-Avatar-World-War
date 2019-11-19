@@ -53,7 +53,6 @@ void makeFort(buildings * C, own P){
     troops(*C) = 80;
 }
 
-
 /* sebuah objek village terbentuk */
 void makeVillage(buildings * C, own P){
     owner(*C) = P;
