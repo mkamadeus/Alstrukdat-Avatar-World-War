@@ -9,7 +9,7 @@ void ignoreBlank()
 }
 
 // Converts read character to integer
-int bacaAngka() {
+int readNumber() {
     int n = 0;
     
     ignoreBlank();
@@ -21,21 +21,28 @@ int bacaAngka() {
     return n;
 }
 
-/* Fungsi Peta membaca dan mengirim ukuran peta permainan */
-void readConfig()
+// readConfigFile will read config file and make the structure
+void readConfigFile(buildingsArray *arr, graph *G)
 {
     // Start reading config file
     START();
 
     // Read map size
     ignoreBlank();
-    int row = bacaAngka();
+    int row = readNumber();
     ignoreBlank();
-    int col = bacaAngka();
+    int col = readNumber();
 
+    
     // Read building count
     ignoreBlank();
-    int t = bacaAngka();
+    int t = readNumber();
+
+    printf("Map size:%dx%d\nBuilding count:%d\n", row, col, t);
+    printf("Reading building types...\n");
+
+    // Initialize array size
+    makeEmptyArray(arr,t);
 
     for(int i=1;i<=t;i++)
     {
@@ -48,25 +55,35 @@ void readConfig()
         buildings building;
         if(buildingType=='C') makeCastle(&building, 0);
         else if(buildingType=='T') makeTower(&building, 0);
-        else if(buildingType=='F') makeForst(&building, 0);
+        else if(buildingType=='F') makeFort(&building, 0);
         else if(buildingType=='V') makeVillage(&building, 0);
         
         // Read building coordinate
         ignoreBlank();
-        int buildingRow = bacaAngka();
+        int buildingRow = readNumber();
         ignoreBlank();
-        int buildingCol = bacaAngka();
+        int buildingCol = readNumber();
         
-        // Construct buildingCoord
-        buildingCoord bc = makeBuildingCoord(&building, buildingRow, buildingCol);
-
-        // Send to array
+        // Construct and send to array
+        Elmt(*arr, i) = makeBuildingCoord(&building, buildingRow, buildingCol);
         
     }
 
-    printf("Map size:%dx%d\n", row, col);
-    
-    // createEmpty(row,col,map);
+    printf("Building graph...\n");
+    // Initialize graph
+    createGraph(G,t);
+
+    for(int i=1;i<=17;i++)
+    {
+        for(int j=1;j<=17;j++)
+        {
+            ignoreBlank();
+            int connection = readNumber();
+            if(connection) insertChild(G,i,j);
+        }
+    }
+
+    printGraph(*G);
 }
 
 // /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
@@ -108,7 +125,7 @@ void readConfig()
 //     ignoreBlank();
 //     Peta(&map);
 //     ignoreBlank();
-//     n = bacaAngka();
+//     n = readNumber();
 //     makeEmptyArray(&BArr,n);
 //     ignoreBlank();
 //     for (i = 1; i <= n; i++) {
@@ -119,7 +136,7 @@ void readConfig()
 //     ignoreBlank();
 //     for (i = 1;i <= n; i++) {
 //         for (j = 1; j<= n; j++) {
-//             M[i][j] = bacaAngka();
+//             M[i][j] = readNumber();
 //         }
 //     }
 //     EndKata = true;
@@ -130,7 +147,7 @@ void printASCIIFile()
     START();
     while(!EOP)
     {
-        int n = bacaAngka();
+        int n = readNumber();
         printf("%d ", n);
     }
 }

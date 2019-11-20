@@ -6,6 +6,7 @@
 # include "boolean.h"
 # include "array.h"
 # include "matrix.h"
+# include "graph.h"
 
 #define IdxMax 100
 
@@ -14,11 +15,11 @@ extern boolean EndKata;
 /* Mengabaikan satu atau lebih Blank */
 void ignoreBlank();
 
-/* Fungsi BacaAngka membaca dan mengirim satu buah angka */
-int bacaAngka();
+/* Fungsi readNumber membaca dan mengirim satu buah angka */
+int readNumber();
 
-/* Fungsi Peta membaca dan mengirim ukuran peta permainan */
-void readConfig();
+// readConfigFile will read config file and make the structure
+void readConfigFile(buildingsArray *arr, graph *G);
 
 /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
 buildingCoord bangunan();

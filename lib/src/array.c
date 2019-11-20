@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/array.h"
@@ -21,11 +20,11 @@ void dealokasiArray(buildingsArray *T)
 	Neff(*T)=0;
 }
 
-void bacaIsi(buildingsArray *T, buildings C)
+void bacaIsi(buildingsArray *T, buildingCoord *C)
 /*add pointer inside array to building*/
 {
     Neff(*T)++;
-    Elmt(*T,Neff(*T)) = &C;
+    Elmt(*T,Neff(*T)) = C;
 }
 
 /* CAUTION: ARRAY MUST NOT EMPTY */
@@ -78,4 +77,3 @@ void printOnOwner(buildingsArray T, own X)
     }
     else printf("Salah input goblok\n");
 }
-
