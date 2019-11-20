@@ -115,6 +115,6 @@ boolean isConnected(graph G, int N, int M)
 		else Q = nextChild(Q);
 	}
 
-	return result
+	return result;
 
 }
