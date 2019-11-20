@@ -25,9 +25,15 @@ vAddress allocateNodeV(infotype N)
 	if(P != NULL)
 	{
 		info(P) = N;
-		next(P) = NULL;
+		nextChild(P) = NULL;
 	}
 	return P;
+}
+
+// Check if Node empty
+boolean isNodeEmpty(uAddress P)
+{
+	return child(P) == NULL;
 }
 
 // Make empty graph with nodeCount nodes
@@ -45,27 +51,51 @@ void createGraph(graph *G, int nodeCount)
 
 }
 
-// Make connections from node to [connections]
-void insertConnections(graph *G, int node, int *connections, int connectionsCount)
+// Insert connection from node N to node M 
+// I.S : Graph is defined
+void insertChildP(uAddress P, int M)
 {
-	uAddress P = first(*G);
-	while(info(P) != node && P != NULL) P = next(P);
-
-	if(P == NULL)
-	{
-		printf("Node invalid.\n")
-		return;
-	}
+	vAddress Q = allocateNodeV(M);
+	if(isNodeEmpty(P)) child(P) = Q;
 	else
 	{
-		vAddress Q = allocateNodeV(connections[0]);
-		child(P) = Q;
-		for(int i=1;i<connectionsCount;i++)
+		// Traverse child
+		vAddress V = child(P);
+		while(nextChild(V)!=NULL) V = nextChild(V);
+
+		// Insert last
+		nextChild(V)=Q;
+	}
+	
+}
+
+// Insert connection in node n
+// I.S : Graph  is defined
+void insertChild(graph *G, int N, int M)
+{
+	uAddress P = first(*G);
+	for(int i=2;i<=N;i++) P = next(P);
+	insertChildP(P, M);
+}
+
+// Output graph for testing
+void printGraph(graph G)
+{
+	uAddress P  = first(G);
+	while(P!=NULL)
+	{
+		printf("Node %d is connected to:\n", info(P));
+		
+		// Traverse connections
+		vAddress Q = child(P);
+		while(Q!=NULL)
 		{
-			vAddress Qtemp = allocateNodeV(connections[i]);
-			next(Q) = Qtemp;
-			Q = Qtemp;
+			printf("\tNode %d\n", info(Q));
+			Q = nextChild(Q);
 		}
+		printf("==================================\n");
+
+		P = next(P);
 	}
 	
 }
