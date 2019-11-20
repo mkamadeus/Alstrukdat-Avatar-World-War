@@ -59,4 +59,7 @@ void insertChild(graph *G, int N, int M);
 // Output graph for testing
 void printGraph(graph G);
 
+// Check if node N is connected to node M
+boolean isConnected(graph G, int N, int M);
+
 #endif

@@ -99,3 +99,22 @@ void printGraph(graph G)
 	}
 	
 }
+
+// Check if node N is connected to node M
+boolean isConnected(graph G, int N, int M)
+{
+	uAddress P = first(G);
+	boolean result = false;
+
+	for(int i=2;i<=N;i++) P = next(P);
+
+	vAddress Q = child(P);
+	while(!result && Q!=NULL)
+	{
+		if(info(Q)==M) result=true;
+		else Q = nextChild(Q);
+	}
+
+	return result
+
+}
