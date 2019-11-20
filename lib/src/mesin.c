@@ -1,100 +1,136 @@
 # include "../include/mesin.h"
 # include <stdio.h>
 
-void IgnoreBlank()
-/* Mengabaikan satu atau lebih Blank */
+// Advances until CC is not blank
+void ignoreBlank()
 {
-    /* KAMUS LOKAL */
-
-    /* ALGORITMA */
-    while ((CC == BLANK) && (CC != EOF)) {
-        ADV();
-    }
+    // While not blank
+    while (CC != EOF && (CC == ' ' || CC == '\n')) ADV();
 }
 
-int BacaAngka() {
-    int n, temp;
-    IgnoreBlank();
-    while ((CC != EOF) && (CC != BLANK)) {
-        n = n *10 + (int)CC;
+// Converts read character to integer
+int bacaAngka() {
+    int n = 0;
+    
+    ignoreBlank();
+    while (!EOP && CC != EOF && CC != ' ' && CC != '\n') {
+        n = n*10 + (CC-'0');
         ADV();
     }
-    IgnoreBlank();
+
     return n;
 }
 
-matrix Peta (matrix *map)
 /* Fungsi Peta membaca dan mengirim ukuran peta permainan */
+void readConfig()
 {
-    int i, row, col, temp;
-
-    row = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        row = row * 10 + (int)CC;
-        ADV();
-    }
-    IgnoreBlank();
-    col = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        col = col * 10 + (int)CC;
-        ADV();
-    }
-    createEmpty(row,col,map);
-    return *map;
-}
-
-buildingCoord Bangunan()
-/* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
-{
-    buildings B;
-    int row, col;
-
-    IgnoreBlank();
-    if (CC == 'C') makeCastle(&B,0);
-    else if (CC == 'F') makeFort(&B,0);
-    else if (CC == 'T') makeTower(&B,0);
-    else if (CC == 'V') makeVillage(&B,0);//kondisikan ownernya
-    ADV();
-    IgnoreBlank();
-    row = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        row = row * 10 + (int)CC;
-        ADV();
-    }
-    IgnoreBlank();
-    col = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        col = col * 10 + (int)CC;
-        ADV();
-    }
-    return makeBuildingCoord (&B,row,col);
-}
-
-int BacaFile () {
-    matrix map;
-    int n, i, j;
-    buildingCoord B;
-    TabInt BArr;
-    int M[IdxMax][IdxMax];//graph (?)
-
+    // Start reading config file
     START();
-    IgnoreBlank();
-    map = Peta(&map);
-    IgnoreBlank();
-    n = BacaAngka();
-    makeEmptyArray(&BArr,n);
-    IgnoreBlank();
-    for (i = 1; i <= n; i++) {
-        B = Bangunan();
-        bacaIsi(&BArr,B);
-        insertStructure(&map,B);
+
+    // Read map size
+    ignoreBlank();
+    int row = bacaAngka();
+    ignoreBlank();
+    int col = bacaAngka();
+
+    // Read building count
+    ignoreBlank();
+    int t = bacaAngka();
+
+    for(int i=1;i<=t;i++)
+    {
+        // Read building type
+        ignoreBlank();
+        ADV();
+        char buildingType = CC;
+
+        // Construct buildings
+        buildings building;
+        if(buildingType=='C') makeCastle(&building, 0);
+        else if(buildingType=='T') makeTower(&building, 0);
+        else if(buildingType=='F') makeForst(&building, 0);
+        else if(buildingType=='V') makeVillage(&building, 0);
+        
+        // Read building coordinate
+        ignoreBlank();
+        int buildingRow = bacaAngka();
+        ignoreBlank();
+        int buildingCol = bacaAngka();
+        
+        // Construct buildingCoord
+        buildingCoord bc = makeBuildingCoord(&building, buildingRow, buildingCol);
+
+        // Send to array
+        
     }
-    IgnoreBlank();
-    for (i = 1;i <= n; i++) {
-        for (j = 1; j<= n; j++) {
-            M[i][j] = BacaAngka();
-        }
+
+    printf("Map size:%dx%d\n", row, col);
+    
+    // createEmpty(row,col,map);
+}
+
+// /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
+// buildingCoord bangunan()
+// {
+//     buildings B;
+//     int row, col;
+
+//     ignoreBlank();
+//     if (CC == 'C') makeCastle(&B,0);
+//     else if (CC == 'F') makeFort(&B,0);
+//     else if (CC == 'T') makeTower(&B,0);
+//     else if (CC == 'V') makeVillage(&B,0);//kondisikan ownernya
+//     ADV();
+//     ignoreBlank();
+//     row = 0;
+//     while ((CC != EOF) && (CC != ' ')) {
+//         row = row * 10 + (int)CC;
+//         ADV();
+//     }
+//     ignoreBlank();
+//     col = 0;
+//     while ((CC != EOF) && (CC != ' ')) {
+//         col = col * 10 + (int)CC;
+//         ADV();
+//     }
+//     return makeBuildingCoord (&B,row,col);
+// }
+
+// /* Prosedur untuk membaca file */
+// void bacaFile () {
+//     matrix map;
+//     int n, i, j;
+//     buildingCoord B;
+//     buildingsArray BArr;
+//     int M[IdxMax][IdxMax];//graph (?)
+
+//     START();
+//     ignoreBlank();
+//     Peta(&map);
+//     ignoreBlank();
+//     n = bacaAngka();
+//     makeEmptyArray(&BArr,n);
+//     ignoreBlank();
+//     for (i = 1; i <= n; i++) {
+//         B = bangunan();
+//         bacaIsi(&BArr,B);
+//         insertStructure(&map,B);
+//     }
+//     ignoreBlank();
+//     for (i = 1;i <= n; i++) {
+//         for (j = 1; j<= n; j++) {
+//             M[i][j] = bacaAngka();
+//         }
+//     }
+//     EndKata = true;
+// }
+
+void printASCIIFile()
+{
+    START();
+    while(!EOP)
+    {
+        int n = bacaAngka();
+        printf("%d ", n);
     }
-    EndKata = true;
-    return 0;
 }

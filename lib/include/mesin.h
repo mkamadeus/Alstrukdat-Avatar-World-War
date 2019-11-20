@@ -8,22 +8,25 @@
 # include "matrix.h"
 
 #define IdxMax 100
-#define BLANK ' '
 
 extern boolean EndKata;
 
-void IgnoreBlank();
 /* Mengabaikan satu atau lebih Blank */
+void ignoreBlank();
 
-int BacaAngka();
 /* Fungsi BacaAngka membaca dan mengirim satu buah angka */
+int bacaAngka();
 
-matrix Peta (matrix *map);
 /* Fungsi Peta membaca dan mengirim ukuran peta permainan */
+void readConfig();
 
-buildingCoord Bangunan();
 /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
+buildingCoord bangunan();
 
-int BacaFile ();
+// Procedure for reading file
+void bacaFile ();
+
+// Print ASCII of character (for debugging purposes)
+void printASCIIFile();
 
 #endif

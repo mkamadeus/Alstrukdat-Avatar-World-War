@@ -10,7 +10,6 @@ boolean EOP;
 static FILE * pita;
 static int retval;
 
-void START() {
 /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
    Karakter pertama yang ada pada pita posisinya adalah pada jendela.
    I.S. : sembarang
@@ -18,11 +17,12 @@ void START() {
           Jika CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
+void START() {
     pita = fopen("pitakar.txt","r");
+    EOP = false;
     ADV();
 }
 
-void ADV() {
 /* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela =
           CC, CC != MARK
@@ -31,9 +31,11 @@ void ADV() {
           Jika  CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-    retval = fscanf(pita,"%c",&CC);
-    EOP = (CC == MARK);
-    if (EOP) {
-       fclose(pita);
+void ADV() {
+    // Advances if not EOF (return value of EOF when fscanf fails is -1)
+    if (fscanf(pita,"%c",&CC)==EOF)
+    {
+        EOP = true;
+        fclose(pita);
     }
 }
