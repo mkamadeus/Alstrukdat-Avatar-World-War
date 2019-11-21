@@ -1,6 +1,8 @@
 # include "../include/mesin.h"
 # include <stdio.h>
 
+static char configFilename[] = "config.conf";
+
 // Advances until CC is not blank
 void ignoreBlank()
 {
@@ -8,8 +10,9 @@ void ignoreBlank()
     while (CC != EOF && (CC == ' ' || CC == '\n')) ADV();
 }
 
-// Converts read character to integer
-int readNumber() {
+// readNumber parses input to be an integer
+int readNumber()
+{
     int n = 0;
     
     ignoreBlank();
@@ -21,11 +24,27 @@ int readNumber() {
     return n;
 }
 
+// readSTDIN will input from STDIN and convert it to ADT Word
+void readSTDIN(word *input)
+{
+    STARTSTDIN();
+
+    // Initialize word
+    (*input).length = 0;
+
+    while(!EOP && CC!='\n')
+    {
+        (*input).wordArray[(*input).length] = CC;
+        ++(*input).length;
+        ADVSTDIN();
+    }
+}
+
 // readConfigFile will read config file and make the structure
 void readConfigFile(buildingsArray *arr, graph *G)
 {
     // Start reading config file
-    START();
+    START(configFilename);
 
     // Read map size
     ignoreBlank();
@@ -86,68 +105,19 @@ void readConfigFile(buildingsArray *arr, graph *G)
     printGraph(*G);
 }
 
-// /* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
-// buildingCoord bangunan()
-// {
-//     buildings B;
-//     int row, col;
-
-//     ignoreBlank();
-//     if (CC == 'C') makeCastle(&B,0);
-//     else if (CC == 'F') makeFort(&B,0);
-//     else if (CC == 'T') makeTower(&B,0);
-//     else if (CC == 'V') makeVillage(&B,0);//kondisikan ownernya
-//     ADV();
-//     ignoreBlank();
-//     row = 0;
-//     while ((CC != EOF) && (CC != ' ')) {
-//         row = row * 10 + (int)CC;
-//         ADV();
-//     }
-//     ignoreBlank();
-//     col = 0;
-//     while ((CC != EOF) && (CC != ' ')) {
-//         col = col * 10 + (int)CC;
-//         ADV();
-//     }
-//     return makeBuildingCoord (&B,row,col);
-// }
-
-// /* Prosedur untuk membaca file */
-// void bacaFile () {
-//     matrix map;
-//     int n, i, j;
-//     buildingCoord B;
-//     buildingsArray BArr;
-//     int M[IdxMax][IdxMax];//graph (?)
-
-//     START();
-//     ignoreBlank();
-//     Peta(&map);
-//     ignoreBlank();
-//     n = readNumber();
-//     makeEmptyArray(&BArr,n);
-//     ignoreBlank();
-//     for (i = 1; i <= n; i++) {
-//         B = bangunan();
-//         bacaIsi(&BArr,B);
-//         insertStructure(&map,B);
-//     }
-//     ignoreBlank();
-//     for (i = 1;i <= n; i++) {
-//         for (j = 1; j<= n; j++) {
-//             M[i][j] = readNumber();
-//         }
-//     }
-//     EndKata = true;
-// }
-
 void printASCIIFile()
 {
-    START();
+    START(configFilename);
     while(!EOP)
     {
         int n = readNumber();
         printf("%d ", n);
     }
+}
+
+// Print word
+void printWord(word W)
+{
+    for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
+    printf("\n");
 }

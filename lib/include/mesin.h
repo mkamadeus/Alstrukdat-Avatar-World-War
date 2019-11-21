@@ -8,26 +8,31 @@
 # include "matrix.h"
 # include "graph.h"
 
-#define IdxMax 100
+#define maxLength 100
+
+typedef struct {
+    char wordArray[maxLength+1];
+    int length;
+} word;
 
 extern boolean EndKata;
 
-/* Mengabaikan satu atau lebih Blank */
+// ignoreBlank skips input character if its blank/\n
 void ignoreBlank();
 
-/* Fungsi readNumber membaca dan mengirim satu buah angka */
+// readNumber parses input to be an integer
 int readNumber();
+
+// readSTDIN will input from STDIN and convert it to ADT Word
+void readSTDIN(word *input);
 
 // readConfigFile will read config file and make the structure
 void readConfigFile(buildingsArray *arr, graph *G);
 
-/* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
-buildingCoord bangunan();
-
-// Procedure for reading file
-void bacaFile ();
-
 // Print ASCII of character (for debugging purposes)
 void printASCIIFile();
+
+// Print word
+void printWord(word W);
 
 #endif

@@ -4,6 +4,7 @@
 #ifndef __MESIN_KAR_H_
 #define __MESIN_KAR_H_
 
+#include <string.h>
 #include "boolean.h"
 
 #define MARK EOF
@@ -17,7 +18,10 @@ extern boolean EOP;
    F.S. : CC adalah karakter pertama pada pita
           Jika CC != MARK maka EOP akan padam (false)
           Jika CC = MARK maka EOP akan menyala (true) */
-void START();
+void START(char* filename);
+
+// Mesin kata for STDIN
+void STARTSTDIN();
 
 /* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela = CC, CC != MARK
@@ -25,5 +29,7 @@ void START();
           CC mungkin = MARK
           Jika  CC = MARK maka EOP akan menyala (true) */
 void ADV();
+
+void ADVSTDIN();
 
 #endif

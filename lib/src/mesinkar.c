@@ -17,10 +17,18 @@ static int retval;
           Jika CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-void START() {
-    pita = fopen("pitakar.txt","r");
+void START(char* filename) {
+    pita = fopen(filename,"r");
     EOP = false;
     ADV();
+}
+
+// Mesin kata for STDIN
+void STARTSTDIN()
+{
+    pita = stdin;
+    EOP = false;
+    ADVSTDIN();
 }
 
 /* Pita dimajukan satu karakter.
@@ -34,6 +42,15 @@ void START() {
 void ADV() {
     // Advances if not EOF (return value of EOF when fscanf fails is -1)
     if (fscanf(pita,"%c",&CC)==EOF)
+    {
+        EOP = true;
+        fclose(pita);
+    }
+}
+
+void ADVSTDIN()
+{
+    if (fscanf(pita,"%c",&CC)=='\n')
     {
         EOP = true;
         fclose(pita);
