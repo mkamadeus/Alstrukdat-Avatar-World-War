@@ -2,16 +2,16 @@
 #include <stdlib.h>
 #include "../include/linkedlist.h"
 
-// Test whether linked list is empty or not, first(L) = NULL
+// Test whether linked list is empty or not, firstList(L) = NULL
 boolean isEmpty(linkedList L)
 {
-	return first(L)==NULL && last(L)==NULL;
+	return firstList(L)==NULL && last(L)==NULL;
 }
 
 // Empty linked list constructor
 void createEmpty(linkedList *L)
 {
-	first(*L) = NULL;
+	firstList(*L) = NULL;
 	last(*L) = NULL;
 }
 
@@ -34,10 +34,10 @@ void deallocateNode(address P)
 	free(P);
 }
 
-// Returns the first node that contains X
+// Returns the firstList node that contains X
 address search(linkedList L, infotype X)
 {
-	address P = first(L);
+	address P = firstList(L);
 	boolean found = false;
 
 	while(!found && P != NULL) 
@@ -48,6 +48,21 @@ address search(linkedList L, infotype X)
 
 	if(found) return P;
 	else return NULL;
+}
+
+// Returns boolean when find X
+boolean searchB(linkedList L, infotype X){
+	address P = firstList(L);
+	boolean found = false;
+	while(!found && P != NULL){
+		if(info(P) == X){
+			found = true;
+		}
+		else{
+			P = next(P);
+		}
+	}
+	return found;
 }
 
 // Insert element containing X at the front of list
@@ -62,7 +77,6 @@ void insertValueFirst(linkedList *L, infotype X)
 void insertValueLast(linkedList *L, infotype X)
 {
 	address P = allocateNode(X);
-
 	if(P != NULL) insertNodeLast(L, P);
 }
 
@@ -73,6 +87,33 @@ void deleteValueFirst(linkedList *L, infotype *X)
 	deleteNodeFirst(L, &P);
 	*X = info(P);
 	deallocateNode(P);
+}
+
+void deleteValue(linkedList *L, infotype X){
+	address Y = firstList(*L);
+	address prec;
+	int count = 0;
+    if(!isEmpty(*L)){
+        while(info(Y) != X && next(Y) != NULL){
+            prec = Y;
+            Y = next(Y);
+            count++;
+        }
+        if(info(Y) == X){
+            if(count != 0){
+                next(prec) = next(Y);
+                deallocateNode(Y);
+            }
+            else{
+                if(length(*L) != 1){
+                    firstList(*L) = next(firstList(*L));
+                }
+                else{
+                    createEmpty(L);
+                }
+            }
+        }
+    }
 }
 
 // Insert element containing X at the back of list
@@ -89,16 +130,19 @@ void insertNodeFirst(linkedList *L, address P)
 {
 	if(isEmpty(*L)) last(*L) = P;
 	
-	next(P) = first(*L); 
-	first(*L) = P;
+	next(P) = firstList(*L); 
+	firstList(*L) = P;
 }
 
 // Insert node at last if the node P has been allocated
 void insertNodeLast(linkedList *L, address P)
 {
-	if(isEmpty(*L)) first(*L) = P;
-	else next(last(*L)) = P;
-	
+	if(isEmpty(*L)) {
+		firstList(*L) = P;
+	}
+	else {
+		next(last(*L)) = P;
+	}
 	last(*L) = P;
 }
 
@@ -112,11 +156,11 @@ void insertNodeAfter(linkedList *L, address P, address Prev)
 // Delete first node and return it to P (no deallocation)
 void deleteNodeFirst(linkedList *L, address *P)
 {
-	*P = first(*L);
-	first(*L) = next(*P);
+	*P = firstList(*L);
+	firstList(*L) = next(*P);
 	next(*P) = NULL;
 
-	if(first(*L)==NULL) last(*L) = NULL; 
+	if(firstList(*L)==NULL) last(*L) = NULL; 
 }
 
 // Delete last node and return it to P (no deallocation)
@@ -125,7 +169,7 @@ void deleteNodeLast(linkedList *L, address *P)
 	*P = last(*L);
 
 	address prec = NULL;
-	address ls = first(*L);
+	address ls = firstList(*L);
 
 	while(ls != last(*L))
 	{
@@ -135,7 +179,7 @@ void deleteNodeLast(linkedList *L, address *P)
 
 	if(prec == NULL)
 	{
-		first(*L) = NULL;
+		firstList(*L) = NULL;
 		last(*L) = NULL;	
 	}
 	else
@@ -157,7 +201,7 @@ void deleteNodeAfter(linkedList *L, address *P, address Prev)
 // Return linked list length
 int length(linkedList L)
 {
-	address P = first(L);
+	address P = firstList(L);
 	int result = 0;
 
 	while(P != NULL)
@@ -174,7 +218,7 @@ void printInfo (linkedList L)
     printf("[");
     if(!isEmpty(L))
     {
-        address P=first(L);
+        address P=firstList(L);
         while(next(P)!=NULL)
         {
             printf("%d,",info(P));
@@ -183,4 +227,11 @@ void printInfo (linkedList L)
         printf("%d", info(P));
     }
     printf("]");
+}
+
+void deleteEverything(linkedList * L){
+	int X;
+	while(firstList(*L) != NULL){
+		deleteValueLast(L,&X);
+	}
 }

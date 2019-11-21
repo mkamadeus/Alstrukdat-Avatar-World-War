@@ -10,6 +10,7 @@ addressBuildings allocateBuilding()
 }
 
 /* Mengeluarkan status bangunan */
+
 void show(buildings C){
     printf("Owner = %d\n", owner(C));
     if(type(C) == 1){

@@ -42,5 +42,10 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
 
 // Load from file
 void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2);
+// Word to int converter
+int intConverter(word W);
+
+// Word Compare
+boolean wordCompare(word W, char * S);
 
 #endif

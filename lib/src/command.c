@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/boolean.h"
-#include "../include/buildings.h"
+
 #include "../include/command.h"
-#include "../include/stack.h"
 
 void showBuildings(int * N){
     /* TO DO */
@@ -15,7 +13,7 @@ void showBuildings(int * N){
     scanf("%d", *N);
 }
 
-void levelUp(buildings * C, stack * S){
+void levelUp(buildings * C, stack * S, boolean * isSuccess){
     /* TO DO */
     /* Menambahkan showBuildings */
     /* DEBUG */
@@ -28,13 +26,16 @@ void levelUp(buildings * C, stack * S){
             push(S, 1);
             troops(*C) = remains;
             changeLevel(C, level(*C)+1);
+            *isSuccess = true;
         }
         else{
             printf("Pasukan tidak mencukupi\n");
+            *isSuccess = false;
         }
     }
     else{
         printf("Bangunan sudah mencapai level maksimum\n");
+        *isSuccess = false;
     }
 }
 
@@ -56,7 +57,7 @@ void increaseTroops(buildings * C){
     }
 }
 
-void attack(buildings * C1, buildings * C2, int troopsUsed,boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
+void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
     /* C1 menyerang C2 */
     /* TO DO */
     /* Debug */
@@ -79,30 +80,40 @@ void attack(buildings * C1, buildings * C2, int troopsUsed,boolean * critical, b
         int troopsAttacked;
         int troopsAttack = troopsUsed;
 
+        printf("troops C2 awal = %d\n", troops(*C2));
+
         if(ignore && !(*critical)){
             troopsAttacked = troops(*C2);
-            troops(*C2) -= troops(*C1);
+            troops(*C2) -= troopsUsed;
         }
         else if((ignore && (*critical)) || ((*critical) && !ignore)){
             troopsAttacked = troops(*C2)/2;
-            troops(*C2) -= 2*troops(*C1);
+            troops(*C2) -= 2*troopsUsed;
             *critical = false;
         }
         else{
             if(defense(*C2)){
                 troopsAttacked = 4*troops(*C2)/3;
-                troops(*C2) -= troops(*C1)*3/4;
+                troops(*C2) -= troopsUsed*3/4;
             }
             else{
                 troopsAttacked = troops(*C2);
-                troops(*C2) -= troops(*C1);
+                troops(*C2) -= troopsUsed;
             }
         }
 
+        printf("troops C2 = %d\n", troops(*C2));
         if(troops(*C2) <= 0){
             owner(*C2) = P;
             changeLevel(C2, 1);
+            printf("troops = %d\n", troops(*C2));
+            printf("troopsAttack = %d\n", troopsAttack);
+            printf("troopsAttacked = %d\n", troopsAttacked);
             troops(*C2) = troopsAttack - troopsAttacked;
+            *isCaptured = true;
+        }
+        else{
+            *isCaptured = false;
         }
         troops(*C1) -= troopsUsed;
     }
@@ -151,15 +162,17 @@ void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * tr
     /* TO DO */
     /* DEBUG */
     push(S, 3);
-    int troopsCount;
+    word troopsCount;
+    int troopsCount_;
     do{
-        scanf("%d", troopsCount);
-        if(troopsCount > troops(*C1)){
+        readSTDIN(&troopsCount);
+        troopsCount_ = intConverter(troopsCount);
+        if(troopsCount_ > troops(*C1)){
             printf("Jumlah pasukan tidak mencukupi\n");
         }
-    } while(troopsCount > troops(*C1));
-    troops(*C1) -= troopsCount;
-    troops(*C2) += troopsCount;
+    } while(troopsCount_ > troops(*C1));
+    troops(*C1) -= troopsCount_;
+    troops(*C2) += troopsCount_;
 }
 
 void inverseMove(buildings * C1, buildings * C2, stack * troops1, stack * troops2){

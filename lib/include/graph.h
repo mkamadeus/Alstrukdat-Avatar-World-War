@@ -59,4 +59,7 @@ void printGraph(graph G);
 // Check if node N is connected to node M
 boolean isConnected(graph G, int N, int M);
 
+// // Check how many buildings are connected
+// int connectedBuildings(graph G, int N, int M);
+
 #endif

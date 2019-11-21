@@ -30,6 +30,9 @@ void createStack(stack * S);
 void dealocate(stack * S);
 /* Menghapus stack */
 
+void deleteAll(stack * S);
+/* Menghapus semua stack */
+
 boolean isEmpty(stack S);
 /* return true jika kosong */
 

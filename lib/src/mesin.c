@@ -68,6 +68,8 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
     printf("%d\n", t);
 
     colorPrint("Reading building states...\n", BRIGHT);
+    printf("Map size: %dx%d\nBuilding count: %d\n", row, col, t);
+    printf("Reading building types...\n");
 
     // Initialize array size
     makeEmptyArray(arr,t);
@@ -262,6 +264,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
         }
     }
 
+<<<<<<< HEAD
     // Read turn state
     ignoreBlank();
     *turn = readNumber();
@@ -292,6 +295,9 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     }
 
     colorPrint("Save file loaded, ready to play!\n", GREEN);
+=======
+    // printGraph(*G);
+>>>>>>> florencia-ATTACK
 }
 
 /* -=-=-=-=-=-=-=- FOR DEBUGGING PURPOSES -=-=-=-=-=-=-=- */
@@ -312,3 +318,32 @@ void printWord(word W)
     for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
     printf("\n");
 }
+<<<<<<< HEAD
+=======
+
+int intConverter(word W){
+    int result = 0;
+    int temp;
+    for(int i = 0; i < W.length; i++){
+        temp = (int) W.wordArray[i] - '0';
+        result = result * 10 + temp;
+    }
+    return result;
+}
+
+boolean wordCompare(word W, char * S){
+    boolean result = true;
+    int i;
+    for(i = 0; i < W.length; i++){
+        char temp = (char) W.wordArray[i];
+        if(temp != S[i]){
+            result = false;
+        }
+    }
+    int a = strlen(S);
+    if(W.length != a){
+        result = false;
+    }
+    return result;
+}
+>>>>>>> florencia-ATTACK
