@@ -62,8 +62,12 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
     ignoreBlank();
     int t = readNumber();
 
-    printf("Map size: %dx%d\nBuilding count: %d\n", row, col, t);
-    printf("Reading building types...\n");
+    colorPrint("Map size: ", CYAN);
+    printf("%dx%d\n", row, col);
+    colorPrint("Building count: ", CYAN);
+    printf("%d\n", t);
+
+    colorPrint("Reading building states...\n", BRIGHT);
 
     // Initialize array size
     makeEmptyArray(arr,t);
@@ -118,6 +122,10 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
 // Save to file
 void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2)
 {
+    colorPrint("Loading ", NORMAL);
+    colorPrint("savefile.dat", UNDERSCORE);
+    colorPrint("...", NORMAL);
+    
     savefile = fopen(savefileFilename, "w");
     // Output map size
     fprintf(savefile,"%d %d\n", nRowEff(*M)-1, nColEff(*M)-1);
@@ -186,8 +194,12 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     ignoreBlank();
     int t = readNumber();
 
-    printf("Map size: %dx%d\nBuilding count: %d\n", row, col, t);
-    printf("Reading building states...\n");
+    colorPrint("Map size: ", BRIGHT);
+    printf("%dx%d\n", row, col);
+    colorPrint("Building count: ", BRIGHT);
+    printf("%d\n", t);
+
+    colorPrint("Reading building states...\n", BRIGHT);
 
     // Initialize array size
     makeEmptyArray(arr,t);
@@ -236,7 +248,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
         
     }
 
-    printf("Building graph...\n");
+    colorPrint("Building graph...\n", BRIGHT);
     // Initialize graph
     createGraph(G,t);
 
@@ -278,11 +290,8 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
         ignoreBlank();
         (*Q2).T[i] = readNumber();
     }
-    char completeMessage[] = "Save file loaded, ready to play!";
-    int i=0;
-    while(completeMessage[i]!='\0') print_green(completeMessage[i++]);
-    printf("\n");
-    // printGraph(*G);
+
+    colorPrint("Save file loaded, ready to play!\n", GREEN);
 }
 
 /* -=-=-=-=-=-=-=- FOR DEBUGGING PURPOSES -=-=-=-=-=-=-=- */
