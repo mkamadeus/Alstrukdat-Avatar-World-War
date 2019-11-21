@@ -20,7 +20,7 @@ extern boolean EOP;
           Jika CC = MARK maka EOP akan menyala (true) */
 void START(char* filename);
 
-// Mesin kata for STDIN
+// Mesin karakter for STDIN
 void STARTSTDIN();
 
 /* Pita dimajukan satu karakter.

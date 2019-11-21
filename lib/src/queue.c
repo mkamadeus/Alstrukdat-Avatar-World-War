@@ -1,8 +1,8 @@
 #include "../include/queue.h"
-#include <stdlib.h>
 
 void createEmpty (queue * Q){
 	(*Q).T = (infotype*) malloc((Max+1) * sizeof(infotype));
+	for(int i=1;i<=10;i++) (*Q).T[i]=0;
 	Head(*Q) = unDef;
 	Count(*Q) = 0;
 	maxEl(*Q) = Max;

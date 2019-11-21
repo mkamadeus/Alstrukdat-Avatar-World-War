@@ -6,6 +6,7 @@
 #ifndef queue_H
 #define queue_H
 
+#include <stdlib.h>
 #include "boolean.h"
 #define unDef -1
 #define Max 10

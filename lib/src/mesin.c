@@ -2,6 +2,9 @@
 # include <stdio.h>
 
 static char configFilename[] = "config.conf";
+static char savefileFilename[] = "savefile.dat";
+
+static FILE * savefile;
 
 // Advances until CC is not blank
 void ignoreBlank()
@@ -125,3 +128,53 @@ void printWord(word W)
     for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
     printf("\n");
 }
+
+// Save to file
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2)
+{
+    savefile = fopen(savefileFilename, "w");
+    // Output map size
+    fprintf(savefile,"%d %d\n", nRowEff(*M)-1, nColEff(*M)-1);
+
+    // Output building count
+    int t=MaxEl(*arr);
+    fprintf(savefile,"%d\n", t);
+
+    // Output all bulding with its state
+    // Format : type rb cb owner level troops defense
+    for(int i=1;i<=t;i++)
+    {
+        char type;
+        if(type(*build(*Elmt(*arr,i)))==1) type='C';
+        else if(type(*build(*Elmt(*arr,i)))==2) type='T';
+        else if(type(*build(*Elmt(*arr,i)))==3) type='F';
+        else if(type(*build(*Elmt(*arr,i)))==4) type='V';
+
+        fprintf(savefile, "%c %d %d %d %d %d %d\n", type, row(*Elmt(*arr,i)), col(*Elmt(*arr,i)), owner(*build(*Elmt(*arr,i))), level(*build(*Elmt(*arr,i))), troops(*build(*Elmt(*arr,i))), defense(*build(*Elmt(*arr,i))));
+    }
+
+    // Output graph representation in adjacency list form
+    for(int i=1;i<=t;i++)
+    {
+        for(int j=1;j<=t;j++) fprintf(savefile, "%d ", isConnected(*G, i, j) ? 1 : 0);
+        fprintf(savefile,"\n");
+    }
+
+    // Output for whose turn it is
+    fprintf(savefile, "%d\n", turn);
+    // Output ignore defense state
+    fprintf(savefile, "%d\n", ignore);
+    // Output ignore critical state
+    fprintf(savefile, "%d\n", ignore);
+    // Output extra turn state
+    fprintf(savefile, "%d\n", extraTurn);
+    // Output skill queue for player 1
+    int count=0;
+    for(int i=Head(*Q1);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q1).T[i]);++count;}
+    fprintf(savefile, "\n");
+    // Output skill queue for player 2
+    count=0;
+    for(int i=Head(*Q2);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q2).T[i]);++count;}
+    fprintf(savefile, "\n");
+}
+
