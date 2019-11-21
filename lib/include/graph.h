@@ -34,9 +34,6 @@ typedef struct {
 #define child(P) (P)->firstChild
 #define first(G) ((G).first)
 
-// Create empty graph
-void createEmpty(graph* G);
-
 // Allocate node for incoming node
 uAddress allocateNodeU(infotype N);
 

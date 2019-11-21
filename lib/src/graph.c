@@ -1,10 +1,5 @@
 #include "../include/graph.h"
 
-void createEmpty(graph* G)
-{
-	first(*G) = NULL;	
-}
-
 // Allocate node for incoming node
 uAddress allocateNodeU(infotype N)
 {

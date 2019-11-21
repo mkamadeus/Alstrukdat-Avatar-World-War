@@ -27,7 +27,7 @@ typedef struct {
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
 /* *** matrix Constructor *** */
-void createEmpty (int NR, int NC, matrix * M);
+void createEmptyMatrix(int NR, int NC, matrix * M);
 /* Creating "empty" matrix ready to use*/
 /* I.S. NR dan NC are valid */
 /* F.S. Matriks M created as defined above */
@@ -36,6 +36,8 @@ void createEmpty (int NR, int NC, matrix * M);
 #define nRowEff(M) (M).nRowEff
 #define nColEff(M) (M).nColEff
 #define buildingPtr(M,i,j) (M).buildingPtr[(i)][(j)]
+#define buildingPtrType(M,i,j) (M).buildingPtr[(i)][(j)]->building->type
+#define buildingPtrOwner(M,i,j) (M).buildingPtr[(i)][(j)]->building->owner
 
 /* *** Selector "matrix" *** */
 boolean isIdxValid (int i, int j);
@@ -54,7 +56,7 @@ boolean isIdxEff (matrix M, index i, index j);
 /* Returns true if i, j is effective index for M */
 
 /* ********** Read/Write ********** */
-void insertStructure (matrix * M, buildingCoord C);
+void insertStructure (matrix * M, buildingCoord *C);
 /* I.S. IsIdxValid(NR,NC) */
 /* F.S. defined effective element of M , Size NR x NC */
 /* Process: Makematrix(M,NR,NC) and write effective value */
