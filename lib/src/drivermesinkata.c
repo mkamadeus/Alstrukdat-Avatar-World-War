@@ -7,12 +7,15 @@ int main()
     graph g;
     matrix m;
     queue q1,q2;
-    createEmpty(&q1);
-    Add(&q1,1);
-    createEmpty(&q2);
-    Add(&q2,2);
-    readConfigFile(&m, &b, &g);
+    // createEmpty(&q1);
+    // Add(&q1,1);
+    // createEmpty(&q2);
+    // Add(&q2,2);
+    // readConfigFile(&m, &b, &g);
 
-    saveToFile(&m, &b,&g,1,0,0,0,&q1,&q2);    
+    int t;
+    boolean i,c,e;
 
+    loadFromFile(&m, &b,&g,&t,&i,&c,&e,&q1,&q2);   
+    saveToFile(&m, &b,&g,t,i,c,e,&q1,&q2);    
 }
