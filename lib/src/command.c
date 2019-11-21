@@ -56,54 +56,56 @@ void increaseTroops(buildings * C){
     }
 }
 
-void attack(buildings * C1, buildings * C2, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
+void attack(buildings * C1, buildings * C2, int troopsUsed,boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
     /* C1 menyerang C2 */
     /* TO DO */
     /* Debug */
-
-    push(troops1, troops(*C1));
-    push(troops2, troops(*C2));
-    push(level, level(*C2));
-    push(before, owner(*C2));
-    if(*critical){
-        push(crit, 1);
+    if(troopsUsed > troops(*C1)){
+        printf("Pasukan tidak mencukupi\n");
     }
     else{
-        push(crit, 0);
-    }
-    push(S, 2);
-
-    int troopsAttacked;
-    int troopsAttack = troops(*C1);
-
-    if(ignore && !(*critical)){
-        troopsAttacked = troops(*C2);
-        troops(*C2) -= troops(*C1);
-    }
-    else if((ignore && (*critical)) || ((*critical) && !ignore)){
-        troopsAttacked = troops(*C2)/2;
-        troops(*C2) -= 2*troops(*C1);
-        *critical = false;
-    }
-    else{
-        if(defense(*C2)){
-            troopsAttacked = 4*troops(*C2)/3;
-            troops(*C2) -= troops(*C1)*3/4;
+        push(troops1, troops(*C1));
+        push(troops2, troops(*C2));
+        push(level, level(*C2));
+        push(before, owner(*C2));
+        if(*critical){
+            push(crit, 1);
         }
         else{
+            push(crit, 0);
+        }
+        push(S, 2);
+
+        int troopsAttacked;
+        int troopsAttack = troopsUsed;
+
+        if(ignore && !(*critical)){
             troopsAttacked = troops(*C2);
             troops(*C2) -= troops(*C1);
         }
-    }
+        else if((ignore && (*critical)) || ((*critical) && !ignore)){
+            troopsAttacked = troops(*C2)/2;
+            troops(*C2) -= 2*troops(*C1);
+            *critical = false;
+        }
+        else{
+            if(defense(*C2)){
+                troopsAttacked = 4*troops(*C2)/3;
+                troops(*C2) -= troops(*C1)*3/4;
+            }
+            else{
+                troopsAttacked = troops(*C2);
+                troops(*C2) -= troops(*C1);
+            }
+        }
 
-    if(troops(*C2) <= 0){
-        owner(*C2) = P;
-        changeLevel(C2, 1);
-        troops(*C2) = troopsAttack - troopsAttacked;
-        troops(*C1) = 0;
+        if(troops(*C2) <= 0){
+            owner(*C2) = P;
+            changeLevel(C2, 1);
+            troops(*C2) = troopsAttack - troopsAttacked;
+        }
+        troops(*C1) -= troopsUsed;
     }
-
-    troops(*C1) = 0;
 }
 
 void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
