@@ -6,19 +6,16 @@ int main()
     buildingsArray b;
     graph g;
     matrix m;
-    readConfigFile(&m, &b, &g);
+    queue q1,q2;
+    // createEmpty(&q1);
+    // Add(&q1,1);
+    // createEmpty(&q2);
+    // Add(&q2,2);
+    // readConfigFile(&m, &b, &g);
 
-    for(int i=1;i<=17;i++)
-    {
-        writeBuildingCoord(*Elmt(b,i));
-        printf("\n");
-    }
-    printf("\n");
+    int t;
+    boolean i,c,e;
 
-    writeMatrix(m);
-
-    word w;
-    readSTDIN(&w);
-    printWord(w);    
-
+    loadFromFile(&m, &b,&g,&t,&i,&c,&e,&q1,&q2);   
+    saveToFile(&m, &b,&g,t,i,c,e,&q1,&q2);    
 }

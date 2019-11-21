@@ -7,6 +7,8 @@
 # include "array.h"
 # include "matrix.h"
 # include "graph.h"
+# include "queue.h"
+# include "pcolor.h"
 
 #define maxLength 100
 
@@ -34,5 +36,11 @@ void printASCIIFile();
 
 // Print word
 void printWord(word W);
+
+// Save to file
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2);
+
+// Load from file
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2);
 
 #endif
