@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/array.h"
@@ -78,4 +77,3 @@ void printOnOwner(buildingsArray T, own X)
     }
     else printf("Salah input goblok\n");
 }
-

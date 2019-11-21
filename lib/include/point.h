@@ -3,6 +3,8 @@
 
 #include "boolean.h"
 #include "buildings.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     buildings *building;
@@ -16,11 +18,11 @@ typedef struct {
 /* *** coordinate selector *** */
 #define row(C) (C).row //Y pos
 #define col(C) (C).col //X pos
-#define build(C) (C).*building
+#define build(C) (C).building
 
 /* *** Primitive Prototype *** */
 /* *** Constructor *** */
-buildingCoord makeBuildingCoord (buildings *building, int row, int col);
+buildingCoord* makeBuildingCoord (buildings *building, int row, int col);
 
 /* *** Read/Write  *** */
 void writeBuildingCoord (buildingCoord C);

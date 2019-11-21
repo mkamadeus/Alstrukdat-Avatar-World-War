@@ -1,13 +1,13 @@
 #include "../include/point.h"
 
-/* *** Primitive Prototype *** */
-/* *** Constructor *** */
-buildingCoord makeBuildingCoord (buildings *building, int row, int col)
+// Allocate buildingCoord
+buildingCoord* makeBuildingCoord (buildings *building, int row, int col)
 {
-    buildingCoord C;
-    row(C) = row;
-    col(C) = col;
-    C.building = building;
+    buildingCoord *C = (buildingCoord*) malloc(sizeof(buildingCoord));
+    row(*C) = row;
+    col(*C) = col;
+    build(*C) = building;
+
     return C;
 }
 
@@ -20,5 +20,5 @@ void writeBuildingCoord (buildingCoord C)
     else if ((C.building->type)==2){printf("Tower ");}
     else if (C.building->type==3){printf("Fort ");}
     else if (C.building->type==4){printf("Village ");}
-    printf("(%d,%d) ",col(C),row(C));
+    printf("(%d,%d) ",row(C),col(C));
 }

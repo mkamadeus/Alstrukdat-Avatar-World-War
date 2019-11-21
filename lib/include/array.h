@@ -57,7 +57,7 @@ void dealokasiArray(buildingsArray *T);
 
 /* ********** BACA dan TULIS dengan INPUT/OUTPUT device ********** */
 /* *** Mendefinisikan isi tabel dari pembacaan *** */
-void bacaIsi(buildingsArray *T, buildings C);
+void bacaIsi(buildingsArray *T, buildings *C);
 /*add pointer inside array to building*/
 void tulisIsiTab(buildingsArray T);
 /*Prints every building available on field*/
