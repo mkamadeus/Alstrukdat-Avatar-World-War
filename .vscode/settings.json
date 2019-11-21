@@ -4,6 +4,8 @@
         "array.h": "c",
         "array.h\u0000rray.h": "c",
         "game.h\u0000game.h": "c",
-        "game.h": "c"
+        "game.h": "c",
+        "stack.h": "c",
+        "stack.h\u0000tack.h": "c"
     }
 }

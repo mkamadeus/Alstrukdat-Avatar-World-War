@@ -56,7 +56,7 @@ void increaseTroops(buildings * C){
     }
 }
 
-void attack(buildings * C1, buildings * C2, int troopsUsed,boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
+void attack(buildings * C1, buildings * C2, int troopsUsed, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit){
     /* C1 menyerang C2 */
     /* TO DO */
     /* Debug */

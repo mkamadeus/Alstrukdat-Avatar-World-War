@@ -17,9 +17,12 @@ int main()
 	buildingsArray bangunan;
 	linkedList P1,P2;
 	buildings A,B,E,F;
-	buildingCoord A1,B1,E1,F1;
+	buildingCoord* A1;
+	buildingCoord* B1;
+	buildingCoord* E1;
+	buildingCoord* F1;
 	stack S,level,before,troops1,troops2,crit;
-	int penyerang, diserang, leveledUp, moved, moved2;
+	int penyerang, diserang, troopsUsed, leveledUp, moved, moved2;
 	boolean critical = false;
 	boolean ignore = false;
 	boolean isExtraTurn = false;
@@ -39,10 +42,10 @@ int main()
 	E1 = makeBuildingCoord(&E, 3, 4);
 	F1 = makeBuildingCoord(&F, 5, 6);
 	makeEmptyArray(&bangunan, 5);
-	bacaIsi(&bangunan, &A1);
-	bacaIsi(&bangunan, &B1);
-	bacaIsi(&bangunan, &E1);
-	bacaIsi(&bangunan, &F1);
+	bacaIsi(&bangunan, A1);
+	bacaIsi(&bangunan, B1);
+	bacaIsi(&bangunan, E1);
+	bacaIsi(&bangunan, F1);
 	createEmpty(&P1);
 	createEmpty(&P2);
 	for(int i = 1; i < 5; i++){
@@ -83,7 +86,9 @@ int main()
 					P2_ = Next(P2_);
 				}
 				diserang = Info(P2_);
-				attack(Build(bangunan,penyerang), Build(bangunan,diserang), &critical, ignore, turn, &level, &before, &troops1, &troops2, &S, &crit);
+				printf("Masukkan berapa pasukan yang akan digunakan: ");
+				scanf("%d", &troopsUsed);
+				attack(Build(bangunan,penyerang), Build(bangunan,diserang), troopsUsed, &critical, ignore, turn, &level, &before, &troops1, &troops2, &S, &crit);
 				printf("Bangunanmu sekarang: \n");
 				show(*Build(bangunan,penyerang));
 				printf("\n");
@@ -112,12 +117,12 @@ int main()
 				move(Build(bangunan,moved),Build(bangunan,moved2),&S, &troops1, &troops2);
 			}
 			else if(strcmp(str, "SKILL") == 0){
-				dealocate(&S);
-				dealocate(&level);
-				dealocate(&before);
-				dealocate(&troops1);
-				dealocate(&troops2);
-				dealocate(&crit);
+				deleteAll(&S);
+				deleteAll(&level);
+				deleteAll(&before);
+				deleteAll(&troops1);
+				deleteAll(&troops2);
+				deleteAll(&crit);
 			}
 			else if(strcmp(str, "END_TURN") == 0){
 				if(isExtraTurn){
@@ -128,12 +133,12 @@ int main()
 					changeTurn(&turn);
 					printf("Sekarang giliran player %d\n", turn);
 				}
-				dealocate(&S);
-				dealocate(&level);
-				dealocate(&before);
-				dealocate(&troops1);
-				dealocate(&troops2);
-				dealocate(&crit);
+				deleteAll(&S);
+				deleteAll(&level);
+				deleteAll(&before);
+				deleteAll(&troops1);
+				deleteAll(&troops2);
+				deleteAll(&crit);
 			}
 		}while(strcmp(str,"END_TURN") != 0);
 	}

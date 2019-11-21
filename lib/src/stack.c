@@ -9,7 +9,7 @@ void createStack(stack * S){
 }
 
 void deallocate(address_ * P){
-    free(P);
+    free(*P);
 }
 
 void deleteAll(stack * S){
