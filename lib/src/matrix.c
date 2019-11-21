@@ -2,7 +2,7 @@
 
 /* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
 /* *** matrix Constructor *** */
-void createEmpty (int NR, int NC, matrix * M)
+void createEmptyMatrix(int NR, int NC, matrix * M)
 /* Creating "empty" matrix ready to use*/
 /* I.S. NR dan NC are valid */
 /* F.S. Matriks M created as defined above */
@@ -55,7 +55,7 @@ boolean isIdxEff (matrix M, index i, index j)
     return(i==getLastIdxRow(M) && j==getLastIdxCol(M));
 }
 /* ********** Read/Write ********** */
-void insertStructure (matrix * M, buildingCoord C)
+void insertStructure (matrix * M, buildingCoord *C)
 /* I.S. isIdxValid(NR,NC) */
 /* F.S. defined effective element of M , Size NR x NC */
 /* Process: Makematrix(M,NB,NK) and write effective value */
@@ -74,7 +74,9 @@ T      V     ​C​
 NB: depends on coordinate points
 */
 {
-    buildingPtr(*M,row(C),col(C)) = C.building;
+    buildingPtr(*M,row(*C),col(*C)) = C;
+    // printf("%d\n", buildingPtrType(*M,row(*C),col(*C)));
+    // show(*build(*buildingPtr(*M,row(*C),col(*C))));
 }
 void writeMatrix (matrix M)
 /* I.S. M defined */
@@ -103,16 +105,20 @@ void writeMatrix (matrix M)
         {
             if (i!=0 && j!=0 && i!=getLastIdxRow(M))
             {
-                //building type determiner
-                if (buildingPtr(M,i,j)->building->type==1) t="C";
-                else if (buildingPtr(M,i,j)->building->type==2) t="T";
-                else if (buildingPtr(M,i,j)->building->type==3) t="F";
-                else if (buildingPtr(M,i,j)->building->type==4) t="V";
-                else{t=emptyField;}//undefined building (building not exist at the coordinate)
-                //ownership determiner
-                if (buildingPtr(M,i,j)->building->owner==1) print_red(t);//player 1's, red
-                else if (buildingPtr(M,i,j)->building->owner==2) print_blue(t);//player 2's, blue
-                else printf("%c",t);//neurtral's, standard white
+                if (buildingPtr(M,i,j)!=NULL)
+                {
+                    //building type determiner
+                    t = 'n';//undefined building (building not exist at the coordinate)
+                    if (type(*build(*buildingPtr(M,i,j)))==1) t='C';
+                    else if (buildingPtrType(M,i,j)==2) t='T';
+                    else if (buildingPtrType(M,i,j)==3) t='F';
+                    else if (buildingPtrType(M,i,j)==4) t='V';
+                    //ownership determiner
+                    if (buildingPtrOwner(M,i,j)==1) print_red(t);//player 1's, red
+                    else if (buildingPtrOwner(M,i,j)==2) print_blue(t);//player 2's, blue
+                    else printf("%c",t);//neurtral's, standard white
+                }
+                else printf(" ");
             }
             else printf("*");
         };
