@@ -2,7 +2,15 @@
 #include <stdlib.h>
 #include "../include/buildings.h"
 
+// Allocate buildings in heap
+addressBuildings allocateBuilding()
+{
+    addressBuildings ptr = (addressBuildings)malloc(sizeof(buildings));
+    return ptr;
+}
+
 /* Mengeluarkan status bangunan */
+
 void show(buildings C){
     printf("Owner = %d\n", owner(C));
     if(type(C) == 1){

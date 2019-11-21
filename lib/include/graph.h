@@ -34,9 +34,6 @@ typedef struct {
 #define child(P) (P)->firstChild
 #define first(G) ((G).first)
 
-// Create empty graph
-void createEmpty(graph* G);
-
 // Allocate node for incoming node
 uAddress allocateNodeU(infotype N);
 
@@ -61,5 +58,8 @@ void printGraph(graph G);
 
 // Check if node N is connected to node M
 boolean isConnected(graph G, int N, int M);
+
+// // Check how many buildings are connected
+// int connectedBuildings(graph G, int N, int M);
 
 #endif

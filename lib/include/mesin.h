@@ -27,12 +27,18 @@ int readNumber();
 void readSTDIN(word *input);
 
 // readConfigFile will read config file and make the structure
-void readConfigFile(buildingsArray *arr, graph *G);
+void readConfigFile(matrix *M, buildingsArray *arr, graph *G);
 
 // Print ASCII of character (for debugging purposes)
 void printASCIIFile();
 
 // Print word
 void printWord(word W);
+
+// Word to int converter
+int intConverter(word W);
+
+// Word Compare
+boolean wordCompare(word W, char * S);
 
 #endif

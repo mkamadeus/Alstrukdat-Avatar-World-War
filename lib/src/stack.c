@@ -1,7 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/buildings.h"
-#include "../include/command.h"
 #include "../include/stack.h"
 
 void createStack(stack * S){
@@ -9,7 +7,7 @@ void createStack(stack * S){
 }
 
 void deallocate(address_ * P){
-    free(*P);
+    free(P);
 }
 
 void deleteAll(stack * S){

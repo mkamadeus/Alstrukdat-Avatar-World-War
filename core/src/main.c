@@ -1,53 +1,69 @@
 #include "../include/main.h"
 
-#include "game.c"
-#include "menu.c"
-
 #include <string.h>
 
 int main()
 {
 	menu();
 
-	char mapName[50];
-	mapSelection(mapName);
+	// char mapName[50];
+	// mapSelection(mapName);
 
-	printf("You're now playing on %s.\n", mapName);
-
+	// printf("You're now playing on %s.\n", mapName);
+	word input, penyerang, diserang, troopsUsed, leveledUp, moved, moved2;
 	buildingsArray bangunan;
-	linkedList P1,P2;
-	buildings A,B,E,F;
-	buildingCoord* A1;
-	buildingCoord* B1;
-	buildingCoord* E1;
-	buildingCoord* F1;
+	graph g;
+	matrix m;
+	linkedList P1,P2,flagAttack,flagMove;
 	stack S,level,before,troops1,troops2,crit;
-	int penyerang, diserang, troopsUsed, leveledUp, moved, moved2;
+	queue skill1, skill2;
+	int penyerang_, diserang_, troopsUsed_, count;
+	readConfigFile(&m, &bangunan, &g);
+	boolean isSuccess;
+	boolean isCaptured = false;
 	boolean critical = false;
 	boolean ignore = false;
 	boolean isExtraTurn = false;
 	int turn = 1;
+
     createStack(&S);
     createStack(&level);
     createStack(&before);
     createStack(&troops1);
     createStack(&troops2);
     createStack(&crit);
-	makeCastle(&A,1);
-	makeTower(&B,1);
-	makeCastle(&E,2);
-	makeTower(&F,2);
-	A1 = makeBuildingCoord(&A, 1, 2);
-	B1 = makeBuildingCoord(&B, 2, 3);
-	E1 = makeBuildingCoord(&E, 3, 4);
-	F1 = makeBuildingCoord(&F, 5, 6);
-	makeEmptyArray(&bangunan, 5);
-	bacaIsi(&bangunan, A1);
-	bacaIsi(&bangunan, B1);
-	bacaIsi(&bangunan, E1);
-	bacaIsi(&bangunan, F1);
+
+	createQueue(&skill1,10);
+	createQueue(&skill2,10);
+	Add(&skill1,1);
+	Add(&skill2,1);
+	
+	char ATTACK[100];
+	char LEVEL_UP[100];
+	char SKILL[100];
+	char UNDO[100];
+	char END_TURN[100];
+	char SAVE[100];
+	char MOVE[100];
+	char EXIT[100];
+	
+	strcpy(ATTACK,"ATTACK");
+	strcpy(LEVEL_UP,"LEVEL_UP");
+	strcpy(SKILL,"SKILL");
+	strcpy(UNDO,"UNDO");
+	strcpy(END_TURN,"END_TURN");
+	strcpy(SAVE,"SAVE");
+	strcpy(MOVE,"MOVE");
+	strcpy(EXIT,"EXIT");
+
 	createEmpty(&P1);
 	createEmpty(&P2);
+	createEmpty(&flagAttack);
+	createEmpty(&flagMove);
+	owner(*Build(bangunan,1)) = 1;
+	owner(*Build(bangunan,2)) = 1;
+	owner(*Build(bangunan,3)) = 2;
+	owner(*Build(bangunan,4)) = 2;
 	for(int i = 1; i < 5; i++){
 		if(owner(*Build(bangunan,i)) == 1){
 			insertValueLast(&P1,i);
@@ -56,75 +72,210 @@ int main()
 			insertValueLast(&P2,i);
 		}
 	}
-	printf("P1 \n");
-	printInfo(P1);
-	printf("\n");
-	printf("P2 \n");
-	printInfo(P2);
-	char str[50];	
-	printf("\n");
+
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
 			printf("Masukkan Command: ");
-			scanf("%s", str);
-			if(strcmp(str,"ATTACK") == 0){
+			readSTDIN(&input);
+			if(wordCompare(input, ATTACK)){
+				if(turn == 1){
+					if(length(flagAttack) == length(P1)){
+						printf("Semua bangunan telah digunakan untuk menyerang\n");
+						continue;
+					}
+				}
+				else{
+					if(length(flagAttack) == length(P2)){
+						printf("Semua bangunan telah digunakan untuk menyerang\n");
+						continue;
+					}
+				}
+				int lengthMarkBefore = lengthTurnNow(turn, P1, P2);
+				int fortMarkBefore = fortCounter(P1, P2, bangunan, turn);
+				int towerMarkBefore = towerCounter(P1, P2, bangunan, turn);
+
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Bangunan yang digunakan untuk menyerang: ");
-				scanf("%d", &penyerang);
-				int temp = inputToIndex(turn, penyerang, P1, P2);
-				penyerang = temp;
-				address P2_ = first(P2);
-				while(P2_ != NULL){
-					show(*Build(bangunan,Info(P2_)));
-					printf("==================================\n");
-					P2_ = Next(P2_);
+				
+				/* Input from User */
+				readSTDIN(&penyerang);
+				int temp = intConverter(penyerang);
+				int temp2 = inputToIndex(turn, temp, P1, P2);
+				penyerang_ = temp2;
+
+				/* Check if building have attacked or not */
+				while(searchB(flagAttack,penyerang_)){
+					printf("Bangunan yang dipilih sudah digunakan untuk menyerang...\nPilihlah bangunan yang lain\n");
+					printBuildings(turn, P1, P2, bangunan);
+					readSTDIN(&penyerang);
+					int temp = intConverter(penyerang);
+					int temp2 = inputToIndex(turn, temp, P1, P2);
+					penyerang_ = temp2;
 				}
+
+				printBuildingConnected(g, penyerang_, bangunan);
 				printf("Bangunan yang diserang: ");
-				scanf("%d", &diserang);
-				P2_ = first(P2);
-				for(int i = 0; i < diserang-1; i++){
-					P2_ = Next(P2_);
-				}
-				diserang = Info(P2_);
+
+				/* Input from User */
+				readSTDIN(&diserang);
+				int temp3 = intConverter(diserang);
+
+				int temp4 = inputToIndexEnemy(g, penyerang_, temp3, bangunan);
+				diserang_ = temp4;
+
+
 				printf("Masukkan berapa pasukan yang akan digunakan: ");
-				scanf("%d", &troopsUsed);
-				attack(Build(bangunan,penyerang), Build(bangunan,diserang), troopsUsed, &critical, ignore, turn, &level, &before, &troops1, &troops2, &S, &crit);
-				printf("Bangunanmu sekarang: \n");
-				show(*Build(bangunan,penyerang));
-				printf("\n");
-				printf("Bangunan musuh sekarang: \n");
-				show(*Build(bangunan,diserang));
+
+				/* Input from User */
+				readSTDIN(&troopsUsed);
+				int troopsUsed_ = intConverter(troopsUsed);
+				while(troopsUsed_ > troops(*Build(bangunan,penyerang_))){
+					printf("Masukkan troops <= %d\n", troops(*Build(bangunan,penyerang_)));
+					readSTDIN(&troopsUsed);
+					troopsUsed_ = intConverter(troopsUsed);
+					printf("tU = %d\n", troopsUsed_);
+				}
+				attack(Build(bangunan,penyerang_), Build(bangunan,diserang_), &isCaptured, troopsUsed_, &critical, ignore, turn, &level, &before, &troops1, &troops2, &S, &crit);
+
+				/* Put Index Building into list that contains index building that have attacked */
+				insertValueFirst(&flagAttack,penyerang_);
+
+				int lengthMarkAfter = lengthTurnNow(turn, P1, P2);
+				int fortMarkAfter = fortCounter(P1, P2, bangunan, turn);
+				int towerMarkAfter = towerCounter(P1, P2, bangunan, turn);
+
+				if(lengthMarkBefore == 3 && lengthMarkAfter == 2){
+					shieldTriggered(&skill1, &skill2, turn);
+				}
+				if(fortMarkBefore > fortMarkAfter){
+					extraTurnTriggered(&skill1, &skill2, turn);
+				}
+				if(towerMarkBefore < 3 && towerMarkAfter == 3){
+					attackUpTriggered(&skill1, &skill2, turn);
+				}
+				if(lengthMarkBefore < 10 && lengthMarkAfter == 10){
+					barrageTriggered(&skill1, &skill2, P1, P2, turn);
+				}
+
+				if(isCaptured){
+					printf("Bangunan berhasil direbut\n");
+					if(turn == 1){
+						insertValueLast(&P1, temp4);
+						deleteValue(&P2,temp4);
+					}
+					else{
+						insertValueLast(&P2, temp4);
+						deleteValue(&P2,temp4);
+					}
+				}
+				else{
+					printf("Bangunan gagal direbut\n");
+				}
 			}
-			else if(strcmp(str, "LEVEL_UP") == 0){
+			else if(wordCompare(input, LEVEL_UP)){
 				printf("Daftar Bangunan: \n");
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Bangunan yang akan dilevel-Up: ");
-				scanf("%d", &leveledUp);
-				leveledUp = inputToIndex(turn, leveledUp, P1, P2);
-				levelUp(Build(bangunan,leveledUp), &S);
+				readSTDIN(&leveledUp);
+				int leveledUp_ = intConverter(leveledUp);
+				leveledUp_ = inputToIndex(turn, leveledUp_, P1, P2);
+				levelUp(Build(bangunan,leveledUp_), &S, &isSuccess);
+				
+				/* Skill Instant Reinforcement Triggered */
+				if(isSuccess){
+					instantReinforcementTriggered(&skill1, &skill2, bangunan, P1, P2, turn);
+				}
 			}
-			else if(strcmp(str, "MOVE") == 0){
+			else if(wordCompare(input, MOVE)){
+				if(turn == 1){
+					if(length(flagMove) == length(P1)){
+						printf("Semua bangunan telah digunakan untuk moved\n");
+						continue;
+					}
+				}
+				else{
+					if(length(flagMove) == length(P2)){
+						printf("Semua bangunan telah digunakan untuk moved\n");
+						continue;
+					}
+				}
 				printf("Daftar Bangunan: \n");
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Pilih Bangunan: ");
-				scanf("%d", &moved);
-				moved = inputToIndex(turn, moved, P1, P2);
-				printf("Daftar Bangunan Terdekat: ");
-				printBuildings(turn, P1, P2, bangunan);
+				readSTDIN(&moved);
+				int moved_ = intConverter(moved);
+				moved_ = inputToIndex(turn, moved_, P1, P2);
+
+				/* Check if building have moved or not */
+				while(searchB(flagMove,moved_)){
+					printf("Bangunan yang dipilih sudah digunakan untuk menyerang...\nPilihlah bangunan yang lain\n");
+					printBuildings(turn, P1, P2, bangunan);
+					readSTDIN(&moved);
+					int moved_ = intConverter(moved);
+					moved_ = inputToIndex(turn, moved_, P1, P2);
+				}
+				
+				printNearbyMyBuildings(g, turn, moved_, bangunan, &count);
+				if(count == 1){
+					continue;
+				}
 				printf("Pilih Bangunan: ");
-				scanf("%d", &moved2);
-				moved2 = inputToIndex(turn, moved2, P1, P2);
-				move(Build(bangunan,moved),Build(bangunan,moved2),&S, &troops1, &troops2);
+				readSTDIN(&moved2);
+				int moved2_ = inputToIndex(turn, moved2_, P1, P2);
+				move(Build(bangunan,moved_),Build(bangunan,moved2_),&S, &troops1, &troops2);
+				
+				/* Put index building that have moved */
+				insertValueFirst(&flagMove,moved2_);
 			}
-			else if(strcmp(str, "SKILL") == 0){
+			else if(wordCompare(input, SKILL)){
 				deleteAll(&S);
 				deleteAll(&level);
 				deleteAll(&before);
 				deleteAll(&troops1);
 				deleteAll(&troops2);
 				deleteAll(&crit);
+				createStack(&S);
+				createStack(&level);
+				createStack(&before);
+				createStack(&troops1);
+				createStack(&troops2);
+				createStack(&crit);
+				int skillUsed;
+				if(turn == 1){
+					Del(&skill1, &skillUsed);
+					if(skillUsed == 3){
+						criticalHitTriggered(&skill1, &skill2, turn);
+					}
+				}
+				else{
+					Del(&skill2, &skillUsed);
+					if(skillUsed == 3){
+						criticalHitTriggered(&skill1, &skill2, turn);
+					}
+				}
+				if(skillUsed == 1){
+					instantUpgrade(&bangunan, turn, P1, P2);
+				}
+				else if(skillUsed == 2){
+					shield(&bangunan, turn, P1, P2);
+				}
+				else if(skillUsed == 3){
+					extraTurn(&isExtraTurn);
+				}
+				else if(skillUsed == 4){
+					attackUp(&ignore);
+				}
+				else if(skillUsed == 5){
+					criticalHit(&critical);
+				}
+				else if(skillUsed == 6){
+					instantReinforcement(&bangunan, turn, P1, P2);
+				}
+				else{
+					barrage(&bangunan, turn, P1, P2);
+				}
 			}
-			else if(strcmp(str, "END_TURN") == 0){
+			else if(wordCompare(input, END_TURN)){
 				if(isExtraTurn){
 					printf("Sekarang giliranmu lagi");
 					isExtraTurn = false;
@@ -139,7 +290,17 @@ int main()
 				deleteAll(&troops1);
 				deleteAll(&troops2);
 				deleteAll(&crit);
+				createStack(&S);
+				createStack(&level);
+				createStack(&before);
+				createStack(&troops1);
+				createStack(&troops2);
+				createStack(&crit);
+				deleteEverything(&flagAttack);
+				deleteEverything(&flagMove);
+				createEmpty(&flagAttack);
+				createEmpty(&flagMove);
 			}
-		}while(strcmp(str,"END_TURN") != 0);
+		}while(wordCompare(input, EXIT));
 	}
 }

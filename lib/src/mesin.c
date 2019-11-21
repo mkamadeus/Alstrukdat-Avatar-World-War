@@ -41,7 +41,7 @@ void readSTDIN(word *input)
 }
 
 // readConfigFile will read config file and make the structure
-void readConfigFile(buildingsArray *arr, graph *G)
+void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
 {
     // Start reading config file
     START(configFilename);
@@ -52,12 +52,14 @@ void readConfigFile(buildingsArray *arr, graph *G)
     ignoreBlank();
     int col = readNumber();
 
-    
+    // Initialize matrix
+    createEmptyMatrix(row,col,M);
+
     // Read building count
     ignoreBlank();
     int t = readNumber();
 
-    printf("Map size:%dx%d\nBuilding count:%d\n", row, col, t);
+    printf("Map size: %dx%d\nBuilding count: %d\n", row, col, t);
     printf("Reading building types...\n");
 
     // Initialize array size
@@ -67,16 +69,17 @@ void readConfigFile(buildingsArray *arr, graph *G)
     {
         // Read building type
         ignoreBlank();
-        ADV();
         char buildingType = CC;
+        ADV();
 
         // Construct buildings
-        buildings building;
-        if(buildingType=='C') makeCastle(&building, 0);
-        else if(buildingType=='T') makeTower(&building, 0);
-        else if(buildingType=='F') makeFort(&building, 0);
-        else if(buildingType=='V') makeVillage(&building, 0);
-        
+        addressBuildings ptr = allocateBuilding();
+
+        if(buildingType=='C')  makeCastle(ptr,0);
+        else if(buildingType=='T') makeTower(ptr, 0);
+        else if(buildingType=='F') makeFort(ptr, 0);
+        else if(buildingType=='V') makeVillage(ptr, 0);
+
         // Read building coordinate
         ignoreBlank();
         int buildingRow = readNumber();
@@ -84,7 +87,8 @@ void readConfigFile(buildingsArray *arr, graph *G)
         int buildingCol = readNumber();
         
         // Construct and send to array
-        Elmt(*arr, i) = makeBuildingCoord(&building, buildingRow, buildingCol);
+        Elmt(*arr, i) = makeBuildingCoord(ptr, buildingRow, buildingCol);
+        insertStructure(M, Elmt(*arr,i));
         
     }
 
@@ -102,7 +106,7 @@ void readConfigFile(buildingsArray *arr, graph *G)
         }
     }
 
-    printGraph(*G);
+    // printGraph(*G);
 }
 
 void printASCIIFile()
@@ -120,4 +124,30 @@ void printWord(word W)
 {
     for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
     printf("\n");
+}
+
+int intConverter(word W){
+    int result = 0;
+    int temp;
+    for(int i = 0; i < W.length; i++){
+        temp = (int) W.wordArray[i] - '0';
+        result = result * 10 + temp;
+    }
+    return result;
+}
+
+boolean wordCompare(word W, char * S){
+    boolean result = true;
+    int i;
+    for(i = 0; i < W.length; i++){
+        char temp = (char) W.wordArray[i];
+        if(temp != S[i]){
+            result = false;
+        }
+    }
+    int a = strlen(S);
+    if(W.length != a){
+        result = false;
+    }
+    return result;
 }

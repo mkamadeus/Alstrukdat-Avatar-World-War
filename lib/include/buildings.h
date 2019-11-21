@@ -15,7 +15,8 @@ typedef int types;
 /* 3 = Fort */
 /* 4 = Village */ 
 
-typedef struct {
+typedef struct tBuildings *addressBuildings;
+typedef struct tBuildings {
     own owner;
     types type;
     int troops;
@@ -35,6 +36,9 @@ typedef struct {
 #define defense(C) (C).defense
 
 /* --------------------------------- */
+
+// Allocate buildings in heap
+buildings* allocateBuilding();
 
 /* Mengeluarkan status bangunan */
 void show(buildings C);

@@ -7,6 +7,7 @@
 #include "boolean.h"
 #include "buildings.h"
 #include "stack.h"
+#include "mesin.h"
 
 /* LIST INVERS */
 /* 1 = inverseLevelUp */
@@ -23,7 +24,7 @@
 void showBuildings();
 /* Daftar bangunan yang bisa dieksekusi */
 
-void levelUp(buildings * C, stack * S);
+void levelUp(buildings * C, stack * S, boolean * isSuccess);
 /* Meningkatkan level bangunan sebanyak 1 */
 
 void inverseLevelUp(buildings * C);
@@ -35,7 +36,7 @@ boolean isMax(buildings C);
 void increaseTroops(buildings * C);
 /* Menambah jumlah troops sebanyak troops_regen */
 
-void attack(buildings * C1, buildings * C2, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit);
+void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit);
 /* Melakukan attack */
 
 void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);

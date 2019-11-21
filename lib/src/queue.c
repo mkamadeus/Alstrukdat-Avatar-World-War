@@ -1,60 +1,80 @@
 #include "../include/queue.h"
+#include <stdio.h>
 #include <stdlib.h>
 
-void createEmpty (queue * Q){
-	(*Q).T = (infotype*) malloc((Max+1) * sizeof(infotype));
-	Head(*Q) = unDef;
-	Count(*Q) = 0;
-	maxEl(*Q) = Max;
+boolean isEmpty(queue Q){
+    return (Head(Q) == unDef && Tail(Q) == unDef);
 }
 
-/* *** Destruktor *** */
-void deAlokasi(queue * Q){
-	free(Q -> T);
-	maxEl(*Q) = unDef;
-	Count(*Q) = 0;
-	Head(*Q) = unDef;
-}
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
-/* ********* Prototype ********* */
-boolean isEmpty (queue Q){
-	return Head(Q) == unDef;
+boolean isFull(queue Q){
+    return (NBElmt(Q) == MaxElement(Q));
 }
 
-boolean isFull (queue Q){
-	return Count(Q) == maxEl(Q);
+int NBElmt(queue Q){
+    if(isEmpty(Q)){
+        return 0;
+    }
+    else{
+        if(Tail(Q) >= Head(Q)){
+            return (Tail(Q) - Head(Q) + 1);
+        }
+        else{
+            return (MaxElement(Q) - Head(Q) + Tail(Q) + 1);
+        }
+    }
 }
 
-int nbElmt (queue Q){
-	return Count(Q);
+void createQueue(queue * Q, int Max){
+    (*Q).T = (int *) malloc (sizeof(int) * (Max+1));
+    if((*Q).T != NULL){
+        MaxElement(*Q) = Max;
+        Head(*Q) = unDef;
+        Tail(*Q) = unDef;
+    }
+    else{
+        MaxElement(*Q) = 0;
+    }
 }
 
-
-/* *** Primitif Add/Delete *** */
-void Add (queue * Q, infotype X){
-	if(isEmpty(*Q)){
-		Head(*Q) = 1;
-		Count(*Q) = 1;
-		infoHead(*Q) = X;
-	}
-	else
-	{
-		Count(*Q)++;
-		infoTail(*Q) = X;
-	}
-	
+void dealokasi(queue * Q){
+    free((*Q).T);
+    MaxElement(*Q) = 0;
 }
 
-void Del (queue * Q, infotype * X){
-	*X = infoHead(*Q);
-	if(Count(*Q) == 1){
-		Head(*Q) = unDef;
-	}
-	else
-	{
-		Head(*Q)=(Head(*Q)%maxEl(*Q))+1;
-	}
-	Count(*Q)--;
+void Add(queue * Q, int X){
+    if(isEmpty(*Q)){
+        Head(*Q) = 1;
+        Tail(*Q) = 1;
+        InfoHead(*Q) = X;
+        InfoTail(*Q) = X;
+    }
+    else{
+        if(!isFull(*Q)){
+            Tail(*Q) += 1;
+            if(Tail(*Q) > MaxElement(*Q)){
+                Tail(*Q) = 1;
+                InfoTail(*Q) = X;
+            }
+            else{
+                InfoTail(*Q) = X;
+            }
+        }
+        else{
+            printf("Queue sudah penuh\n");
+        }
+    }
+}
+
+void Del (queue * Q, int * X){
+    *X = InfoHead(*Q);
+    if(Head(*Q) == Tail(*Q)){
+        Head(*Q) = unDef;
+        Tail(*Q) = unDef;
+    }
+    else{
+        Head(*Q) += 1;
+        if(Head(*Q) > MaxElement(*Q)){
+            Head(*Q) = 1;
+        }
+    }
 }

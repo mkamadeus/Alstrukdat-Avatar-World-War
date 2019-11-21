@@ -19,7 +19,7 @@ typedef struct {
 
 #define info(P) (P)->info
 #define next(P) (P)->next
-#define first(L) ((L).first)
+#define firstList(L) ((L).first)
 #define last(L) ((L).last)
 
 // Test whether linked list is empty or not, first(L) = NULL
@@ -37,6 +37,9 @@ void deallocateNode(address P);
 // Returns the first node that contains X
 address search(linkedList L, infotype X);
 
+// Returns boolean when find X
+boolean searchB(linkedList L, infotype X);
+
 // Insert element containing X at the front of list
 void insertValueFirst(linkedList *L, infotype X);
 
@@ -45,6 +48,9 @@ void insertValueLast(linkedList *L, infotype X);
 
 // Insert element containing X at the front of list
 void deleteValueFirst(linkedList *L, infotype *X);
+
+// Delete element X
+void deleteValue(linkedList *L, infotype X);
 
 // Insert element containing X at the back of list
 void deleteValueLast(linkedList *L, infotype *X);
@@ -72,5 +78,8 @@ int length(linkedList L);
 
 // Print linked list content (if infotype integer)
 void printInfo(linkedList L);
+
+// Deallocate everything
+void deleteEverything(linkedList * L);
 
 #endif
