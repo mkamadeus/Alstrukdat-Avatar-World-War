@@ -1,100 +1,123 @@
 # include "../include/mesin.h"
 # include <stdio.h>
 
-void IgnoreBlank()
-/* Mengabaikan satu atau lebih Blank */
-{
-    /* KAMUS LOKAL */
+static char configFilename[] = "config.conf";
 
-    /* ALGORITMA */
-    while ((CC == BLANK) && (CC != EOF)) {
-        ADV();
-    }
+// Advances until CC is not blank
+void ignoreBlank()
+{
+    // While not blank
+    while (CC != EOF && (CC == ' ' || CC == '\n')) ADV();
 }
 
-int BacaAngka() {
-    int n, temp;
-    IgnoreBlank();
-    while ((CC != EOF) && (CC != BLANK)) {
-        n = n *10 + (int)CC;
+// readNumber parses input to be an integer
+int readNumber()
+{
+    int n = 0;
+    
+    ignoreBlank();
+    while (!EOP && CC != EOF && CC != ' ' && CC != '\n') {
+        n = n*10 + (CC-'0');
         ADV();
     }
-    IgnoreBlank();
+
     return n;
 }
 
-matrix Peta (matrix *map)
-/* Fungsi Peta membaca dan mengirim ukuran peta permainan */
+// readSTDIN will input from STDIN and convert it to ADT Word
+void readSTDIN(word *input)
 {
-    int i, row, col, temp;
+    STARTSTDIN();
 
-    row = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        row = row * 10 + (int)CC;
-        ADV();
+    // Initialize word
+    (*input).length = 0;
+
+    while(!EOP && CC!='\n')
+    {
+        (*input).wordArray[(*input).length] = CC;
+        ++(*input).length;
+        ADVSTDIN();
     }
-    IgnoreBlank();
-    col = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        col = col * 10 + (int)CC;
-        ADV();
-    }
-    createEmpty(row,col,map);
-    return *map;
 }
 
-buildingCoord Bangunan()
-/* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
+// readConfigFile will read config file and make the structure
+void readConfigFile(buildingsArray *arr, graph *G)
 {
-    buildings B;
-    int row, col;
+    // Start reading config file
+    START(configFilename);
 
-    IgnoreBlank();
-    if (CC == 'C') makeCastle(&B,0);
-    else if (CC == 'F') makeFort(&B,0);
-    else if (CC == 'T') makeTower(&B,0);
-    else if (CC == 'V') makeVillage(&B,0);//kondisikan ownernya
-    ADV();
-    IgnoreBlank();
-    row = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        row = row * 10 + (int)CC;
+    // Read map size
+    ignoreBlank();
+    int row = readNumber();
+    ignoreBlank();
+    int col = readNumber();
+
+    
+    // Read building count
+    ignoreBlank();
+    int t = readNumber();
+
+    printf("Map size:%dx%d\nBuilding count:%d\n", row, col, t);
+    printf("Reading building types...\n");
+
+    // Initialize array size
+    makeEmptyArray(arr,t);
+
+    for(int i=1;i<=t;i++)
+    {
+        // Read building type
+        ignoreBlank();
         ADV();
-    }
-    IgnoreBlank();
-    col = 0;
-    while ((CC != EOF) && (CC != BLANK)) {
-        col = col * 10 + (int)CC;
-        ADV();
-    }
-    return makeBuildingCoord (&B,row,col);
-}
+        char buildingType = CC;
 
-int BacaFile () {
-    matrix map;
-    int n, i, j;
-    buildingCoord B;
-    TabInt BArr;
-    int M[IdxMax][IdxMax];//graph (?)
-
-    START();
-    IgnoreBlank();
-    map = Peta(&map);
-    IgnoreBlank();
-    n = BacaAngka();
-    makeEmptyArray(&BArr,n);
-    IgnoreBlank();
-    for (i = 1; i <= n; i++) {
-        B = Bangunan();
-        bacaIsi(&BArr,B);
-        insertStructure(&map,B);
+        // Construct buildings
+        buildings building;
+        if(buildingType=='C') makeCastle(&building, 0);
+        else if(buildingType=='T') makeTower(&building, 0);
+        else if(buildingType=='F') makeFort(&building, 0);
+        else if(buildingType=='V') makeVillage(&building, 0);
+        
+        // Read building coordinate
+        ignoreBlank();
+        int buildingRow = readNumber();
+        ignoreBlank();
+        int buildingCol = readNumber();
+        
+        // Construct and send to array
+        Elmt(*arr, i) = makeBuildingCoord(&building, buildingRow, buildingCol);
+        
     }
-    IgnoreBlank();
-    for (i = 1;i <= n; i++) {
-        for (j = 1; j<= n; j++) {
-            M[i][j] = BacaAngka();
+
+    printf("Building graph...\n");
+    // Initialize graph
+    createGraph(G,t);
+
+    for(int i=1;i<=17;i++)
+    {
+        for(int j=1;j<=17;j++)
+        {
+            ignoreBlank();
+            int connection = readNumber();
+            if(connection) insertChild(G,i,j);
         }
     }
-    EndKata = true;
-    return 0;
+
+    printGraph(*G);
+}
+
+void printASCIIFile()
+{
+    START(configFilename);
+    while(!EOP)
+    {
+        int n = readNumber();
+        printf("%d ", n);
+    }
+}
+
+// Print word
+void printWord(word W)
+{
+    for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
+    printf("\n");
 }

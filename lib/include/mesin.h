@@ -6,24 +6,33 @@
 # include "boolean.h"
 # include "array.h"
 # include "matrix.h"
+# include "graph.h"
 
-#define IdxMax 100
-#define BLANK ' '
+#define maxLength 100
+
+typedef struct {
+    char wordArray[maxLength+1];
+    int length;
+} word;
 
 extern boolean EndKata;
 
-void IgnoreBlank();
-/* Mengabaikan satu atau lebih Blank */
+// ignoreBlank skips input character if its blank/\n
+void ignoreBlank();
 
-int BacaAngka();
-/* Fungsi BacaAngka membaca dan mengirim satu buah angka */
+// readNumber parses input to be an integer
+int readNumber();
 
-matrix Peta (matrix *map);
-/* Fungsi Peta membaca dan mengirim ukuran peta permainan */
+// readSTDIN will input from STDIN and convert it to ADT Word
+void readSTDIN(word *input);
 
-buildingCoord Bangunan();
-/* Fungsi mengirim daftar bangunan yang ingin dimasukkan ke dalam peta permainan */
+// readConfigFile will read config file and make the structure
+void readConfigFile(buildingsArray *arr, graph *G);
 
-int BacaFile ();
+// Print ASCII of character (for debugging purposes)
+void printASCIIFile();
+
+// Print word
+void printWord(word W);
 
 #endif
