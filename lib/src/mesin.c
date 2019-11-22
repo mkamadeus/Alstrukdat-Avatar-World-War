@@ -1,3 +1,6 @@
+/* File: mesin.c */
+/* mesin.h implementation */
+
 # include "../include/mesin.h"
 # include <stdio.h>
 

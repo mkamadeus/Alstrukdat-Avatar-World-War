@@ -1,3 +1,5 @@
+/* File: mesin.h */
+/* File to store ADT Mesin Kata/Input */
 
 #ifndef __MESIN_H_
 #define __MESIN_H_
@@ -19,7 +21,7 @@ typedef struct {
 
 extern boolean EndKata;
 
-// ignoreBlank skips input character if its blank/\n
+// Advances until CC is not blank
 void ignoreBlank();
 
 // readNumber parses input to be an integer

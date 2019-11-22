@@ -1,16 +1,5 @@
-/**
-Filename: pcolor.h
-Description: Print character with some color in terminal
-Prepared by: Asisten IF2110, modified by mkamadeus
-Created at: 17/10/2019
-**/
-
-/**
-Details
-
-print_xxx(c) will print c with xxx color. Import this header to use the declared functions.
-We only provide 8 colors. Feel free to modify/add colors if you want to.
-**/
+/* File: pcolor.h */
+/* File to store color formatting */
 
 #define NORMAL "\x1B[0m"
 #define RED "\x1B[31m"
@@ -26,11 +15,26 @@ We only provide 8 colors. Feel free to modify/add colors if you want to.
 #define REVERSE "\x1b[7m"
 #define HIDDEN "\x1b[8m"
 
+// Prints a red character
 void print_red(char c);
+
+// Prints a green character
 void print_green(char c);
+
+// Prints a yellow character
 void print_yellow(char c);
+
+// Prints a blue character
 void print_blue(char c);
+
+// Prints a magenta character
 void print_magenta(char c);
+
+// Prints a cyan character
 void print_cyan(char c);
+
+// Returns string length
 int stringLength(char *s);
+
+// Prints with color based on styling
 void colorPrint(const char *s, const char *style);

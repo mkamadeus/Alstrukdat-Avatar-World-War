@@ -1,44 +1,47 @@
-/**
-Filename: pcolor.c (implementation of pcolor.h)
-Description: Print character with some color in terminal
-Prepared by: Asisten IF2110
-Created at: 17/10/2019
-**/
+/* File: pcolor.c */
+/* pcolor.h implemetation */
 
 #include <stdio.h>
 #include <string.h>
 #include "../include/pcolor.h"
 
+// Prints a red character
 void print_red(char c) {
     printf("%s%c", RED, c);
     printf("%s", NORMAL);
 }
 
+// Prints a green character
 void print_green(char c) {
     printf("%s%c", GREEN, c);
     printf("%s", NORMAL);
 }
 
+// Prints a yellow character
 void print_yellow(char c) {
     printf("%s%c", YELLOW, c);
     printf("%s", NORMAL);
 }
 
+// Prints a blue character
 void print_blue(char c) {
     printf("%s%c", BLUE, c);
     printf("%s", NORMAL);
 }
 
+// Prints a magenta character
 void print_magenta(char c) {
     printf("%s%c", MAGENTA, c);
     printf("%s", NORMAL);
 }
 
+// Prints a cyan character
 void print_cyan(char c) {
     printf("%s%c", MAGENTA, c);
     printf("%s", NORMAL);
 }
 
+// Returns string length
 int stringLength(char *s)
 {
     int result=0;
@@ -48,6 +51,7 @@ int stringLength(char *s)
     return result;
 }
 
+// Prints with color based on styling
 void colorPrint(const char *s, const char *style)
 {
     if(strcmp(style,NORMAL)==0) printf("%s%s%s", NORMAL,s,NORMAL);
