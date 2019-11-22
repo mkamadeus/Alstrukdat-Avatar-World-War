@@ -73,6 +73,8 @@ int main()
 		}
 	}
 
+	printf("mami\n");
+
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
 			printf("Masukkan Command: ");
