@@ -1,54 +1,43 @@
 /* File: command.h */
-/* ADT yang berkaitan dengan command */
+/* File for storing commands */
 
 #ifndef command_H
 #define command_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
 #include "buildings.h"
 #include "stack.h"
 #include "mesin.h"
 
-/* LIST INVERS */
-/* 1 = inverseLevelUp */
-/* 2 = inverseAttack */
-/* 3 = inverseMove */
-/* 8 = inverseInstantUpgrade */
-/* 9 = inverseInstantReinforcement */
-/* 10 = inverseBarrage */
-/* 11 = inverseAttackUp */
-/* 12 = inverseCriticalHit */
-
-/* --------------------------------- */
-
-void showBuildings();
-/* Daftar bangunan yang bisa dieksekusi */
-
+// Level up a building
 void levelUp(buildings * C, stack * S, boolean * isSuccess);
-/* Meningkatkan level bangunan sebanyak 1 */
 
-void inverseLevelUp(buildings * C);
-/* Menurunkan level bangunan sebanyak 1 */
-
+// Returns troop count >= max troops
 boolean isMax(buildings C);
-/* Return true jika troops >= maxTroops */
 
+// Regen the troops
 void increaseTroops(buildings * C);
-/* Menambah jumlah troops sebanyak troopsRegen */
 
+// Attack command : Attacks from C1 to C2
 void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit);
-/* Melakukan attack */
 
-void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
-/* Mengembalikan kondisi sebelum diserang */
-
+// Undo command
 void undo(buildings * C1, buildings * C2, stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S);
-/* Melakukan undo */
 
+// Move command
 void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2);
-/* Memindahkan troops sebanyak troopsCount dari buildings C1 ke buildings C2 */
 
+/* -=-=-=-=-=-=-=-=- UNDO UTILITY FUNCTION -=-=-=-=-=-=-=-=- */
+
+// Inverse of levelUp function
+void inverseLevelUp(buildings * C);
+
+// Inverse of move function
 void inverseMove(buildings * C1, buildings * C2, stack * troops1, stack * troops2);
-/* inverse dari Move */
+
+// Inverse of attack
+void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
 
 #endif

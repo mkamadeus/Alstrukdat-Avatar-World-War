@@ -1,3 +1,6 @@
+/* File : array.c */
+/* array.h implementation */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/buildings.h"
