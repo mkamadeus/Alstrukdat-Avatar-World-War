@@ -31,10 +31,10 @@ void inverseLevelUp(buildings * C);
 /* Menurunkan level bangunan sebanyak 1 */
 
 boolean isMax(buildings C);
-/* Return true jika troops >= max_troops */
+/* Return true jika troops >= maxTroops */
 
 void increaseTroops(buildings * C);
-/* Menambah jumlah troops sebanyak troops_regen */
+/* Menambah jumlah troops sebanyak troopsRegen */
 
 void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed, boolean * critical, boolean ignore, own P, stack * level, stack * before, stack * troops1, stack * troops2, stack * S, stack * crit);
 /* Melakukan attack */

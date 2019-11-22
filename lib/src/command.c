@@ -19,7 +19,7 @@ void levelUp(buildings * C, stack * S, boolean * isSuccess){
     /* DEBUG */
 
     int minus, remains;
-    minus = max_troops(*C) / 2;
+    minus = maxTroops(*C) / 2;
     remains = troops(*C) - minus;
     if(level(*C) != 4){
         if(remains >= 0){
@@ -42,18 +42,18 @@ void levelUp(buildings * C, stack * S, boolean * isSuccess){
 void inverseLevelUp(buildings * C){
     int plus;
     changeLevel(C, level(*C)-1);
-    plus = max_troops(*C)/2;
+    plus = maxTroops(*C)/2;
     troops(*C) += plus;
 }
 
 boolean isMax(buildings C){
-    return (troops(C) >= max_troops(C));
+    return (troops(C) >= maxTroops(C));
 }
 
 void increaseTroops(buildings * C){
-    troops(*C) += troops_regen(*C);
+    troops(*C) += troopsRegen(*C);
     if(isMax(*C)){
-        troops(*C) = max_troops(*C);
+        troops(*C) = maxTroops(*C);
     }
 }
 
