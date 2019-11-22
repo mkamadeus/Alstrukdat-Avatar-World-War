@@ -1,3 +1,6 @@
+/* File : point.c */
+/* point.h implementation */
+
 #include "../include/point.h"
 
 // Allocate buildingCoord
@@ -11,10 +14,9 @@ buildingCoord* makeBuildingCoord (buildings *building, int row, int col)
     return C;
 }
 
-/* *** Write  *** */
+// Outputs building in format : <type> (<col>,<row>)
+// For e.g : Tower (1,13)
 void writeBuildingCoord (buildingCoord C)
-//reading: <type> (<col>,<row>)
-//example: Tower (1,13)
 {
     if (C.building->type==1){printf("Castle ");}
     else if ((C.building->type)==2){printf("Tower ");}

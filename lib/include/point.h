@@ -1,3 +1,6 @@
+/* File : point.h */
+/* File to store ADT point */
+
 #ifndef point_H
 #define point_H
 
@@ -8,24 +11,18 @@
 
 typedef struct {
     buildings *building;
-	int row; /* row  */
-	int col; /* col */
+	int row; 
+	int col; 
 } buildingCoord;
-/*reading in config*/
-/*<buildingType> <row> <col>*/
 
-//point refers to coordinates
-/* *** coordinate selector *** */
 #define row(C) (C).row //Y pos
 #define col(C) (C).col //X pos
 #define build(C) (C).building
 
-/* *** Primitive Prototype *** */
-/* *** Constructor *** */
+// Allocate building cord
 buildingCoord* makeBuildingCoord (buildings *building, int row, int col);
 
-/* *** Read/Write  *** */
+// Outputs building in format : <type> (<col>,<row>)
+// For e.g : Tower (1,13)
 void writeBuildingCoord (buildingCoord C);
-//reading: <type> (<col>,<row>)
-//example: Tower (1,13)
 #endif
