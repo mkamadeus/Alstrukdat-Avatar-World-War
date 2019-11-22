@@ -101,9 +101,13 @@ void writeMatrix (matrix M)
     char t;
     for(i=0;i<=getLastIdxRow(M);i++)
     {
-        for(j=0;j<getLastIdxCol(M);j++)
+        for(j=0;j<=getLastIdxCol(M);j++)
         {
-            if (i!=0 && j!=0 && i!=getLastIdxRow(M))
+            if ((i==0 && j==0)||(i==getLastIdxRow(M) && j==getLastIdxCol(M))) printf("/");
+            else if ((i==0 && j==getLastIdxCol(M))||(i==getLastIdxRow(M) && j==0)) printf("\\");
+            else if (i==0 || i==getLastIdxRow(M)) printf("-");
+            else if (j==0 || j==getLastIdxCol(M)) printf("|");
+            else
             {
                 if (buildingPtr(M,i,j)!=NULL)
                 {
@@ -120,8 +124,7 @@ void writeMatrix (matrix M)
                 }
                 else printf(" ");
             }
-            else printf("*");
         };
-        printf("*\n");
+        printf("\n");
     };
 }
