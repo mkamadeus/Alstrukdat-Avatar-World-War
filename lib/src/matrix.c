@@ -75,22 +75,22 @@ void insertStructure (matrix * M, buildingCoord *C)
     buildingPtr(*M,row(*C),col(*C)) = C;
 }
 
+void writeMatrix (matrix M)
 // Prints out matrix based on matrix 
 /* Example: prints 10x15 map (bordered by * from 0 to size+1)
-*****************
-*C       V   ​T​ ​C​*
-*  C            *
-*T      V     ​C​ *
-*    F          *
-*           F   *
-*  T            *
-*         T     *
-* ​C​   ​V​        T*
-*            C  *
-*​C​ T           C*
-*****************  
+/---------------\
+|C       V   ​T​ ​C​|
+|  C            |
+|T      V     ​C​ |
+|    F          |
+|           F   |
+|  T            |
+|         T     |
+| ​C​   ​V​        T|
+|            C  |
+|​C​ T           C|
+\---------------/
 */
-void writeMatrix (matrix M)
 {
     int i,j;
     char t;
