@@ -131,23 +131,26 @@ int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray b
 
 int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray bangunan){
 	uAddress P = first(G);
-	int i = 1;
-	int count = 1;
+	vAddress prec;
+	int i = 0;
 	while(P != NULL && info(P) != input1){
 		P = next(P);
 	}
+	printf("info(P) = %d\n", info(P));
 	vAddress Q = child(P);
-	while(Q != NULL && i < input2){
+	do{
 		if(owner(*Build(bangunan,info(Q))) != turn){
 			i++;
 		}
-		count++;
+		prec = Q;
 		Q = nextChild(Q);
-	}
+		printf("Terakhir harusnya masuk sini\n");
+	}while(Q != NULL && i < input2);
+	printf("info(prec) = %d\n", info(prec));
 	// for(int i = 1; i <=input2-1; i++){
 	// 	Q = nextChild(Q);
 	// }
-	return info(Q);
+	return info(prec);
 }
 
 void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray bangunan, int * count){

@@ -92,9 +92,9 @@ int main()
 	owner(*Build(bangunan,1)) = 1;
 	owner(*Build(bangunan,2)) = 2;
 
-	for(int i = 1; i <= 17; i++){
-		printf("owner[%d] = %d\n", i, owner(*Build(bangunan,i)));
-	}
+	// for(int i = 1; i <= 17; i++){
+	// 	printf("owner[%d] = %d\n", i, owner(*Build(bangunan,i)));
+	// }
 
 	for(int i = 1; i < 18; i++){
 		if(owner(*Build(bangunan,i)) == 1){
@@ -105,6 +105,7 @@ int main()
 		}
 	}
 
+
 	printInfo(P1);
 	printf("\n");
 	printInfo(P2);
@@ -112,6 +113,21 @@ int main()
 
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
+
+			// DEBUG
+			printf("Flag Attack = ");
+			printInfo(flagAttack);
+			printf("\n");
+			printf("Flag Move = ");
+			printInfo(flagMove);
+			printf("\n");
+			printf("Bangunan 1 = ");
+			printInfo(P1);
+			printf("\n");
+			printf("Bangunan 2 = ");
+			printInfo(P2);
+			printf("\n");
+
 			// Tampilan Default
 			writeMatrix(m);
 			firstInterface(skill1, skill2, turn);
@@ -122,6 +138,10 @@ int main()
 
 			if(wordCompare(input, ATTACK)){
 
+				for(int i = 1; i <= 17; i++){
+					printf("owner[%d] = %d\n", i, owner(*Build(bangunan,i)));
+				}
+				
 				// Checker if the building have attacked or not
 				if(turn == 1){
 					if(length(flagAttack) == length(P1)){
@@ -149,6 +169,7 @@ int main()
 				int temp = intConverter(penyerang);
 				int temp2 = inputToIndex(turn, temp, P1, P2);
 				penyerang_ = temp2;
+				printf("Penyerang_ = %d\n", penyerang_);
 
 				/* Check if building have attacked or not */
 				while(searchB(flagAttack,penyerang_)){
@@ -162,6 +183,8 @@ int main()
 					penyerang_ = temp2;
 				}
 
+				printf("Penyerang_ setelah = %d\n", penyerang_);
+
 				printEnemyBuildingConnected(g, turn, penyerang_, bangunan, &countBuildingsAttack);
 				if(countBuildingsAttack == 1){
 					printf("Tidak ada bangunan yang dapat diserang\n");
@@ -174,6 +197,8 @@ int main()
 				int temp3 = intConverter(diserang);
 				int temp4 = inputToIndexEnemy(g, turn, penyerang_, temp3, bangunan);
 				diserang_ = temp4;
+
+				printf("diserang_ = %d\n", diserang_);
 
 				printf("Masukkan berapa pasukan yang akan digunakan: ");
 
@@ -457,7 +482,7 @@ int main()
 						P = next(P);
 					}
 				}
-				
+
 				deleteAllStack(&S, &level, &before, &troops1, &troops2, &crit);
 				createAllStack(&S, &level, &before, &troops1, &troops2, &crit);
 				deleteEverything(&flagAttack);
