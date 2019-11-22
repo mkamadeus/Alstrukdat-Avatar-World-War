@@ -5,20 +5,37 @@ void changeTurn(int* turn)
 	*turn = *turn==1 ? 2 : 1;
 }
 
-void printBuildingConnected(graph G, int input, buildingsArray bangunan){
+void printEnemyBuildingConnected(graph G, int turn, int input, buildingsArray bangunan, int * output){
 	uAddress P = first(G);
 	while(P != NULL && info(P) != input){
 		P = next(P);
 	}
 	vAddress Q = child(P);
 	int count = 1;
+	int number = 1;
 	while(Q != NULL){
-		printf("%d. ", count);
-		writeBuildingCoord(*Elmt(bangunan,info(Q)));
+		if(turn == 1){
+			if(owner(*Build(bangunan,info(Q))) != 1){
+				printf("%d. ", number);
+				writeBuildingCoord(*Elmt(bangunan,info(Q)));
+				printf(" %d lv. %d", troops(*Build(bangunan,info(Q))), level(*Build(bangunan,info(Q))));
+				printf("\n");
+				number++;
+			}
+		}
+		else{
+			if(owner(*Build(bangunan,info(Q))) != 2){
+				printf("%d. ", number);
+				writeBuildingCoord(*Elmt(bangunan,info(Q)));
+				printf("\n");
+				number++;
+			}
+		}
+		// printf("%d. owner = %d\n",count,owner(*Build(bangunan,count)));
 		Q = nextChild(Q);
-		printf("\n");
 		count++;
 	}
+	*output = number;
 }
 
 void printBuildings(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
@@ -92,15 +109,44 @@ int inputToIndex(int turn, int input, linkedList P1, linkedList P2){
 	}
 }
 
-int inputToIndexEnemy(graph G, int input1, int input2, buildingsArray bangunan){
+int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray bangunan){
 	uAddress P = first(G);
+	int i = 1;
+	int count = 1;
 	while(P != NULL && info(P) != input1){
 		P = next(P);
 	}
 	vAddress Q = child(P);
-	for(int i = 1; i <=input2-1; i++){
+	while(Q != NULL && i < input2){
+		printf("info(Q) = %d\n", info(Q));
+		printf("i = %d\n", i);
+		if(owner(*Build(bangunan,info(Q))) == turn){
+			i++;
+		}
+		count++;
 		Q = nextChild(Q);
 	}
+	return info(Q);
+}
+
+int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray bangunan){
+	uAddress P = first(G);
+	int i = 1;
+	int count = 1;
+	while(P != NULL && info(P) != input1){
+		P = next(P);
+	}
+	vAddress Q = child(P);
+	while(Q != NULL && i < input2){
+		if(owner(*Build(bangunan,info(Q))) != turn){
+			i++;
+		}
+		count++;
+		Q = nextChild(Q);
+	}
+	// for(int i = 1; i <=input2-1; i++){
+	// 	Q = nextChild(Q);
+	// }
 	return info(Q);
 }
 

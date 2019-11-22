@@ -22,8 +22,12 @@ typedef struct{
 #define InfoTail(Q) (Q).T[(Q).TAIL]
 #define MaxElement(Q) (Q).MaxEl
 
+<<<<<<< HEAD
 // Returns true if queue is empty
 boolean isEmpty(queue Q);
+=======
+boolean isEmptyQueue(queue Q);
+>>>>>>> yoga_3
 
 // Returns true if queue is full
 boolean isFull(queue Q);

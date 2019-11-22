@@ -11,7 +11,20 @@
 #include "stack.h"
 #include "mesin.h"
 
+<<<<<<< HEAD
 // Level up a building
+=======
+/* LIST INVERS */
+/* 1 = inverseLevelUp */
+/* 2 = inverseAttack */
+/* 3 = inverseMove */
+
+/* --------------------------------- */
+
+void showBuildings();
+/* Daftar bangunan yang bisa dieksekusi */
+
+>>>>>>> yoga_3
 void levelUp(buildings * C, stack * S, boolean * isSuccess);
 
 // Returns troop count >= max troops

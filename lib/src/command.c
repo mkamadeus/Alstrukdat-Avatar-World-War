@@ -15,6 +15,7 @@ void levelUp(buildings * C, stack * S, boolean * isSuccess){
             push(S, 1);
             troops(*C) = remains;
             changeLevel(C, level(*C)+1);
+            printf("Bangunan naik ke level %d\n", level(*C));
             *isSuccess = true;
         }
         else
@@ -62,10 +63,14 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
         int troopsAttacked;
         int troopsAttack = troopsUsed;
 
+<<<<<<< HEAD
         printf("troops C2 awal = %d\n", troops(*C2));
 
         if(ignore && !(*critical))
         {
+=======
+        if(ignore && !(*critical)){
+>>>>>>> yoga_3
             troopsAttacked = troops(*C2);
             troops(*C2) -= troopsUsed;
         }
@@ -89,14 +94,15 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
             }
         }
 
+<<<<<<< HEAD
         printf("troops C2 = %d\n", troops(*C2));
         if(troops(*C2) <= 0)
         {
+=======
+        if(troops(*C2) <= 0){
+>>>>>>> yoga_3
             owner(*C2) = P;
             changeLevel(C2, 1);
-            printf("troops = %d\n", troops(*C2));
-            printf("troopsAttack = %d\n", troopsAttack);
-            printf("troopsAttacked = %d\n", troopsAttacked);
             troops(*C2) = troopsAttack - troopsAttacked;
             *isCaptured = true;
         }
@@ -105,6 +111,35 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
     }
 }
 
+<<<<<<< HEAD
+=======
+void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
+    /* TO DO */
+    /* DEBUG */
+
+    int v_troops1, v_troops2, v_level;
+    int v_critical;
+    own v_before;
+    pop(before, &v_before);
+    pop(troops1, &v_troops1);
+    pop(troops2, &v_troops2);
+    pop(level, &v_level);
+    pop(crit, &v_critical);
+    if(v_critical == 1){
+        *critical = true;
+    }
+    else{
+        *critical = false;
+    }
+    level(*C2) = v_level;
+    troops(*C2) = v_troops2;
+    troops(*C1) = v_troops1;
+    printf("owner C2 awal = %d\n", owner(*C2));
+    owner(*C2) = v_before;
+    printf("owner C2 akhir = %d\n", owner(*C2));
+}
+
+>>>>>>> yoga_3
 // void undo(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S, stack * crit){
 //     int command;
 //     pop(S, &command);
@@ -123,11 +158,18 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
 void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2)
 {
     push(S, 3);
+    push(troops1, troops(*C1));
+    push(troops2, troops(*C2));
     word troopsCount;
     int troopsCount_;
+<<<<<<< HEAD
 
     do
     {
+=======
+    do{
+        printf("Masukkan pasukan yang ingin dipindahkan: ");
+>>>>>>> yoga_3
         readSTDIN(&troopsCount);
         troopsCount_ = intConverter(troopsCount);
         if(troopsCount_ > troops(*C1)) printf("Jumlah pasukan tidak mencukupi\n");
@@ -135,6 +177,7 @@ void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * tr
     
     troops(*C1) -= troopsCount_;
     troops(*C2) += troopsCount_;
+    printf("Pasukan berhasil dipindahkan\n");
 }
 
 /* -=-=-=-=-=-=-=-=- UNDO UTILITY FUNCTION -=-=-=-=-=-=-=-=- */

@@ -17,7 +17,7 @@
 
 void changeTurn(int *turn);
 
-void printBuildingConnected(graph G, int input, buildingsArray bangunan);
+void printEnemyBuildingConnected(graph G, int turn, int input, buildingsArray bangunan, int * output);
 
 void printBuildings(int turn, linkedList P1, linkedList P2, buildingsArray bangunan);
 
@@ -25,7 +25,9 @@ void printEnemyBuildings(int turn, linkedList P1, linkedList P2, buildingsArray 
 
 int inputToIndex(int turn, int input, linkedList P1, linkedList P2);
 
-int inputToIndexEnemy(graph G, int input1, int input2, buildingsArray bangunan);
+int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray bangunan);
+
+int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray bangunan);
 
 void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray bangunan, int * count);
 
