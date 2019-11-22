@@ -62,6 +62,7 @@ int main()
 	createEmpty(&flagMove);
 	owner(*Build(bangunan,1)) = 1;
 	owner(*Build(bangunan,2)) = 1;
+	printf("pisang goreng\n");
 	owner(*Build(bangunan,3)) = 2;
 	owner(*Build(bangunan,4)) = 2;
 	for(int i = 1; i < 5; i++){
@@ -72,8 +73,6 @@ int main()
 			insertValueLast(&P2,i);
 		}
 	}
-
-	printf("mami\n");
 
 	while(length(P1) != 0 && length(P2) != 0){
 		do{

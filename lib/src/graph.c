@@ -1,3 +1,6 @@
+/* File: graph.c */
+/* graph.h implementation */
+
 #include "../include/graph.h"
 
 // Allocate node for incoming node

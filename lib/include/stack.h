@@ -1,11 +1,12 @@
 /* File : stack.h */
-/* ADT Stack yang berkaitan dengan Undo*/
+/* File to store ADT Stack (related to UNDO) */
 
 #ifndef stack_H
 #define stack_H
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
-
 
 typedef int infotype;
 typedef struct tStacklist *address_;
@@ -17,35 +18,35 @@ typedef struct{
     address_ top;
 } stack;
 
-/* SELEKTOR */
 #define Top(L) ((L).top)
 #define Info(P) (P)->info
 #define Next(P) (P)->next
 
-/* --------------------------------- */
-
+// Creates an empty stack
 void createStack(stack * S);
-/* Membuat stack dengan */
 
-void dealocate(stack * S);
-/* Menghapus stack */
+// Allocate a stack element
+address_ allocate(int X);
 
+// Deallocate a stack element
+void dealocate(address_ P);
+
+// Deallocate the whole stack
 void deleteAll(stack * S);
-/* Menghapus semua stack */
 
+// Return true if stack is empty
 boolean isEmpty(stack S);
-/* return true jika kosong */
 
+// Push a new element into the stack
 void push(stack * S, int data);
-/* Menambahkan data ke dalam stack */
 
+// Peeks the top element
 int peek(stack * S);
-/* return content top */
 
+// Pops the topmost element of the stack
 void pop(stack * S, int * out);
-/* Menyimpan content top ke out dan menghapus content top */
 
+// Deletes topmost stack and return address to P
 void delA(stack * S, address_ * P);
-/* Menghapus address top dan menyimpannya ke P */
 
 #endif

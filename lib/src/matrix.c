@@ -1,11 +1,10 @@
+/* File: matrix.c */
+/* matrix.h implementation */
+
 #include "../include/matrix.h"
 
-/* ********** PRIMITIVE PROTOTYPE DEFINITION ********** */
-/* *** matrix Constructor *** */
+// Creates an empty matrix with size NRxNC
 void createEmptyMatrix(int NR, int NC, matrix * M)
-/* Creating "empty" matrix ready to use*/
-/* I.S. NR dan NC are valid */
-/* F.S. Matriks M created as defined above */
 {
     //Map size
     nRowEff(*M)=NR+1;
@@ -21,45 +20,43 @@ void createEmptyMatrix(int NR, int NC, matrix * M)
     //to fill the blank with corresponding structure, use InsertStructure
 }
 
-/* *** Selector "matrix" *** */
+// Return true if index [i,j] valid
 boolean isIdxValid (int i, int j)
-/* Returns true if i, j is a valid index */
 {
     return((i>=rowMin && i<=rowMax) && (j>=colMin && j<=colMax));
 }
 
-/* *** Selector: for a defined matrix M: *** */
+// Returns lowest index row M
 index getFirstIdxRow (matrix M)
-/* Returns lowest index row M */
 {
     return(rowMin);
 }
+
+// Returns lowest index column M
 index getFirstIdxCol (matrix M)
-/* Returns lowest index column M */
 {
     return(colMin);
 }
+
+// Returns highest index row M
 index getLastIdxRow (matrix M)
-/* Returns highest index row M */
 {
     return(nRowEff(M));
 }
+
+// Returns highest index column M
 index getLastIdxCol (matrix M)
-/* Returns highest index column M */
 {
     return(nColEff(M));
 }
+
+// Returns true if index [i,j] is effective index for M
 boolean isIdxEff (matrix M, index i, index j)
-/* Returns true if i, j is effective index for M */
 {
     return(i==getLastIdxRow(M) && j==getLastIdxCol(M));
 }
-/* ********** Read/Write ********** */
-void insertStructure (matrix * M, buildingCoord *C)
-/* I.S. isIdxValid(NR,NC) */
-/* F.S. defined effective element of M , Size NR x NC */
-/* Process: Makematrix(M,NB,NK) and write effective value */
-/* then read element value per row and column */
+
+// Insert structure in M based on C
 /* Example: if NR = 15 dan NC = 10, then matrix entry (provided every structure already inserted) :
 C       V   ​T​ ​C​
   C            
@@ -73,37 +70,39 @@ T      V     ​C​
 ​C​ T           C
 NB: depends on coordinate points
 */
+void insertStructure (matrix * M, buildingCoord *C)
 {
     buildingPtr(*M,row(*C),col(*C)) = C;
-    // printf("%d\n", buildingPtrType(*M,row(*C),col(*C)));
-    // show(*build(*buildingPtr(*M,row(*C),col(*C))));
 }
+
 void writeMatrix (matrix M)
-/* I.S. M defined */
-/* F.S. Value of M(i,j) printed per row per column*/
-/* Process: print per row and per column*/
+// Prints out matrix based on matrix 
 /* Example: prints 10x15 map (bordered by * from 0 to size+1)
-*****************
-*C       V   ​T​ ​C​*
-*  C            *
-*T      V     ​C​ *
-*    F          *
-*           F   *
-*  T            *
-*         T     *
-* ​C​   ​V​        T*
-*            C  *
-*​C​ T           C*
-*****************  
+/---------------\
+|C       V   ​T​ ​C​|
+|  C            |
+|T      V     ​C​ |
+|    F          |
+|           F   |
+|  T            |
+|         T     |
+| ​C​   ​V​        T|
+|            C  |
+|​C​ T           C|
+\---------------/
 */
 {
     int i,j;
     char t;
     for(i=0;i<=getLastIdxRow(M);i++)
     {
-        for(j=0;j<getLastIdxCol(M);j++)
+        for(j=0;j<=getLastIdxCol(M);j++)
         {
-            if (i!=0 && j!=0 && i!=getLastIdxRow(M))
+            if ((i==0 && j==0)||(i==getLastIdxRow(M) && j==getLastIdxCol(M))) printf("/");
+            else if ((i==0 && j==getLastIdxCol(M))||(i==getLastIdxRow(M) && j==0)) printf("\\");
+            else if (i==0 || i==getLastIdxRow(M)) printf("-");
+            else if (j==0 || j==getLastIdxCol(M)) printf("|");
+            else
             {
                 if (buildingPtr(M,i,j)!=NULL)
                 {
@@ -120,8 +119,7 @@ void writeMatrix (matrix M)
                 }
                 else printf(" ");
             }
-            else printf("*");
         };
-        printf("*\n");
+        printf("\n");
     };
 }

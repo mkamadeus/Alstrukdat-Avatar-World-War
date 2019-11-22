@@ -1,5 +1,5 @@
 /* File: mesinkar.c */
-/* Implementasi Mesin Karakter */
+/* mesinkar.h implementation */
 
 #include "../include/mesinkar.h"
 #include <stdio.h>
@@ -10,20 +10,14 @@ boolean EOP;
 static FILE * pita;
 static int retval;
 
-/* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
-   Karakter pertama yang ada pada pita posisinya adalah pada jendela.
-   I.S. : sembarang
-   F.S. : CC adalah karakter pertama pada pita. Jika CC != MARK maka EOP akan padam (false).
-          Jika CC = MARK maka EOP akan menyala (true) */
-
-    /* Algoritma */
-void START(char* filename) {
+// Mesin karakter to open file
+void START(const char* filename) {
     pita = fopen(filename,"r");
     EOP = false;
     ADV();
 }
 
-// Mesin kata for STDIN
+// Mesin karakter for STDIN
 void STARTSTDIN()
 {
     pita = stdin;
@@ -31,14 +25,7 @@ void STARTSTDIN()
     ADVSTDIN();
 }
 
-/* Pita dimajukan satu karakter.
-   I.S. : Karakter pada jendela =
-          CC, CC != MARK
-   F.S. : CC adalah karakter berikutnya dari CC yang lama,
-          CC mungkin = MARK.
-          Jika  CC = MARK maka EOP akan menyala (true) */
-
-    /* Algoritma */
+// Advances karakter in file until EOP
 void ADV() {
     // Advances if not EOF (return value of EOF when fscanf fails is -1)
     if (fscanf(pita,"%c",&CC)==EOF)
@@ -48,6 +35,7 @@ void ADV() {
     }
 }
 
+// Advances karakter from STDIN
 void ADVSTDIN()
 {
     if (fscanf(pita,"%c",&CC)=='\n')

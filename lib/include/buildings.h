@@ -9,53 +9,44 @@
 typedef int own;
 typedef int types;
 
-/* Type */
-/* 1 = Castle */
-/* 2 = Tower */
-/* 3 = Fort */
-/* 4 = Village */ 
-
 typedef struct tBuildings *addressBuildings;
 typedef struct tBuildings {
     own owner;
     types type;
     int troops;
     int level;
-    int troops_regen;
-    int max_troops;
+    int troopsRegen;
+    int maxTroops;
     boolean defense;
 } buildings;
 
-/* SELEKTOR */
 #define owner(C) (C).owner
 #define type(C) (C).type
 #define troops(C) (C).troops
 #define level(C) (C).level
-#define troops_regen(C) (C).troops_regen
-#define max_troops(C) (C).max_troops
+#define troopsRegen(C) (C).troopsRegen
+#define maxTroops(C) (C).maxTroops
 #define defense(C) (C).defense
-
-/* --------------------------------- */
 
 // Allocate buildings in heap
 buildings* allocateBuilding();
 
-/* Mengeluarkan status bangunan */
+// Show building status
 void show(buildings C);
 
-/* sebuah objek castle terbentuk */
+// Constructor for building type castle
 void makeCastle(buildings * C, own P);
 
-/* sebuah objek tower terbentuk */
+// Constructor for building type tower
 void makeTower(buildings * C, own P);
 
-/* sebuah objek fort terbentuk */
+// Constructor for building type fort
 void makeFort(buildings * C, own P);
 
-/* sebuah objek village terbentuk */
+// Constructor for building type village
 void makeVillage(buildings * C, own P);
 
-/* Mengganti level bangunan */
+// Change building level (and stats)
 void changeLevel(buildings * C, int level);
 
 #endif

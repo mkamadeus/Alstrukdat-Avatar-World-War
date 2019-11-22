@@ -1,25 +1,33 @@
-#include <stdio.h>
-#include <stdlib.h>
+/* File : stack.c */
+/* stack.h implementation */
+
 #include "../include/stack.h"
 
-void createStack(stack * S){
+// Creates an empty stack
+void createStack(stack * S)
+{
     Top(*S) = NULL;
 }
 
-void deallocate(address_ * P){
+// Deallocate a stack element
+void deallocate(address_ P)
+{
     free(P);
 }
 
-void deleteAll(stack * S){
+// Deallocate the whole stack
+void deleteAll(stack * S)
+{
     int temp;
-    while(!isEmpty(*S)){
-        pop(S, &temp);
-    }
+    while(!isEmpty(*S)) pop(S, &temp);
 }
 
-address_ allocate(int X){
+// Allocate a stack element
+address_ allocate(int X)
+{
     address_ P = (address_)malloc(sizeof(stackList));
-	if(P != NULL){
+	if(P != NULL)
+    {
 		Info(P) = X;
 		Next(P) = NULL;
 	}
@@ -27,40 +35,49 @@ address_ allocate(int X){
 	return P;
 }
 
-boolean isEmpty(stack S){
+// Return true if stack is empty
+boolean isEmpty(stack S)
+{
     return (Top(S) == NULL);
 }
 
-void push(stack * S, int data){
+// Push a new element into the stack
+void push(stack * S, int data)
+{
     address_ P = allocate(data);
-    if(P != NULL){
-        if(isEmpty(*S)){
-            Top(*S) = P;
-        }
-        else{
+    if(P != NULL)
+    {
+        if(isEmpty(*S)) Top(*S) = P;
+        else
+        {
             Next(P) = Top(*S);
             Top(*S) = P;
         }
     }
 }
 
-int peek(stack * S){
+// Peeks the top element
+int peek(stack * S)
+{
     return (Info(Top(*S)));
 }
 
-void pop(stack * S, int * out){
-    if(isEmpty(*S)){
-        printf("Stack kosong\n");
-    }
-    else{
+// Pops the topmost element of the stack
+void pop(stack * S, int * out)
+{
+    if(isEmpty(*S)) printf("Stack kosong\n");
+    else
+    {
         address_ X;
         delA(S, &X);
         *out = Info(X);
-        deallocate(&X);
+        deallocate(X);
     }
 }
 
-void delA(stack * S, address_ *P){
+// Deletes topmost stack and return address to P
+void delA(stack * S, address_ *P)
+{
     *P = Top(*S);
     Top(*S) = Next(*P);
     Next(*P) = NULL;

@@ -15,6 +15,7 @@
         "mesinkar.h\u0000nkar.h": "c",
         "boolean.h": "c",
         "boolean.h\u0000lean.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "command.h": "c"
     }
 }
