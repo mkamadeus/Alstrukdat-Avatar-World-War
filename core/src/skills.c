@@ -202,6 +202,8 @@ int towerCounter(linkedList P1, linkedList P2, buildingsArray bangunan, int turn
             P = Next(P);
         }
     }
+
+    return count;
 }
 
 void attackUpTriggered(queue * skill1, queue * skill2, int turn){

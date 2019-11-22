@@ -264,7 +264,6 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
         }
     }
 
-<<<<<<< HEAD
     // Read turn state
     ignoreBlank();
     *turn = readNumber();
@@ -279,7 +278,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     *extraTurn = readNumber();
 
     // Input to queue
-    createEmpty(Q1);
+    createQueue(Q1,10);
     for(int i=1;i<=10;i++) 
     {
         ignoreBlank();
@@ -287,7 +286,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     }
 
     // Input to queue
-    createEmpty(Q2);
+    createQueue(Q2, 10);
     for(int i=1;i<=10;i++) 
     {
         ignoreBlank();
@@ -295,9 +294,6 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     }
 
     colorPrint("Save file loaded, ready to play!\n", GREEN);
-=======
-    // printGraph(*G);
->>>>>>> florencia-ATTACK
 }
 
 /* -=-=-=-=-=-=-=- FOR DEBUGGING PURPOSES -=-=-=-=-=-=-=- */
@@ -318,8 +314,6 @@ void printWord(word W)
     for(int i=0;i<W.length;i++) printf("%c",W.wordArray[i]);
     printf("\n");
 }
-<<<<<<< HEAD
-=======
 
 int intConverter(word W){
     int result = 0;
@@ -346,4 +340,3 @@ boolean wordCompare(word W, char * S){
     }
     return result;
 }
->>>>>>> florencia-ATTACK
