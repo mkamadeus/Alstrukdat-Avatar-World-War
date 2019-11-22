@@ -2,34 +2,31 @@
 #include <stdlib.h>
 #include "../include/array.h"
 
+// Constructor for buildingsArray
 void makeEmptyArray(buildingsArray * T, int maxel)
-/* I.S. T sembarang */
-/* F.S. Terbentuk tabel T kosong dengan kapasitas IdxMax-IdxMin+1 */
 {
     TI(*T) = (ElType *) malloc ((maxel+1)*sizeof(ElType));
     Neff(*T)=0;
     MaxEl(*T)=maxel;
 }
 
+// Destructor for buildingsArray
 void dealokasiArray(buildingsArray *T)
-/* I.S. T terdefinisi; */
-/* F.S. TI(T) dikembalikan ke system, MaxEl(T)=0; Neff(T)=0 */
 {
 	free (TI(*T));
 	MaxEl(*T)=0;
 	Neff(*T)=0;
 }
 
+// Procedure for reading building
 void bacaIsi(buildingsArray *T, buildingCoord *C)
-/*add pointer inside array to building*/
 {
-    Neff(*T)++;
+    ++Neff(*T);
     Elmt(*T,Neff(*T)) = C;
 }
 
-/* CAUTION: ARRAY MUST NOT EMPTY */
+// Output all buildings on the field
 void tulisIsiTab(buildingsArray T)
-/*Prints every building available on field*/
 {
     printf("Building on field:\n");
     for(int i = 1;i<=Neff(T);i++)
@@ -40,15 +37,15 @@ void tulisIsiTab(buildingsArray T)
     }
 }
 
-void printOnType(buildingsArray T, char X)
-/* Print based on type*/
+// Output buildings based on type
+void printOnType(buildingsArray T, char type)
 {
-    if (X == 'C'|| X == 'T'|| X == 'V'|| X == 'F' )
+    if (type == 'C'|| type == 'T'|| type == 'V'|| type == 'F' )
     {
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Build(T,i)->type == X)
+            if(type(*Build(T,i)) == type)
             {
                 printf("%d.\n");
                 show(*Build(T,i));
@@ -56,18 +53,17 @@ void printOnType(buildingsArray T, char X)
             }
         }
     }
-    else printf("Salah input goblok\n");
 }
 
-void printOnOwner(buildingsArray T, own X)
-/* Print based on owner*/
+// Output buildings based on owner
+void printOnOwner(buildingsArray T, own owner)
 {
-    if (X == 1|| X == 2|| X == 0)//nunggu fix ownershipnya
+    if (owner == 1|| owner == 2|| owner == 0)
     {
         printf("Building on field:\n");
         for(int i = 1;i<=Neff(T);i++)
         {
-            if(Build(T,i)->owner == X)
+            if(owner(*Build(T,i)) == owner)
             {
                 printf("%d.\n");
                 show(*Build(T,i));
@@ -75,5 +71,4 @@ void printOnOwner(buildingsArray T, own X)
             }
         }
     }
-    else printf("Salah input goblok\n");
 }
