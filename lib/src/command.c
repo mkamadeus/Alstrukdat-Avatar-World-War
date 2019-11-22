@@ -63,14 +63,10 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
         int troopsAttacked;
         int troopsAttack = troopsUsed;
 
-<<<<<<< HEAD
         printf("troops C2 awal = %d\n", troops(*C2));
 
         if(ignore && !(*critical))
         {
-=======
-        if(ignore && !(*critical)){
->>>>>>> yoga_3
             troopsAttacked = troops(*C2);
             troops(*C2) -= troopsUsed;
         }
@@ -94,13 +90,9 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
             }
         }
 
-<<<<<<< HEAD
         printf("troops C2 = %d\n", troops(*C2));
         if(troops(*C2) <= 0)
         {
-=======
-        if(troops(*C2) <= 0){
->>>>>>> yoga_3
             owner(*C2) = P;
             changeLevel(C2, 1);
             troops(*C2) = troopsAttack - troopsAttacked;
@@ -111,35 +103,6 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
     }
 }
 
-<<<<<<< HEAD
-=======
-void inverseAttack(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
-    /* TO DO */
-    /* DEBUG */
-
-    int v_troops1, v_troops2, v_level;
-    int v_critical;
-    own v_before;
-    pop(before, &v_before);
-    pop(troops1, &v_troops1);
-    pop(troops2, &v_troops2);
-    pop(level, &v_level);
-    pop(crit, &v_critical);
-    if(v_critical == 1){
-        *critical = true;
-    }
-    else{
-        *critical = false;
-    }
-    level(*C2) = v_level;
-    troops(*C2) = v_troops2;
-    troops(*C1) = v_troops1;
-    printf("owner C2 awal = %d\n", owner(*C2));
-    owner(*C2) = v_before;
-    printf("owner C2 akhir = %d\n", owner(*C2));
-}
-
->>>>>>> yoga_3
 // void undo(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S, stack * crit){
 //     int command;
 //     pop(S, &command);
@@ -162,14 +125,9 @@ void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * tr
     push(troops2, troops(*C2));
     word troopsCount;
     int troopsCount_;
-<<<<<<< HEAD
 
     do
     {
-=======
-    do{
-        printf("Masukkan pasukan yang ingin dipindahkan: ");
->>>>>>> yoga_3
         readSTDIN(&troopsCount);
         troopsCount_ = intConverter(troopsCount);
         if(troopsCount_ > troops(*C1)) printf("Jumlah pasukan tidak mencukupi\n");

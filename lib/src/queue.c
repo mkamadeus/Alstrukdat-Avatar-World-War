@@ -2,13 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-<<<<<<< HEAD
-// Returns true if queue is empty
-boolean isEmpty(queue Q)
-{
-=======
 boolean isEmptyQueue(queue Q){
->>>>>>> yoga_3
     return (Head(Q) == unDef && Tail(Q) == unDef);
 }
 
@@ -18,17 +12,10 @@ boolean isFull(queue Q)
     return (NBElmt(Q) == MaxElement(Q));
 }
 
-<<<<<<< HEAD
 // Queue element count
 int NBElmt(queue Q)
 {
     if(isEmpty(Q)) return 0;
-=======
-int NBElmt(queue Q){
-    if(isEmptyQueue(Q)){
-        return 0;
-    }
->>>>>>> yoga_3
     else{
         if(Tail(Q) >= Head(Q)) return (Tail(Q) - Head(Q) + 1);
         else return (MaxElement(Q) - Head(Q) + Tail(Q) + 1);
@@ -55,16 +42,11 @@ void dealokasi(queue * Q)
     MaxElement(*Q) = 0;
 }
 
-<<<<<<< HEAD
 // Inserts new element to queue (last)
 void Add(queue * Q, int X)
 {
     if(isEmpty(*Q))
     {
-=======
-void Add(queue * Q, int X){
-    if(isEmptyQueue(*Q)){
->>>>>>> yoga_3
         Head(*Q) = 1;
         Tail(*Q) = 1;
         InfoHead(*Q) = X;
