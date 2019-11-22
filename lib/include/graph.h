@@ -1,12 +1,12 @@
 /* File: graph.h */
-/* File yang berkaitan dengan representasi graph */
+/* File to store ADT Graph */
 
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
-#include "boolean.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "boolean.h"
 
 typedef int infotype;
 typedef struct tNodeU* uAddress;
@@ -58,8 +58,5 @@ void printGraph(graph G);
 
 // Check if node N is connected to node M
 boolean isConnected(graph G, int N, int M);
-
-// // Check how many buildings are connected
-// int connectedBuildings(graph G, int N, int M);
 
 #endif

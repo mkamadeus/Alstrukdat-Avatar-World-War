@@ -1,5 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
+/* File: linkedlist.c */
+/* linkedlist.h implementation */
+
 #include "../include/linkedlist.h"
 
 // Test whether linked list is empty or not, firstList(L) = NULL
@@ -89,28 +90,30 @@ void deleteValueFirst(linkedList *L, infotype *X)
 	deallocateNode(P);
 }
 
+// Delete element X
 void deleteValue(linkedList *L, infotype X){
 	address Y = firstList(*L);
 	address prec;
 	int count = 0;
-    if(!isEmpty(*L)){
-        while(info(Y) != X && next(Y) != NULL){
+    if(!isEmpty(*L))
+	{
+        while(info(Y) != X && next(Y) != NULL)
+		{
             prec = Y;
             Y = next(Y);
             count++;
         }
-        if(info(Y) == X){
-            if(count != 0){
+        if(info(Y) == X)
+		{
+            if(count != 0)
+			{
                 next(prec) = next(Y);
                 deallocateNode(Y);
             }
-            else{
-                if(length(*L) != 1){
-                    firstList(*L) = next(firstList(*L));
-                }
-                else{
-                    createEmpty(L);
-                }
+            else
+			{
+                if(length(*L) != 1) firstList(*L) = next(firstList(*L));
+                else createEmpty(L);
             }
         }
     }
@@ -213,6 +216,7 @@ int length(linkedList L)
 	return result;
 }
 
+// Print linked list content (if infotype integer)
 void printInfo (linkedList L)
 {
     printf("[");
@@ -229,6 +233,7 @@ void printInfo (linkedList L)
     printf("]");
 }
 
+// Deallocate everything
 void deleteEverything(linkedList * L){
 	int X;
 	while(firstList(*L) != NULL){

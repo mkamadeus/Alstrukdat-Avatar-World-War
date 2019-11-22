@@ -4,6 +4,8 @@
 #ifndef __LINKEDLIST_H__
 #define __LINKEDLIST_H__
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "boolean.h"
 
 typedef int infotype;
