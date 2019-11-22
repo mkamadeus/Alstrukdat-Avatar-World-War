@@ -24,11 +24,17 @@ extern boolean EndKata;
 // Advances until CC is not blank
 void ignoreBlank();
 
+// Advances until CC is not blank
+void ignoreBlankSTDIN();
+
 // readNumber parses input to be an integer
 int readNumber();
 
 // readSTDIN will input from STDIN and convert it to ADT Word
 void readSTDIN(word *input);
+
+// readNumberSTDIN returns number from STDIN input
+void readNumberSTDIN(int *X);
 
 // readConfigFile will read config file and make the structure
 void readConfigFile(matrix *M, buildingsArray *arr, graph *G);
@@ -44,6 +50,7 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
 
 // Load from file
 void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2);
+
 // Word to int converter
 int intConverter(word W);
 

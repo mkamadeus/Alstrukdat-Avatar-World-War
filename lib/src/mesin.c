@@ -16,6 +16,13 @@ void ignoreBlank()
     while (CC != EOF && (CC == ' ' || CC == '\n')) ADV();
 }
 
+// Advances until CC is not blank
+void ignoreBlankSTDIN()
+{
+    // While not blank
+    while (CC != EOF && CC == ' ' ) ADVSTDIN();
+}
+
 // readNumber parses input to be an integer
 int readNumber()
 {
@@ -34,6 +41,7 @@ int readNumber()
 void readSTDIN(word *input)
 {
     STARTSTDIN();
+    ignoreBlankSTDIN();
 
     // Initialize word
     (*input).length = 0;
@@ -45,12 +53,27 @@ void readSTDIN(word *input)
         ADVSTDIN();
     }
 }
+// readNumberSTDIN returns number from STDIN input
+void readNumberSTDIN(int *X)
+{
+    STARTSTDIN();
+    *X = 0;
+    while(!EOP && CC!='\n')
+    {
+        int tmp = CC - '0';
+        *X = (*X)*10 + tmp; 
+        ADVSTDIN(); 
+    }
+
+}
+
 
 // readConfigFile will read config file and make the structure
 void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
 {
     // Start reading config file
     START(configFilename);
+    ignoreBlank();
 
     // Read map size
     ignoreBlank();
@@ -185,6 +208,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
 {
     // Start reading filename
     START(savefileFilename);
+    ignoreBlank();
 
     // Read map size
     ignoreBlank();

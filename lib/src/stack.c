@@ -71,7 +71,7 @@ void pop(stack * S, int * out)
         address_ X;
         delA(S, &X);
         *out = Info(X);
-        deallocate(&X);
+        deallocate(X);
     }
 }
 
