@@ -13,11 +13,6 @@
 /* 1 = inverseLevelUp */
 /* 2 = inverseAttack */
 /* 3 = inverseMove */
-/* 8 = inverseInstantUpgrade */
-/* 9 = inverseInstantReinforcement */
-/* 10 = inverseBarrage */
-/* 11 = inverseAttackUp */
-/* 12 = inverseCriticalHit */
 
 /* --------------------------------- */
 

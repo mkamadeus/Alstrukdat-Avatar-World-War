@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-boolean isEmpty(queue Q){
+boolean isEmptyQueue(queue Q){
     return (Head(Q) == unDef && Tail(Q) == unDef);
 }
 
@@ -11,7 +11,7 @@ boolean isFull(queue Q){
 }
 
 int NBElmt(queue Q){
-    if(isEmpty(Q)){
+    if(isEmptyQueue(Q)){
         return 0;
     }
     else{
@@ -42,7 +42,7 @@ void dealokasi(queue * Q){
 }
 
 void Add(queue * Q, int X){
-    if(isEmpty(*Q)){
+    if(isEmptyQueue(*Q)){
         Head(*Q) = 1;
         Tail(*Q) = 1;
         InfoHead(*Q) = X;

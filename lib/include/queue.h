@@ -19,7 +19,7 @@ typedef struct{
 #define InfoTail(Q) (Q).T[(Q).TAIL]
 #define MaxElement(Q) (Q).MaxEl
 
-boolean isEmpty(queue Q);
+boolean isEmptyQueue(queue Q);
 
 boolean isFull(queue Q);
 
