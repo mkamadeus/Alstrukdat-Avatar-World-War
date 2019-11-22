@@ -171,3 +171,99 @@ void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray banguna
 	}
 	*count = counts;
 }
+
+void firstInterface(queue skill1, queue skill2, int turn){
+	printf("Your Skills = ");
+	if(turn == 1){
+		if(isEmptyQueue(skill1)){
+			printf("Tidak ada skill\n");
+		}
+		else{
+			if(InfoHead(skill1) == 1){
+				printf("Instant Upgrade\n");
+			}
+			else if(InfoHead(skill1) == 2){
+				printf("Shield\n");
+			}
+			else if(InfoHead(skill1) == 3){
+				printf("Extra Turn\n");
+			}
+			else if(InfoHead(skill1) == 4){
+				printf("Attack Up\n");
+			}
+			else if(InfoHead(skill1) == 5){
+				printf("Critical Hit\n");
+			}
+			else if(InfoHead(skill1) == 6){
+				printf("Instant Reinforcement\n");
+			}
+			else{
+				printf("Barrage\n");
+			}
+		}
+	}
+	else{
+		if(isEmptyQueue(skill2)){
+			printf("Tidak ada skill\n");
+		}
+		else{
+			if(InfoHead(skill2) == 1){
+				printf("Instant Upgrade\n");
+			}
+			else if(InfoHead(skill2) == 2){
+				printf("Shield\n");
+			}
+			else if(InfoHead(skill2) == 3){
+				printf("Extra Turn\n");
+			}
+			else if(InfoHead(skill2) == 4){
+				printf("Attack Up\n");
+			}
+			else if(InfoHead(skill2) == 5){
+				printf("Critical Hit\n");
+			}
+			else if(InfoHead(skill2) == 6){
+				printf("Instant Reinforcement\n");
+			}
+			else{
+				printf("Barrage\n");
+			}
+		}
+	}
+}
+
+void interfaceInsideAttack(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
+	printf("Bangunan yang dipilih sudah digunakan untuk menyerang...\nPilihlah bangunan yang lain\n");
+	printBuildings(turn, P1, P2, bangunan);
+	printf("Pilih bangunan: ");
+}
+
+void levelUpInterface(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
+	printf("Daftar Bangunan: \n");
+	printBuildings(turn, P1, P2, bangunan);
+	printf("Bangunan yang akan dilevel-Up: ");
+}
+
+void searchBInterface(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
+	printf("Bangunan yang dipilih sudah digunakan ...\nPilihlah bangunan yang lain\n");
+	printBuildings(turn, P1, P2, bangunan);
+	printf("Pilih bangunan: ");
+}
+
+void deleteAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
+	deleteAll(S);
+	deleteAll(level);
+	deleteAll(before);
+	deleteAll(troops1);
+	deleteAll(troops2);
+	deleteAll(crit);
+}
+
+void createAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit){
+	createStack(S);
+	createStack(level);
+	createStack(before);
+	createStack(troops1);
+	createStack(troops2);
+	createStack(crit);
+}

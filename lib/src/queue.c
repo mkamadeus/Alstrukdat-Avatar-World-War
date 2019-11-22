@@ -15,7 +15,7 @@ boolean isFull(queue Q)
 // Queue element count
 int NBElmt(queue Q)
 {
-    if(isEmpty(Q)) return 0;
+    if(isEmptyQueue(Q)) return 0;
     else{
         if(Tail(Q) >= Head(Q)) return (Tail(Q) - Head(Q) + 1);
         else return (MaxElement(Q) - Head(Q) + Tail(Q) + 1);
@@ -45,7 +45,7 @@ void dealokasi(queue * Q)
 // Inserts new element to queue (last)
 void Add(queue * Q, int X)
 {
-    if(isEmpty(*Q))
+    if(isEmptyQueue(*Q))
     {
         Head(*Q) = 1;
         Tail(*Q) = 1;

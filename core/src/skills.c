@@ -140,9 +140,11 @@ int lengthTurnNow(int turn, linkedList P1, linkedList P2){
 void shieldTriggered(queue * skill1, queue * skill2, int turn){
     if(turn == 1){
         Add(skill2,2);
+        printf("Player 2 Mendapatkan Shield\n");
     }
     else{
         Add(skill1,2);
+        printf("Player 1 Mendapatkan Shield\n");
     }
 }
 
@@ -174,9 +176,11 @@ int fortCounter(linkedList P1, linkedList P2, buildingsArray bangunan, int turn)
 void extraTurnTriggered(queue * skill1, queue * skill2, int turn){
     if(turn == 1){
         Add(skill2, 3);
+        printf("Player 2 Mendapatkan Extra Turn\n");
     }
     else{
         Add(skill1, 3);
+        printf("Player 1 Mendapatkan Extra Turn\n");
     }
 }
 
@@ -209,18 +213,22 @@ int towerCounter(linkedList P1, linkedList P2, buildingsArray bangunan, int turn
 void attackUpTriggered(queue * skill1, queue * skill2, int turn){
     if(turn == 1){
         Add(skill1,4);
+        printf("Player 1 Mendapatkan Attack Up\n");
     }
     else{
         Add(skill2,4);
+        printf("Player 2 Mendapatkan Attack Up\n");
     }
 }
 
 void criticalHitTriggered(queue * skill1, queue * skill2, int turn){
     if(turn == 1){
         Add(skill2,5);
+        printf("Player 2 Mendapatkan Critical Hit\n");
     }
     else{
         Add(skill1,5);
+        printf("Player 1 Mendapatkan Critical Hit\n");
     }
 }
 
@@ -237,6 +245,7 @@ void instantReinforcementTriggered(queue * skill1, queue * skill2, buildingsArra
         }
         if(count == length(P1)){
             Add(skill1, 6);
+            printf("Player 1 Mendapatkan Skill Instant Reinforcement\n");
         }
     }
     else{
@@ -250,6 +259,7 @@ void instantReinforcementTriggered(queue * skill1, queue * skill2, buildingsArra
         }
         if(count == length(P2)){
             Add(skill2, 6);
+            printf("Player 2 Mendapatkan Skill Instant Reinforcement\n");
         }
     }
 }
@@ -258,11 +268,13 @@ void barrageTriggered(queue * skill1, queue * skill2, linkedList P1, linkedList 
     if(turn == 1){
         if(length(P1) == 10){
             Add(skill2,7);
+            printf("Player 2 Mendapatkan Skill Barrage\n");
         }
     }
     else{
         if(length(P2) == 10){
             Add(skill1,7);
+            printf("Player 1 Mendapatkan Skill Barrage\n");
         }
     }
 }

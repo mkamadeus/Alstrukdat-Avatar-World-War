@@ -31,4 +31,17 @@ int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray 
 
 void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray bangunan, int * count);
 
+void firstInterface(queue skill1, queue skill2, int turn);
+
+void interfaceInsideAttack(int turn, linkedList P1, linkedList P2, buildingsArray bangunan);
+
+void levelUpInterface(int turn, linkedList P1, linkedList P2, buildingsArray bangunan);
+
+void searchBInterface(int turn, linkedList P1, linkedList P2, buildingsArray bangunan);
+
+void deleteAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
+
+void createAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
+
+
 #endif
