@@ -128,8 +128,6 @@ int main()
 			else if (turn==2) colorPrint("Player 2",BLUE);
 			printf("'s Turn\n");
 			//info skill aktif
-			if(criticalP1)printf("Critical Player 1 Activated\n");
-			if(criticalP2) printf("Critical Player 2 Activated\n");
 			if(ignore)printf("Attack Up Activated\n");
 			if(critical)printf("Critical Activated\n");
 			if(isShieldActiveP1)
