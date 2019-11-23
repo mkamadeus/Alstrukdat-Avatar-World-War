@@ -180,6 +180,19 @@ int main()
 			// Tampilan Default
 			writeMatrix(m);
 			firstInterface(skill1, skill2, turn);
+			if (turn==1) colorPrint("Player 1",RED);
+			else if (turn==2) colorPrint("Player 2",BLUE);
+			printf("'s Turn\n");
+			// Command tersedia
+			printf("Command yang tersedia:\n");
+			printf("1. ATTACK\n");
+			printf("2. LEVEL_UP\n");
+			printf("3. MOVE\n");
+			printf("4. SAVE\n");
+			printf("4. UNDO\n");
+			printf("5. SKILL\n");
+			printf("6. END_TURN\n");
+			printf("7. EXIT (Jika anda bosan atau terlalu gampang)\n");
 
 			// Command
 			printf("Masukkan Command: ");
