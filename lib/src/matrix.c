@@ -92,34 +92,64 @@ void writeMatrix (matrix M)
 \---------------/
 */
 {
-    int i,j;
-    char t;
-    for(i=0;i<=getLastIdxRow(M);i++)
+    // Prints the col coordinate
+    printf("      ");
+    for(int i=1;i<=nColEff(M)-1;i++)
     {
-        for(j=0;j<=getLastIdxCol(M);j++)
+        printf("   ");
+        print_cyan((char)(i%10)+'0');
+        printf("  ");
+    }
+    printf("\n");
+
+    // Prints the grid
+    for(int i=1;i<getLastIdxRow(M);i++)
+    {
+        // Prints top border
+        printf("      ");
+        for(int j=1;j<getLastIdxCol(M);j++) colorPrint(". -=- ", YELLOW);
+        colorPrint(".\n",YELLOW);
+        
+        // Prints row coordinate
+        printf("   ");
+        print_cyan((char)(i%10)+'0');
+        printf("  ");
+
+        for(int j=1;j<getLastIdxCol(M);j++)
         {
-            if ((i==0 && j==0)||(i==getLastIdxRow(M) && j==getLastIdxCol(M))) printf("/");
-            else if ((i==0 && j==getLastIdxCol(M))||(i==getLastIdxRow(M) && j==0)) printf("\\");
-            else if (i==0 || i==getLastIdxRow(M)) printf("-");
-            else if (j==0 || j==getLastIdxCol(M)) printf("|");
-            else
+            // Prints vertical borders
+            colorPrint("|  ", YELLOW);
+
+            // If pointer exists..
+            if (buildingPtr(M,i,j)!=NULL)
             {
-                if (buildingPtr(M,i,j)!=NULL)
-                {
-                    //building type determiner
-                    t = 'n';//undefined building (building not exist at the coordinate)
-                    if (type(*build(*buildingPtr(M,i,j)))==1) t='C';
-                    else if (buildingPtrType(M,i,j)==2) t='T';
-                    else if (buildingPtrType(M,i,j)==3) t='F';
-                    else if (buildingPtrType(M,i,j)==4) t='V';
-                    //ownership determiner
-                    if (buildingPtrOwner(M,i,j)==1) print_red(t);//player 1's, red
-                    else if (buildingPtrOwner(M,i,j)==2) print_blue(t);//player 2's, blue
-                    else printf("%c",t);//neurtral's, standard white
-                }
-                else printf(" ");
+                // Building type checker
+                char t;
+                if (type(*build(*buildingPtr(M,i,j)))==1) t='C';
+                else if (buildingPtrType(M,i,j)==2) t='T';
+                else if (buildingPtrType(M,i,j)==3) t='F';
+                else if (buildingPtrType(M,i,j)==4) t='V';
+
+                // Building owner checker
+                if (buildingPtrOwner(M,i,j)==1) print_red(t); //player 1's, red
+                else if (buildingPtrOwner(M,i,j)==2) print_blue(t); //player 2's, blue
+                else printf("%c",t); //neutral's, standard white
             }
-        };
-        printf("\n");
-    };
+            else printf(" "); // ..else print space
+
+            printf("  ");
+
+        }
+        // Prints incomplete vertical borders
+        colorPrint("|\n", YELLOW);
+        
+    }
+
+    // Prints incomplete bottom border
+    printf("      ");
+    for(int j=1;j<getLastIdxCol(M);j++)
+    {
+        colorPrint(". -=- ", YELLOW);
+    }
+    colorPrint(".\n", YELLOW);
 }
