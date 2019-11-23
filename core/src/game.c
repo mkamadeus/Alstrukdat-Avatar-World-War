@@ -27,6 +27,7 @@ void printEnemyBuildingConnected(graph G, int turn, int input, buildingsArray ba
 			if(owner(*Build(bangunan,info(Q))) != 2){
 				printf("%d. ", number);
 				writeBuildingCoord(*Elmt(bangunan,info(Q)));
+				printf(" %d lv. %d", troops(*Build(bangunan,info(Q))), level(*Build(bangunan,info(Q))));
 				printf("\n");
 				number++;
 			}
