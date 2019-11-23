@@ -400,8 +400,6 @@ int main()
 					readNumberSTDIN(&moved2_);
 				}
 				moved2_ = inputToIndexMine(g, turn, moved_, moved2_, bangunan);
-				printf("moved_ = %d\n", moved_);
-				printf("moved2_ = %d\n", moved2_);
 				//Move command
 				move(Build(bangunan,moved_),Build(bangunan,moved2_),&S, &troops1, &troops2);
 				push(&buildings1, moved_);
