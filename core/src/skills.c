@@ -119,10 +119,10 @@ void barrage(buildingsArray *buildingsID, int turn, linkedList P1, linkedList P2
 {
     address P;
     if(turn == 1){
-        P = first(P1);
+        P = first(P2);
     }
     else{
-        P = first(P2);
+        P = first(P1);
     }
     while(P != NULL)
     {

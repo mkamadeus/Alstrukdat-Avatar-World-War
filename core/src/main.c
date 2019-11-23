@@ -583,7 +583,7 @@ int main()
 					isShieldActiveP2 = false;
 				}
 				// Troops increase every turn
-				if(turn == 2){
+				if(turn == 1){
 					address P = first(P1);
 					while(P != NULL){
 						increaseTroops(Build(bangunan,info(P)));
