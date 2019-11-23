@@ -40,6 +40,7 @@ int main()
 	int countBuildingsAttack;
 	int counterShield;
 	int firstInput;
+	int buildingCounter;
 	
 	int turn = 1;
 
@@ -62,14 +63,14 @@ int main()
 	Add(&skill1,1);
 	Add(&skill2,1);
 	
-	char ATTACK[100];
-	char LEVEL_UP[100];
-	char SKILL[100];
-	char UNDO[100];
-	char END_TURN[100];
-	char SAVE[100];
-	char MOVE[100];
-	char EXIT[100];
+	char ATTACK[20];
+	char LEVEL_UP[20];
+	char SKILL[20];
+	char UNDO[20];
+	char END_TURN[20];
+	char SAVE[20];
+	char MOVE[20];
+	char EXIT[20];
 	
 	strcpy(ATTACK,"ATTACK");
 	strcpy(LEVEL_UP,"LEVEL_UP");
@@ -89,25 +90,25 @@ int main()
 	readNumberSTDIN(&firstInput);
 
 	if(firstInput == 1){	
-		readConfigFile(&m, &bangunan, &g);
+		readConfigFile(&m, &bangunan, &g, &buildingCounter);
 		owner(*Build(bangunan,1)) = 1;
 		owner(*Build(bangunan,2)) = 2;	
 	}
 	else if(firstInput == 2){
-		loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2);
+		loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter);
 	}
 	else{
 		printf("Masukkan inputan yang benar");
 	}
 
-	for(int i = 1; i < 18; i++){
-			if(owner(*Build(bangunan,i)) == 1){
-				insertValueLast(&P1,i);
-			}
-			else if(owner(*Build(bangunan,i)) == 2){
-				insertValueLast(&P2,i);
-			}
+	for(int i = 1; i < buildingCounter+1; i++){
+		if(owner(*Build(bangunan,i)) == 1){
+			insertValueLast(&P1,i);
 		}
+		else if(owner(*Build(bangunan,i)) == 2){
+			insertValueLast(&P2,i);
+		}
+	}
 
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
@@ -128,6 +129,9 @@ int main()
 			// Tampilan Default
 			writeMatrix(m);
 			firstInterface(skill1, skill2, turn);
+			if(isEmptyQueue(skill1)){
+				printf("Skill tidak ada\n");
+			}
 
 			// Command
 			printf("Masukkan Command: ");

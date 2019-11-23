@@ -37,7 +37,7 @@ void readSTDIN(word *input);
 void readNumberSTDIN(int *X);
 
 // readConfigFile will read config file and make the structure
-void readConfigFile(matrix *M, buildingsArray *arr, graph *G);
+void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int *buildingCounter);
 
 // Print ASCII of character (for debugging purposes)
 void printASCIIFile();
@@ -49,7 +49,7 @@ void printWord(word W);
 void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2);
 
 // Load from file
-void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2);
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int * buildingCounter);
 
 // Word to int converter
 int intConverter(word W);

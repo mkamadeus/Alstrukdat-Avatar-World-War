@@ -69,7 +69,7 @@ void readNumberSTDIN(int *X)
 
 
 // readConfigFile will read config file and make the structure
-void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
+void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCounter)
 {
     // Start reading config file
     START(configFilename);
@@ -87,6 +87,7 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G)
     // Read building count
     ignoreBlank();
     int t = readNumber();
+    *buildingCounter = t;
 
     colorPrint("Map size: ", CYAN);
     printf("%dx%d\n", row, col);
@@ -204,7 +205,7 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
 }
 
 // Load from file
-void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2)
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter)
 {
     // Start reading filename
     START(savefileFilename);
@@ -222,6 +223,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     // Read building count
     ignoreBlank();
     int t = readNumber();
+    *buildingCounter = t;
 
     colorPrint("Map size: ", BRIGHT);
     printf("%dx%d\n", row, col);
@@ -305,12 +307,21 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     *extraTurn = readNumber();
 
     // Input to queue
+    int tempHead = unDef;
+    int tempTail = unDef;
+
     createQueue(Q1,10);
     for(int i=1;i<=10;i++) 
     {
         ignoreBlank();
         (*Q1).T[i] = readNumber();
+        if((*Q1).T[i] != 0){
+            tempHead = 1;
+            tempTail = i;
+        }
     }
+    Head(*Q1) = tempHead;
+    Tail(*Q1) = tempTail;
 
     // Input to queue
     createQueue(Q2, 10);
@@ -318,7 +329,13 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     {
         ignoreBlank();
         (*Q2).T[i] = readNumber();
+        if((*Q2).T[i] != 0){
+            tempHead = 1;
+            tempTail = i;
+        }
     }
+    Head(*Q2) = tempHead;
+    Tail(*Q2) = tempTail;
 
     colorPrint("Save file loaded, ready to play!\n", GREEN);
 }
