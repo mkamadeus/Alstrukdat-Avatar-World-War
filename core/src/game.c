@@ -11,7 +11,6 @@ void printEnemyBuildingConnected(graph G, int turn, int input, buildingsArray ba
 		P = next(P);
 	}
 	vAddress Q = child(P);
-	int count = 1;
 	int number = 1;
 	while(Q != NULL){
 		if(turn == 1){
@@ -34,7 +33,6 @@ void printEnemyBuildingConnected(graph G, int turn, int input, buildingsArray ba
 		}
 		// printf("%d. owner = %d\n",count,owner(*Build(bangunan,count)));
 		Q = nextChild(Q);
-		count++;
 	}
 	*output = number;
 }

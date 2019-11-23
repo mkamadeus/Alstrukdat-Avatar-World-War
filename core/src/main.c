@@ -187,9 +187,6 @@ int main()
 
 			if(wordCompare(input, ATTACK)){
 
-				for(int i = 1; i <= 17; i++){
-					printf("owner[%d] = %d\n", i, owner(*Build(bangunan,i)));
-				}
 				
 				// Checker if the building have attacked or not
 				if(turn == 1){
@@ -215,22 +212,41 @@ int main()
 				printf("Bangunan yang digunakan untuk menyerang: ");
 				
 				/* Input from User */
-				readSTDIN(&penyerang);
-				int temp = intConverter(penyerang);
-				int temp2 = inputToIndex(turn, temp, P1, P2);
-				penyerang_ = temp2;
+				readNumberSTDIN(&penyerang_);
 				printf("Penyerang_ = %d\n", penyerang_);
+				if(turn == 1){
+					while(penyerang_ > length(P1) || penyerang_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						readNumberSTDIN(&penyerang_);
+					}
+				}
+				else{
+					while(penyerang_ > length(P2) || penyerang_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						readNumberSTDIN(&penyerang_);
+					}
+				}
+				penyerang_ = inputToIndex(turn, penyerang_, P1, P2);
 
 				/* Check if building have attacked or not */
 				while(searchB(flagAttack,penyerang_)){
 					
 					// Interface
 					interfaceInsideAttack(turn, P1, P2, bangunan);
-					readSTDIN(&penyerang);
-
-					int temp = intConverter(penyerang);
-					int temp2 = inputToIndex(turn, temp, P1, P2);
-					penyerang_ = temp2;
+					readNumberSTDIN(&penyerang_);
+					if(turn == 1){
+						while(penyerang_ > length(P1) || penyerang_ < 1){
+							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							readNumberSTDIN(&penyerang_);
+						}
+					}
+					else{
+						while(penyerang_ > length(P2) || penyerang_ < 1){
+							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							readNumberSTDIN(&penyerang_);
+						}
+					}
+					penyerang_ = inputToIndex(turn, penyerang_, P1, P2);
 				}
 
 				printf("Penyerang_ setelah = %d\n", penyerang_);
@@ -243,23 +259,26 @@ int main()
 				printf("Bangunan yang diserang: ");
 
 				/* Input from User */
-				readSTDIN(&diserang);
-				int temp3 = intConverter(diserang);
-				int temp4 = inputToIndexEnemy(g, turn, penyerang_, temp3, bangunan);
-				diserang_ = temp4;
+				readNumberSTDIN(&diserang_);
+
+				while(diserang_ > countBuildingsAttack || diserang_ < 1){
+					printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+					readNumberSTDIN(&diserang_);
+				}
+				
+				diserang_ = inputToIndexEnemy(g, turn, penyerang_, diserang_, bangunan);
+
 
 				printf("diserang_ = %d\n", diserang_);
 
 				printf("Masukkan berapa pasukan yang akan digunakan: ");
 
 				/* Input from User */
-				readSTDIN(&troopsUsed);
-				int troopsUsed_ = intConverter(troopsUsed);
-				while(troopsUsed_ > troops(*Build(bangunan,penyerang_))){
+				readNumberSTDIN(&troopsUsed_);
+				while(troopsUsed_ > troops(*Build(bangunan,penyerang_)) || troopsUsed_ < 0){
 					// Interface
-					printf("Masukkan troops <= %d\n", troops(*Build(bangunan,penyerang_)));
-					readSTDIN(&troopsUsed);
-					troopsUsed_ = intConverter(troopsUsed);
+					printf("Masukkan troops antara 0 dan %d\n", troops(*Build(bangunan,penyerang_)));
+					readNumberSTDIN(&troopsUsed_);
 				}
 
 				// Temporary state
@@ -276,15 +295,15 @@ int main()
 				if(isCaptured){
 					printf("Bangunan berhasil direbut\n");
 					if(turn == 1){
-						insertValueLast(&P1, temp4);
+						insertValueLast(&P1, diserang_);
 						if(ownerBefore == 2){
-							deleteValue(&P2,temp4);
+							deleteValue(&P2,diserang_);
 						}
 					}
 					else{
-						insertValueLast(&P2, temp4);
+						insertValueLast(&P2, diserang_);
 						if(ownerBefore == 1){
-							deleteValue(&P1,temp4);
+							deleteValue(&P1,diserang_);
 						}
 					}
 				}
@@ -318,11 +337,22 @@ int main()
 			else if(wordCompare(input, LEVEL_UP)){
 				//Interface
 				levelUpInterface(turn, P1, P2, bangunan);
-				readSTDIN(&leveledUp);
-
-				int leveledUp_ = intConverter(leveledUp);
+				int leveledUp_;
+				readNumberSTDIN(&leveledUp_);
+				if(turn == 1){
+					while(leveledUp_ > length(P1) || leveledUp_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						readNumberSTDIN(&leveledUp_);
+					}
+				}
+				else{
+					while(leveledUp_ > length(P1) || leveledUp_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						readNumberSTDIN(&leveledUp_);
+					}
+				}
 				leveledUp_ = inputToIndex(turn, leveledUp_, P1, P2);
-				
+
 				//levelUp command
 				levelUp(Build(bangunan,leveledUp_), &S, &isSuccess);
 				push(&buildings1, leveledUp_);
@@ -334,7 +364,6 @@ int main()
 			}
 
 			else if(wordCompare(input, MOVE)){
-				
 				//Checker if the buildings have moved or not
 				if(turn == 1){
 					if(length(flagMove) == length(P1)){
@@ -348,14 +377,29 @@ int main()
 						continue;
 					}
 				}
-				
+
 				//Interface
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Pilih Bangunan: ");
 
 				// Input from User
-				readSTDIN(&moved);
-				int moved_ = intConverter(moved);
+				int moved_;
+				readNumberSTDIN(&moved_);
+				printf("masuk sini\n");
+				printf("moved_ = %d\n", moved_);
+				printf("berhasil keluar\n");
+				if(turn == 1){
+					while(moved_ > length(P1) || moved_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid:" );
+						readNumberSTDIN(&moved_);
+					}
+				}
+				else{
+					while(moved_ > length(P2) || moved_ < 1){
+						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						readNumberSTDIN(&moved_);
+					}
+				}
 				moved_ = inputToIndex(turn, moved_, P1, P2);
 
 				/* Check if building have moved or not */
@@ -365,8 +409,19 @@ int main()
 					searchBInterface(turn, P1, P2, bangunan);
 
 					//Input from User
-					readSTDIN(&moved);
-					moved_ = intConverter(moved);
+					readNumberSTDIN(&moved_);
+					if(turn == 1){
+						while(moved_ > length(P1) || moved_ < 1){
+							printf("Inputan tidak valid\nMasukkan jumlah yang valid:" );
+							readNumberSTDIN(&moved_);
+						}
+					}
+					else{
+						while(moved_ > length(P2) || moved_ < 1){
+							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							readNumberSTDIN(&moved_);
+						}
+					}
 					moved_ = inputToIndex(turn, moved_, P1, P2);
 				}
 				
@@ -379,15 +434,21 @@ int main()
 
 				//Input from User
 				printf("Pilih Bangunan: ");
-				readSTDIN(&moved2);
-				int moved2_ = intConverter(moved2); 
+				int moved2_;
+				readNumberSTDIN(&moved2_);
+
+				while(moved2_ > count || moved2_ < 1){
+					printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+					readNumberSTDIN(&moved2_);
+				}
 				moved2_ = inputToIndexMine(g, turn, moved_, moved2_, bangunan);
 
 				//Move command
 				move(Build(bangunan,moved_),Build(bangunan,moved2_),&S, &troops1, &troops2);
 				push(&buildings1, moved_);
 				push(&buildings2, moved2_);
-
+				printf("moved_ = %d\n", moved_);
+				printf("moved2_ = %d\n", moved2_);
 				/* Put index building that have moved */
 				insertValueFirst(&flagMove,moved_);
 			}
