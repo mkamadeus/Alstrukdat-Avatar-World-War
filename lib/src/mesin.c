@@ -148,7 +148,7 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
 }
 
 // Save to file
-void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn,boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2)
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2)
 {
     colorPrint("Loading ", NORMAL);
     colorPrint("savefile.dat", UNDERSCORE);

@@ -124,7 +124,7 @@ int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray b
 		prec = Q;
 		Q = nextChild(Q);
 	}while(Q != NULL && i < input2);
-	return info(Q);
+	return info(prec);
 }
 
 int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray bangunan){
