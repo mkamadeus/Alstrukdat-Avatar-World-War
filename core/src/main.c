@@ -38,7 +38,8 @@ int main()
 	int troopsUsed_;
 	int count;
 	int countBuildingsAttack;
-	int counterShield;
+	int counterShieldP1;
+	int counterShieldP2;
 	int firstInput;
 	int buildingCounter;
 	
@@ -49,8 +50,11 @@ int main()
 	boolean critical = false;
 	boolean ignore = false;
 	boolean isExtraTurn = false;
-	boolean isShieldActive = false;
-	boolean shieldActivated = false;
+	boolean isShieldActiveP1 = false;
+	boolean shieldActivatedP1 = false;
+	boolean isShieldActiveP2 = false;
+	boolean shieldActivatedP2 = false;
+	
 
     createStack(&S);
     createStack(&level);
@@ -88,19 +92,21 @@ int main()
 	createEmpty(&flagMove);
 
 	mainMenu();
-	readNumberSTDIN(&firstInput);
 
-	if(firstInput == 1){	
-		readConfigFile(&m, &bangunan, &g, &buildingCounter);
-		owner(*Build(bangunan,1)) = 1;
-		owner(*Build(bangunan,2)) = 2;	
-	}
-	else if(firstInput == 2){
-		loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter);
-	}
-	else{
-		printf("Masukkan inputan yang benar");
-	}
+	do{
+		readNumberSTDIN(&firstInput);
+		if(firstInput == 1){	
+			readConfigFile(&m, &bangunan, &g, &buildingCounter);
+			owner(*Build(bangunan,1)) = 1;
+			owner(*Build(bangunan,2)) = 2;	
+		}
+		else if(firstInput == 2){
+			loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter);
+		}
+		else{
+			printf("Masukkan inputan yang benar: ");
+		}
+	}while(firstInput != 1 && firstInput != 2);
 
 	for(int i = 1; i < buildingCounter+1; i++){
 		if(owner(*Build(bangunan,i)) == 1){
@@ -126,6 +132,27 @@ int main()
 			printf("Bangunan 2 = ");
 			printInfo(P2);
 			printf("\n");
+
+			if(ignore){
+				printf("Attack Up Aktif\n");
+			}
+			else{
+				printf("Attack Up Tidak Aktif\n");
+			}
+
+			if(isShieldActiveP1){
+				printf("Shield Player 1 Activated\n");
+			}
+			else{
+				printf("Shield Player 1 not Activated\n");
+			}
+
+			if(isShieldActiveP2){
+				printf("Shield Player 2 Activated\n");
+			}
+			else{
+				printf("Shield Player 2 not Activated\n");
+			}
 
 			// Tampilan Default
 			writeMatrix(m);
@@ -433,7 +460,7 @@ int main()
 					instantUpgrade(&bangunan, turn, P1, P2);
 				}
 				else if(skillUsed == 2){
-					shield(&bangunan, turn, P1, P2, &isShieldActive, &shieldActivated);
+					shield(&bangunan, turn, P1, P2, &isShieldActiveP1, &shieldActivatedP1, &isShieldActiveP2, &shieldActivatedP2);
 				}
 				else if(skillUsed == 3){
 					extraTurn(&isExtraTurn);
@@ -456,7 +483,7 @@ int main()
 
 				//When triggered extra turn
 				if(isExtraTurn){
-					printf("Sekarang giliranmu lagi");
+					printf("Sekarang giliranmu lagi\n");
 					isExtraTurn = false;
 				}
 
@@ -469,23 +496,39 @@ int main()
 				if(ignore == true){
 					ignore = false;
 				}
-				printf("counterShield = %d\n", counterShield);
+
+				printf("counterShieldP1 = %d\n", counterShieldP1);
+				printf("counterShieldP2 = %d\n", counterShieldP2);
 				// Mark shield skill activated
-				if(shieldActivated){
-					counterShield = 0;
-					shieldActivated = false;
+				if(shieldActivatedP1){
+					counterShieldP1 = 0;
+					shieldActivatedP1 = false;
+				}
+				
+				if(shieldActivatedP2){
+					counterShieldP2 = 0;
+					shieldActivatedP2 = false;
 				}
 				// shield turn counter
-				if(isShieldActive){
-					counterShield++;
+				if(isShieldActiveP1){
+					counterShieldP1++;
+				}
+				
+				if(isShieldActiveP2){
+					counterShieldP2++;
 				}
 
-				if(counterShield == 4){
+				if(counterShieldP1 == 4){
 					unshield(&bangunan,turn,P1,P2);
-					counterShield = 0;
-					isShieldActive = false;
+					counterShieldP1 = 0;
+					isShieldActiveP1 = false;
 				}
 
+				if(counterShieldP2 == 4){
+					unshield(&bangunan, turn, P1, P2);
+					counterShieldP2 = 0;
+					isShieldActiveP2 = false;
+				}
 				// Troops increase every turn
 				if(turn == 2){
 					address P = first(P1);
