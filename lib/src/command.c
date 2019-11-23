@@ -93,6 +93,8 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
         printf("troops C2 = %d\n", troops(*C2));
         if(troops(*C2) <= 0)
         {
+            printf("troopsAttack = %d\n", troopsAttack);
+            printf("troopsAttacked = %d\n", troopsAttacked);
             owner(*C2) = P;
             changeLevel(C2, 1);
             troops(*C2) = troopsAttack - troopsAttacked;
@@ -128,6 +130,7 @@ void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * tr
 
     do
     {
+        printf("Masukkan jumlah pasukan: ");
         readSTDIN(&troopsCount);
         troopsCount_ = intConverter(troopsCount);
         if(troopsCount_ > troops(*C1)) printf("Jumlah pasukan tidak mencukupi\n");

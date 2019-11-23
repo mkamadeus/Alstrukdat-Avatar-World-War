@@ -341,8 +341,12 @@ int main()
 				int tempBuilding1;
 				int tempBuilding2;
 
+				printf("Masuk sini\n");
+
 				// Pop the inverse command
 				pop(&S, &undoCommand);
+
+				printf("undoCommand = %d\n", undoCommand);
 
 				if(undoCommand == 1){
 					pop(&buildings1, &tempBuilding1);
@@ -393,6 +397,7 @@ int main()
 					//delete Value of Flag Move
 					deleteValue(&flagMove,tempBuilding1);
 				}
+				undoCommand = 0;
 			}
 			else if(wordCompare(input, SKILL)){
 				

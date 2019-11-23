@@ -112,21 +112,20 @@ int inputToIndex(int turn, int input, linkedList P1, linkedList P2){
 
 int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray bangunan){
 	uAddress P = first(G);
+	vAddress prec ;
 	int i = 1;
 	int count = 1;
 	while(P != NULL && info(P) != input1){
 		P = next(P);
 	}
 	vAddress Q = child(P);
-	while(Q != NULL && i < input2){
-		printf("info(Q) = %d\n", info(Q));
-		printf("i = %d\n", i);
+		do{
 		if(owner(*Build(bangunan,info(Q))) == turn){
 			i++;
 		}
-		count++;
+		prec = Q;
 		Q = nextChild(Q);
-	}
+	}while(Q != NULL && i < input2);
 	return info(Q);
 }
 
