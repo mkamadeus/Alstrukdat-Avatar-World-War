@@ -28,7 +28,7 @@ void instantUpgrade(buildingsArray *buildingsID, int turn, linkedList P1, linked
 }
 
 /* Seluruh bangunan yang dimiliki oleh pemain akan memilki pertahanan selama 2 turn lawan */
-void shield(buildingsArray *buildingsID, int turn, linkedList P1, linkedList P2, boolean * isShieldActive)
+void shield(buildingsArray *buildingsID, int turn, linkedList P1, linkedList P2, boolean * isShieldActive, boolean * shieldActivated)
 {
     if(turn == 1){
         address P = first(P1);
@@ -46,6 +46,8 @@ void shield(buildingsArray *buildingsID, int turn, linkedList P1, linkedList P2,
             P = next(P);
         }
     }
+    *isShieldActive = true;
+    *shieldActivated = true;
 }
 
 /* Utility function for shield, unshield yang seharusnya gak punya shield */

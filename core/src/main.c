@@ -50,6 +50,7 @@ int main()
 	boolean ignore = false;
 	boolean isExtraTurn = false;
 	boolean isShieldActive = false;
+	boolean shieldActivated = false;
 
     createStack(&S);
     createStack(&level);
@@ -223,24 +224,7 @@ int main()
 				/* Put Index Building into list that contains index building that have attacked */
 				insertValueFirst(&flagAttack,penyerang_);
 
-				// Data after attacked
-				int lengthMarkAfter = lengthTurnNow(turn, P1, P2);
-				int fortMarkAfter = fortCounter(P1, P2, bangunan, turn);
-				int towerMarkAfter = towerCounter(P1, P2, bangunan, turn);
-
-				if(lengthMarkBefore == 3 && lengthMarkAfter == 2){
-					shieldTriggered(&skill1, &skill2, turn);
-				}
-				if(fortMarkBefore > fortMarkAfter){
-					extraTurnTriggered(&skill1, &skill2, turn);
-				}
-				if(towerMarkBefore < 3 && towerMarkAfter == 3){
-					attackUpTriggered(&skill1, &skill2, turn);
-				}
-				if(lengthMarkBefore < 10 && lengthMarkAfter == 10){
-					barrageTriggered(&skill1, &skill2, P1, P2, turn);
-				}
-
+				/* Mark if the building captured */
 				if(isCaptured){
 					printf("Bangunan berhasil direbut\n");
 					if(turn == 1){
@@ -258,6 +242,27 @@ int main()
 				}
 				else{
 					printf("Bangunan gagal direbut\n");
+				}
+
+				// Data after attacked
+				int lengthMarkAfter = lengthTurnNow(turn, P1, P2);
+				int fortMarkAfter = fortCounter(P1, P2, bangunan, turn);
+				int towerMarkAfter = towerCounter(P1, P2, bangunan, turn);
+
+				printf("lengthMarkBefore = %d\n", lengthMarkBefore);
+				printf("lengthMarkAfter = %d\n", lengthMarkAfter);
+
+				if(lengthMarkBefore == 3 && lengthMarkAfter == 2){
+					shieldTriggered(&skill1, &skill2, turn);
+				}
+				if(fortMarkBefore > fortMarkAfter){
+					extraTurnTriggered(&skill1, &skill2, turn);
+				}
+				if(towerMarkBefore < 3 && towerMarkAfter == 3){
+					attackUpTriggered(&skill1, &skill2, turn);
+				}
+				if(lengthMarkBefore < 10 && lengthMarkAfter == 10){
+					barrageTriggered(&skill1, &skill2, P1, P2, turn);
 				}
 			}
 
@@ -426,7 +431,7 @@ int main()
 					instantUpgrade(&bangunan, turn, P1, P2);
 				}
 				else if(skillUsed == 2){
-					shield(&bangunan, turn, P1, P2, &isShieldActive);
+					shield(&bangunan, turn, P1, P2, &isShieldActive, &shieldActivated);
 				}
 				else if(skillUsed == 3){
 					extraTurn(&isExtraTurn);
@@ -463,6 +468,11 @@ int main()
 					ignore = false;
 				}
 
+				// Mark shield skill activated
+				if(shieldActivated){
+					counterShield = 0;
+					shieldActivated = false;
+				}
 				// shield turn counter
 				if(isShieldActive){
 					counterShield++;
