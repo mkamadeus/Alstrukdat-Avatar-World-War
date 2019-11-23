@@ -149,7 +149,7 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
 }
 
 // Save to file
-void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2)
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn,boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2)
 {
     colorPrint("Loading ", NORMAL);
     colorPrint("savefile.dat", UNDERSCORE);
@@ -191,6 +191,22 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
     fprintf(savefile, "%d\n", ignore);
     // Output extra turn state
     fprintf(savefile, "%d\n", extraTurn);
+    // Output criticalP1
+    fprintf(savefile, "%d\n", criticalP1);
+    // Output criticalP2
+    fprintf(savefile, "%d\n", criticalP2);
+    // Output isShieldActiveP1
+    fprintf(savefile, "%d\n", isShieldActiveP1);
+    // Output shieldActivatedP1
+    fprintf(savefile, "%d\n", shieldActivatedP1); 
+    // Output isShieldActiveP2
+    fprintf(savefile, "%d\n", isShieldActiveP2);
+    // Output shieldActivatedP2
+    fprintf(savefile, "%d\n", shieldActivatedP2);
+    // Output counterShieldP1
+    fprintf(savefile, "%d\n", counterShieldP1);
+    // Output counterShieldP2
+    fprintf(savefile, "%d\n", counterShieldP2);
     // Output skill queue for player 1
     int count=0;
     for(int i=Head(*Q1);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q1).T[i]);++count;}
@@ -205,7 +221,7 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
 }
 
 // Load from file
-void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter)
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter, boolean *criticalP1, boolean *criticalP2, boolean *isShieldActiveP1, boolean *shieldActivatedP1, boolean *isShieldActiveP2, boolean *shieldActivatedP2, int *counterShieldP1, int *counterShieldP2)
 {
     // Start reading filename
     START(savefileFilename);
@@ -305,6 +321,22 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     // Read extra turn state
     ignoreBlank();
     *extraTurn = readNumber();
+    // Read critical P1
+    *criticalP1 = readNumber();
+    // Read critical P2
+    *criticalP2 = readNumber();
+    // Read isShieldActiveP1
+    *isShieldActiveP1 = readNumber();
+    // Read shieldActivatedP1
+    *shieldActivatedP1 = readNumber();
+    // Read isShieldActiveP2
+    *isShieldActiveP2 = readNumber();
+    // Read shieldActivatedP2
+    *shieldActivatedP2 = readNumber();
+    // Read counterShieldP1
+    *counterShieldP1 = readNumber();
+    // Read counterShieldP2
+    *counterShieldP2 = readNumber();
 
     // Input to queue
     int tempHead = unDef;

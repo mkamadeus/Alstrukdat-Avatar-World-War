@@ -38,8 +38,8 @@ int main()
 	int troopsUsed_;
 	int count;
 	int countBuildingsAttack;
-	int counterShieldP1;
-	int counterShieldP2;
+	int counterShieldP1 = 0;
+	int counterShieldP2 = 0;
 	int firstInput;
 	int buildingCounter;
 	
@@ -54,6 +54,8 @@ int main()
 	boolean shieldActivatedP1 = false;
 	boolean isShieldActiveP2 = false;
 	boolean shieldActivatedP2 = false;
+	boolean criticalP1 = false;
+	boolean criticalP2 = false;
 	
 
     createStack(&S);
@@ -101,7 +103,7 @@ int main()
 			owner(*Build(bangunan,2)) = 2;	
 		}
 		else if(firstInput == 2){
-			loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter);
+			loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter, &criticalP1, &criticalP2, &isShieldActiveP1, &shieldActivatedP1, &isShieldActiveP2, &shieldActivatedP2, &counterShieldP1, &counterShieldP2);
 		}
 		else{
 			printf("Masukkan inputan yang benar: ");
@@ -125,41 +127,59 @@ int main()
 			printf("\n");
 			printf("Flag Move = ");
 			printInfo(flagMove);
-			printf("\n");
+			printf("\n\n");
 			printf("Bangunan 1 = ");
 			printInfo(P1);
-			printf("\n");
+			printf("\n\n");
 			printf("Bangunan 2 = ");
 			printInfo(P2);
-			printf("\n");
+			printf("\n\n");
 
-			if(ignore){
-				printf("Attack Up Aktif\n");
+			if(criticalP1){
+				printf("Critical P1 ada\n\n");
 			}
 			else{
-				printf("Attack Up Tidak Aktif\n");
+				printf("Critical P1 tidak ada\n\n");
+			}
+
+			if(criticalP2){
+				printf("Critical P2 ada\n\n");
+			}
+			else{
+				printf("Critical P2 tidak ada\n\n");
+			}
+
+			if(ignore){
+				printf("Attack Up Aktif\n\n");
+			}
+			else{
+				printf("Attack Up Tidak Aktif\n\n");
+			}
+
+			if(critical){
+				printf("Critical Aktif\n\n");
+			}
+			else{
+				printf("Critical Tidak Aktif\n\n");
 			}
 
 			if(isShieldActiveP1){
-				printf("Shield Player 1 Activated\n");
+				printf("Shield Player 1 Activated\n\n");
 			}
 			else{
-				printf("Shield Player 1 not Activated\n");
+				printf("Shield Player 1 not Activated\n\n");
 			}
 
 			if(isShieldActiveP2){
-				printf("Shield Player 2 Activated\n");
+				printf("Shield Player 2 Activated\n\n");
 			}
 			else{
-				printf("Shield Player 2 not Activated\n");
+				printf("Shield Player 2 not Activated\n\n");
 			}
 
 			// Tampilan Default
 			writeMatrix(m);
 			firstInterface(skill1, skill2, turn);
-			if(isEmptyQueue(skill1)){
-				printf("Skill tidak ada\n");
-			}
 
 			// Command
 			printf("Masukkan Command: ");
@@ -372,9 +392,9 @@ int main()
 				insertValueFirst(&flagMove,moved_);
 			}
 			else if(wordCompare(input, SAVE)){
-				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2);
+				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2, criticalP1, criticalP2, isShieldActiveP1, shieldActivatedP1, isShieldActiveP2, shieldActivatedP2, counterShieldP1, counterShieldP2);
 				printf("\n");
-				printf("Save Succesfull");
+				printf("Save Succesfull\n");
 			}
 			else if(wordCompare(input, UNDO)){
 				int undoCommand;
@@ -481,6 +501,44 @@ int main()
 
 			else if(wordCompare(input, END_TURN)){
 
+				// make skill to default form
+				if(ignore == true){
+					ignore = false;
+				}
+
+				// critical mark
+				if(critical){
+					if(turn == 1){
+						criticalP1 = true;
+					}
+					else{
+						criticalP2 = true;
+					}
+					critical = false;
+				}
+
+				if(criticalP1){
+					if(turn == 2){
+						critical = true;
+					}
+					else{
+						critical = false;
+					}
+				}
+
+				if(criticalP2){
+					if(turn == 1){
+						critical = false;
+					}
+					else{
+						critical = true;
+					}
+				}
+
+				if(criticalP1 && criticalP2){
+					critical = true;
+				}
+
 				//When triggered extra turn
 				if(isExtraTurn){
 					printf("Sekarang giliranmu lagi\n");
@@ -490,11 +548,6 @@ int main()
 				else{
 					changeTurn(&turn);
 					printf("Sekarang giliran player %d\n", turn);
-				}
-
-				// make skill to default form
-				if(ignore == true){
-					ignore = false;
 				}
 
 				printf("counterShieldP1 = %d\n", counterShieldP1);
