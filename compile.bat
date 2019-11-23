@@ -1,5 +1,5 @@
 @echo off
 
-g++ -lm -o main3 ./core/src/*.c ./lib/src/*.c
-main3.exe
+g++ -lm -o main ./core/src/*.c ./lib/src/*.c
+main.exe
 del main.exe
