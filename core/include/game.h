@@ -43,5 +43,6 @@ void deleteAllStack(stack * S, stack * level, stack * before, stack * troops1, s
 
 void createAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
 
+void mainMenu();
 
 #endif

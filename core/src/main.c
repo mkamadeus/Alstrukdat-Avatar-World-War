@@ -4,8 +4,6 @@
 
 int main()
 {
-	menu();
-
 	word input; 
 	word penyerang;
 	word diserang;
@@ -41,6 +39,7 @@ int main()
 	int count;
 	int countBuildingsAttack;
 	int counterShield;
+	int firstInput;
 	
 	int turn = 1;
 
@@ -50,8 +49,6 @@ int main()
 	boolean ignore = false;
 	boolean isExtraTurn = false;
 	boolean isShieldActive = false;
-	readConfigFile(&m, &bangunan, &g);
-	
 
     createStack(&S);
     createStack(&level);
@@ -87,33 +84,33 @@ int main()
 	createEmpty(&P2);
 	createEmpty(&flagAttack);
 	createEmpty(&flagMove);
-	printGraph(g);
 
-	owner(*Build(bangunan,1)) = 1;
-	owner(*Build(bangunan,2)) = 2;
+	mainMenu();
+	readNumberSTDIN(&firstInput);
 
-	// for(int i = 1; i <= 17; i++){
-	// 	printf("owner[%d] = %d\n", i, owner(*Build(bangunan,i)));
-	// }
-
-	for(int i = 1; i < 18; i++){
-		if(owner(*Build(bangunan,i)) == 1){
-			insertValueLast(&P1,i);
-		}
-		else if(owner(*Build(bangunan,i)) == 2){
-			insertValueLast(&P2,i);
-		}
+	if(firstInput == 1){	
+		readConfigFile(&m, &bangunan, &g);
+		owner(*Build(bangunan,1)) = 1;
+		owner(*Build(bangunan,2)) = 2;	
+	}
+	else if(firstInput == 2){
+		loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2);
+	}
+	else{
+		printf("Masukkan inputan yang benar");
 	}
 
-
-	printInfo(P1);
-	printf("\n");
-	printInfo(P2);
-	printf("\n");
+	for(int i = 1; i < 18; i++){
+			if(owner(*Build(bangunan,i)) == 1){
+				insertValueLast(&P1,i);
+			}
+			else if(owner(*Build(bangunan,i)) == 2){
+				insertValueLast(&P2,i);
+			}
+		}
 
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
-
 			// DEBUG
 			printf("Flag Attack = ");
 			printInfo(flagAttack);
@@ -336,17 +333,18 @@ int main()
 				/* Put index building that have moved */
 				insertValueFirst(&flagMove,moved_);
 			}
+			else if(wordCompare(input, SAVE)){
+				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2);
+				printf("\n");
+				printf("Save Succesfull");
+			}
 			else if(wordCompare(input, UNDO)){
 				int undoCommand;
 				int tempBuilding1;
 				int tempBuilding2;
 
-				printf("Masuk sini\n");
-
 				// Pop the inverse command
 				pop(&S, &undoCommand);
-
-				printf("undoCommand = %d\n", undoCommand);
 
 				if(undoCommand == 1){
 					pop(&buildings1, &tempBuilding1);
@@ -495,6 +493,13 @@ int main()
 				createEmpty(&flagAttack);
 				createEmpty(&flagMove);
 			}
-		}while(wordCompare(input, EXIT));
+			else if(wordCompare(input, EXIT)){
+				printf("Terima Kasih Telah Bermain\n");
+				exit(0);
+			}
+			else{
+				printf("Inputan Tidak Valid\n");
+			}
+		}while(!wordCompare(input, END_TURN));
 	}
 }

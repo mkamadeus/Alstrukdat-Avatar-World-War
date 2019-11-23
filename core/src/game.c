@@ -270,3 +270,15 @@ void createAllStack(stack * S, stack * level, stack * before, stack * troops1, s
 	createStack(troops2);
 	createStack(crit);
 }
+
+void mainMenu(){
+	printf("    ___ _    _____  _________    ____     _       ______  ____  __    ____     _       _____    ____ \n");
+	printf("   /   | |  / /   |/_  __/   |  / __ \\   | |     / / __ \\/ __ \\/ /   / __ \\   | |     / /   |  / __ \\ \n");
+	printf("  / /| | | / / /| | / / / /| | / /_/ /   | | /| / / / / / /_/ / /   / / / /   | | /| / / /| | / /_/ /\n");
+	printf(" / ___ | |/ / ___ |/ / / ___ |/ _, _/    | |/ |/ / /_/ / _, _/ /___/ /_/ /    | |/ |/ / ___ |/ _, _/ \n");
+	printf("/_/  |_|___/_/  |_/_/ /_/  |_/_/ |_|     |__/|__/\\____/_/ |_/_____/_____/     |__/|__/_/  |_/_/ |_|  \n");
+	printf("\n");
+	printf("1. Start New Game\n");
+	printf("2. Load game\n");
+	printf("Masukkan input: ");
+}
