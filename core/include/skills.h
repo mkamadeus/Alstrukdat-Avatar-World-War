@@ -56,6 +56,8 @@ void criticalHitTriggered(queue * skill1, queue * skill2, int turn);
 
 void instantReinforcementTriggered(queue * skill1, queue * skill2, buildingsArray bangunan, linkedList P1, linkedList P2, int turn);
 
+int lengthTurnMine(int turn, linkedList P1, linkedList P2);
+
 void barrageTriggered(queue * skill1, queue * skill2, linkedList P1, linkedList P2, int turn);
 
 #endif

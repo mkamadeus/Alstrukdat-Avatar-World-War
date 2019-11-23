@@ -162,6 +162,7 @@ int main()
 				int lengthMarkBefore = lengthTurnNow(turn, P1, P2);
 				int fortMarkBefore = fortCounter(P1, P2, bangunan, turn);
 				int towerMarkBefore = towerCounter(P1, P2, bangunan, turn);
+				int lengthMineBefore = lengthTurnMine(turn, P1, P2);
 
 				printBuildings(turn, P1, P2, bangunan);
 				printf("Bangunan yang digunakan untuk menyerang: ");
@@ -248,9 +249,10 @@ int main()
 				int lengthMarkAfter = lengthTurnNow(turn, P1, P2);
 				int fortMarkAfter = fortCounter(P1, P2, bangunan, turn);
 				int towerMarkAfter = towerCounter(P1, P2, bangunan, turn);
+				int lengthMineAfter = lengthTurnMine(turn, P1, P2);
 
-				printf("lengthMarkBefore = %d\n", lengthMarkBefore);
-				printf("lengthMarkAfter = %d\n", lengthMarkAfter);
+				printf("lengthMineBefore = %d\n", lengthMineBefore);
+				printf("lengthMineAfter = %d\n", lengthMineAfter);
 
 				if(lengthMarkBefore == 3 && lengthMarkAfter == 2){
 					shieldTriggered(&skill1, &skill2, turn);
@@ -261,7 +263,7 @@ int main()
 				if(towerMarkBefore < 3 && towerMarkAfter == 3){
 					attackUpTriggered(&skill1, &skill2, turn);
 				}
-				if(lengthMarkBefore < 10 && lengthMarkAfter == 10){
+				if(lengthMineBefore < 10 && lengthMineAfter == 10){
 					barrageTriggered(&skill1, &skill2, P1, P2, turn);
 				}
 			}
@@ -467,7 +469,7 @@ int main()
 				if(ignore == true){
 					ignore = false;
 				}
-
+				printf("counterShield = %d\n", counterShield);
 				// Mark shield skill activated
 				if(shieldActivated){
 					counterShield = 0;

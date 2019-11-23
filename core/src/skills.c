@@ -153,7 +153,7 @@ void shieldTriggered(queue * skill1, queue * skill2, int turn){
 int fortCounter(linkedList P1, linkedList P2, buildingsArray bangunan, int turn){
     int count = 0;
     if(turn == 1){
-        address P = first(P1);
+        address P = first(P2);
         while(P != NULL){
             int fort = type(*Build(bangunan,info(P)));
             if(fort == 3){
@@ -163,7 +163,7 @@ int fortCounter(linkedList P1, linkedList P2, buildingsArray bangunan, int turn)
         }
     }
     else{
-        address P = first(P2);
+        address P = first(P1);
         while(P != NULL){
             int fort = type(*Build(bangunan,info(P)));
             if(fort == 3){
@@ -263,6 +263,15 @@ void instantReinforcementTriggered(queue * skill1, queue * skill2, buildingsArra
             Add(skill2, 6);
             printf("Player 2 Mendapatkan Skill Instant Reinforcement\n");
         }
+    }
+}
+
+int lengthTurnMine(int turn, linkedList P1, linkedList P2){
+    if(turn == 1){
+        return (length(P1));
+    }
+    else{
+        return (length(P2));
     }
 }
 
