@@ -64,7 +64,6 @@ void readNumberSTDIN(int *X)
         *X = (*X)*10 + tmp; 
         ADVSTDIN(); 
     }
-
 }
 
 
