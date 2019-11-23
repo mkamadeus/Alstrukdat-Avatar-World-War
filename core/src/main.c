@@ -127,6 +127,22 @@ int main()
 			if (turn==1) colorPrint("Player 1",RED);
 			else if (turn==2) colorPrint("Player 2",BLUE);
 			printf("'s Turn\n");
+			//info skill aktif
+			if(criticalP1)printf("Critical Player 1 Activated\n");
+			if(criticalP2) printf("Critical Player 2 Activated\n");
+			if(ignore)printf("Attack Up Activated\n");
+			if(critical)printf("Critical Activated\n");
+			if(isShieldActiveP1)
+			{
+				colorPrint("Player 1",RED);
+				printf("'s Shield Activated\n");
+			}
+			if(isShieldActiveP2)
+			{
+				colorPrint("Player 2",BLUE);
+				printf("'s Shield Activated\n");
+			}
+			printf("\n");
 			// Command tersedia
 			printf("Command yang tersedia:\n");
 			printf("1. ATTACK\n");
