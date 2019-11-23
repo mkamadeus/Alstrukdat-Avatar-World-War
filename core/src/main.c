@@ -121,62 +121,6 @@ int main()
 
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
-			// DEBUG
-			printf("Flag Attack = ");
-			printInfo(flagAttack);
-			printf("\n");
-			printf("Flag Move = ");
-			printInfo(flagMove);
-			printf("\n\n");
-			printf("Bangunan 1 = ");
-			printInfo(P1);
-			printf("\n\n");
-			printf("Bangunan 2 = ");
-			printInfo(P2);
-			printf("\n\n");
-
-			if(criticalP1){
-				printf("Critical P1 ada\n\n");
-			}
-			else{
-				printf("Critical P1 tidak ada\n\n");
-			}
-
-			if(criticalP2){
-				printf("Critical P2 ada\n\n");
-			}
-			else{
-				printf("Critical P2 tidak ada\n\n");
-			}
-
-			if(ignore){
-				printf("Attack Up Aktif\n\n");
-			}
-			else{
-				printf("Attack Up Tidak Aktif\n\n");
-			}
-
-			if(critical){
-				printf("Critical Aktif\n\n");
-			}
-			else{
-				printf("Critical Tidak Aktif\n\n");
-			}
-
-			if(isShieldActiveP1){
-				printf("Shield Player 1 Activated\n\n");
-			}
-			else{
-				printf("Shield Player 1 not Activated\n\n");
-			}
-
-			if(isShieldActiveP2){
-				printf("Shield Player 2 Activated\n\n");
-			}
-			else{
-				printf("Shield Player 2 not Activated\n\n");
-			}
-
 			// Tampilan Default
 			writeMatrix(m);
 			firstInterface(skill1, skill2, turn);
@@ -184,10 +128,9 @@ int main()
 			// Command
 			printf("Masukkan Command: ");
 			readSTDIN(&input);
+			printf("\n");
 
 			if(wordCompare(input, ATTACK)){
-
-				
 				// Checker if the building have attacked or not
 				if(turn == 1){
 					if(length(flagAttack) == length(P1)){
@@ -209,20 +152,20 @@ int main()
 				int lengthMineBefore = lengthTurnMine(turn, P1, P2);
 
 				printBuildings(turn, P1, P2, bangunan);
+				printf("\n");
 				printf("Bangunan yang digunakan untuk menyerang: ");
 				
 				/* Input from User */
 				readNumberSTDIN(&penyerang_);
-				printf("Penyerang_ = %d\n", penyerang_);
 				if(turn == 1){
 					while(penyerang_ > length(P1) || penyerang_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 						readNumberSTDIN(&penyerang_);
 					}
 				}
 				else{
 					while(penyerang_ > length(P2) || penyerang_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 						readNumberSTDIN(&penyerang_);
 					}
 				}
@@ -236,20 +179,18 @@ int main()
 					readNumberSTDIN(&penyerang_);
 					if(turn == 1){
 						while(penyerang_ > length(P1) || penyerang_ < 1){
-							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 							readNumberSTDIN(&penyerang_);
 						}
 					}
 					else{
 						while(penyerang_ > length(P2) || penyerang_ < 1){
-							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 							readNumberSTDIN(&penyerang_);
 						}
 					}
 					penyerang_ = inputToIndex(turn, penyerang_, P1, P2);
 				}
-
-				printf("Penyerang_ setelah = %d\n", penyerang_);
 
 				printEnemyBuildingConnected(g, turn, penyerang_, bangunan, &countBuildingsAttack);
 				if(countBuildingsAttack == 1){
@@ -262,14 +203,10 @@ int main()
 				readNumberSTDIN(&diserang_);
 
 				while(diserang_ > countBuildingsAttack || diserang_ < 1){
-					printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+					printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 					readNumberSTDIN(&diserang_);
 				}
-				
 				diserang_ = inputToIndexEnemy(g, turn, penyerang_, diserang_, bangunan);
-
-
-				printf("diserang_ = %d\n", diserang_);
 
 				printf("Masukkan berapa pasukan yang akan digunakan: ");
 
@@ -277,7 +214,7 @@ int main()
 				readNumberSTDIN(&troopsUsed_);
 				while(troopsUsed_ > troops(*Build(bangunan,penyerang_)) || troopsUsed_ < 0){
 					// Interface
-					printf("Masukkan troops antara 0 dan %d\n", troops(*Build(bangunan,penyerang_)));
+					printf("Masukkan troops antara 0 dan %d: ", troops(*Build(bangunan,penyerang_)));
 					readNumberSTDIN(&troopsUsed_);
 				}
 
@@ -317,9 +254,6 @@ int main()
 				int towerMarkAfter = towerCounter(P1, P2, bangunan, turn);
 				int lengthMineAfter = lengthTurnMine(turn, P1, P2);
 
-				printf("lengthMineBefore = %d\n", lengthMineBefore);
-				printf("lengthMineAfter = %d\n", lengthMineAfter);
-
 				if(lengthMarkBefore == 3 && lengthMarkAfter == 2){
 					shieldTriggered(&skill1, &skill2, turn);
 				}
@@ -341,13 +275,13 @@ int main()
 				readNumberSTDIN(&leveledUp_);
 				if(turn == 1){
 					while(leveledUp_ > length(P1) || leveledUp_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 						readNumberSTDIN(&leveledUp_);
 					}
 				}
 				else{
 					while(leveledUp_ > length(P1) || leveledUp_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 						readNumberSTDIN(&leveledUp_);
 					}
 				}
@@ -380,23 +314,20 @@ int main()
 
 				//Interface
 				printBuildings(turn, P1, P2, bangunan);
-				printf("Pilih Bangunan: ");
+				printf("\nPilih Bangunan: ");
 
 				// Input from User
 				int moved_;
 				readNumberSTDIN(&moved_);
-				printf("masuk sini\n");
-				printf("moved_ = %d\n", moved_);
-				printf("berhasil keluar\n");
 				if(turn == 1){
 					while(moved_ > length(P1) || moved_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid:" );
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid:" );
 						readNumberSTDIN(&moved_);
 					}
 				}
 				else{
 					while(moved_ > length(P2) || moved_ < 1){
-						printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+						printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 						readNumberSTDIN(&moved_);
 					}
 				}
@@ -412,13 +343,13 @@ int main()
 					readNumberSTDIN(&moved_);
 					if(turn == 1){
 						while(moved_ > length(P1) || moved_ < 1){
-							printf("Inputan tidak valid\nMasukkan jumlah yang valid:" );
+							printf("\nInputan tidak valid\nMasukkan jumlah yang valid:" );
 							readNumberSTDIN(&moved_);
 						}
 					}
 					else{
 						while(moved_ > length(P2) || moved_ < 1){
-							printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+							printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 							readNumberSTDIN(&moved_);
 						}
 					}
@@ -438,7 +369,7 @@ int main()
 				readNumberSTDIN(&moved2_);
 
 				while(moved2_ > count || moved2_ < 1){
-					printf("Inputan tidak valid\nMasukkan jumlah yang valid: ");
+					printf("\nInputan tidak valid\nMasukkan jumlah yang valid: ");
 					readNumberSTDIN(&moved2_);
 				}
 				moved2_ = inputToIndexMine(g, turn, moved_, moved2_, bangunan);
@@ -447,8 +378,6 @@ int main()
 				move(Build(bangunan,moved_),Build(bangunan,moved2_),&S, &troops1, &troops2);
 				push(&buildings1, moved_);
 				push(&buildings2, moved2_);
-				printf("moved_ = %d\n", moved_);
-				printf("moved2_ = %d\n", moved2_);
 				/* Put index building that have moved */
 				insertValueFirst(&flagMove,moved_);
 			}
@@ -610,9 +539,6 @@ int main()
 					changeTurn(&turn);
 					printf("Sekarang giliran player %d\n", turn);
 				}
-
-				printf("counterShieldP1 = %d\n", counterShieldP1);
-				printf("counterShieldP2 = %d\n", counterShieldP2);
 				// Mark shield skill activated
 				if(shieldActivatedP1){
 					counterShieldP1 = 0;
@@ -671,7 +597,7 @@ int main()
 				exit(0);
 			}
 			else{
-				printf("Inputan Tidak Valid\n");
+				printf("\nInputan tidak valid\n");
 			}
 		}while(!wordCompare(input, END_TURN));
 	}

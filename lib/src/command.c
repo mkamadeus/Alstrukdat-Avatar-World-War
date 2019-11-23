@@ -63,8 +63,6 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
         int troopsAttacked;
         int troopsAttack = troopsUsed;
 
-        printf("troops C2 awal = %d\n", troops(*C2));
-
         if(ignore && !(*critical))
         {
             troopsAttacked = troops(*C2);
@@ -90,11 +88,8 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
             }
         }
 
-        printf("troops C2 = %d\n", troops(*C2));
         if(troops(*C2) <= 0)
         {
-            printf("troopsAttack = %d\n", troopsAttack);
-            printf("troopsAttacked = %d\n", troopsAttacked);
             owner(*C2) = P;
             changeLevel(C2, 1);
             troops(*C2) = troopsAttack - troopsAttacked;

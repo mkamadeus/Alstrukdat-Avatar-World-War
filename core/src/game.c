@@ -134,7 +134,6 @@ int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray 
 	while(P != NULL && info(P) != input1){
 		P = next(P);
 	}
-	printf("info(P) = %d\n", info(P));
 	vAddress Q = child(P);
 	do{
 		if(owner(*Build(bangunan,info(Q))) != turn){
@@ -142,12 +141,7 @@ int inputToIndexEnemy(graph G, int turn, int input1, int input2, buildingsArray 
 		}
 		prec = Q;
 		Q = nextChild(Q);
-		printf("Terakhir harusnya masuk sini\n");
 	}while(Q != NULL && i < input2);
-	printf("info(prec) = %d\n", info(prec));
-	// for(int i = 1; i <=input2-1; i++){
-	// 	Q = nextChild(Q);
-	// }
 	return info(prec);
 }
 
@@ -162,6 +156,8 @@ void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray banguna
 		if(owner(*Build(bangunan,info(Q))) == turn){
 			printf("%d. ", counts);
 			writeBuildingCoord(*Elmt(bangunan,info(Q)));
+			printf("%d ", troops(*Build(bangunan,info(Q))));
+			printf("lv. %d\n", level(*Build(bangunan,info(Q))));
 			printf("\n");
 			counts++;
 		}
@@ -279,4 +275,20 @@ void mainMenu(){
 	printf("1. Start New Game\n");
 	printf("2. Load game\n");
 	printf("Masukkan input: ");
+}
+
+void commandInterace(){
+	printf(" __________________________________________\n");
+	printf("|                  COMMAND                 |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|                                          |\n");
+	printf("|__________________________________________|\n");
 }
