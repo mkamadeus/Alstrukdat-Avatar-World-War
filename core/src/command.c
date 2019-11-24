@@ -56,7 +56,7 @@ void levelUp(buildings * C, stack * S, boolean * isSuccess){
             printf(UNDERSCORE);
             printf("%d troops", minus);
             printf(NORMAL);
-            printf("to level up.\n");
+            printf(" to level up.\n");
             *isSuccess = false;
         }
     }

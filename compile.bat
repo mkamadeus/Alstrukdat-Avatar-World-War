@@ -3,4 +3,6 @@
 echo Compiling program...
 g++ -lm -o main22 ./core/src/*.c ./lib/src/*.c
 
-main22.exe
+main.exe
+
+del main.exe
