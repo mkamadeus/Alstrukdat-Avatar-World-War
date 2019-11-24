@@ -79,7 +79,11 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
     int row = readNumber();
     ignoreBlank();
     int col = readNumber();
-
+    colorPrint("Map size: ", GREEN);
+    printf(CYAN);
+    printf("%dx%d\n", row, col);
+    printf(NORMAL);
+    
     // Initialize matrix
     createEmptyMatrix(row,col,M);
 
@@ -87,15 +91,13 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
     ignoreBlank();
     int t = readNumber();
     *buildingCounter = t;
-
-    colorPrint("Map size: ", CYAN);
-    printf("%dx%d\n", row, col);
-    colorPrint("Building count: ", CYAN);
+    colorPrint("Building count: ", GREEN);
+    printf(CYAN);
     printf("%d\n", t);
+    printf(NORMAL);
 
-    colorPrint("Reading building states...\n", BRIGHT);
-    printf("Map size: %dx%d\nBuilding count: %d\n", row, col, t);
-    printf("Reading building types...\n");
+
+    printf("Reading building states...\n");
 
     // Initialize array size
     makeEmptyArray(arr,t);
@@ -287,14 +289,17 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
         ignoreBlank();
         int buildingOwner = readNumber();
         owner(*ptr) = buildingOwner;
+
         //Read building level
         ignoreBlank();
         int buildingLevel = readNumber();
         level(*ptr) = buildingLevel;
+
         //Read building troops
         ignoreBlank();
         int buildingTroops = readNumber();
         troops(*ptr) = buildingTroops;
+
         //Read building defense state
         ignoreBlank();
         int buildingDefense = readNumber();
@@ -302,6 +307,7 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
 
         // Construct and send to array
         Elmt(*arr, i) = makeBuildingCoord(ptr, buildingRow, buildingCol);
+        ++Neff(*arr);
         insertStructure(M, Elmt(*arr,i));
         
     }

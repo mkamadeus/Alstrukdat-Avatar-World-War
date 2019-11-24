@@ -3,6 +3,38 @@
 
 #include "../include/command.h"
 
+// Show buildings connections
+void showConnections(graph G, buildingsArray* arr, int buildingID)
+{
+    uAddress P=first(G);
+    for(int i=2;i<=buildingID;i++) P = Next(P);
+
+    vAddress Q = child(P);
+
+    int counter=1;
+    while(Q!=NULL)
+    {
+        buildingCoord currentBuildingCoord = *Elmt(*arr, Info(Q));
+        buildings currentBuilding = *build(currentBuildingCoord);
+        printf("%d. ", counter);
+        if(owner(currentBuilding)==1) printf(RED); 
+        else if(owner(currentBuilding)==2) printf(BLUE);
+
+        if(type(currentBuilding)==1) printf("Castle ");
+        else if(type(currentBuilding)==2) printf("Tower ");
+        else if(type(currentBuilding)==3) printf("Fort ");
+        else if(type(currentBuilding)==4) printf("Village ");
+
+        printf(NORMAL); 
+
+        printf("(%d,%d)",row(currentBuildingCoord), col(currentBuildingCoord));
+
+        printf("\n");
+        Q = nextChild(Q);
+        counter++;
+    }
+}
+
 // Level up a building
 void levelUp(buildings * C, stack * S, boolean * isSuccess){
     int minus, remains;
@@ -15,18 +47,22 @@ void levelUp(buildings * C, stack * S, boolean * isSuccess){
             push(S, 1);
             troops(*C) = remains;
             changeLevel(C, level(*C)+1);
-            printf("Bangunan naik ke level %d\n", level(*C));
+            printf("Building leveled up to Lv. %d!\n", level(*C));
             *isSuccess = true;
         }
         else
         {
-            printf("Pasukan tidak mencukupi\n");
+            printf("Not enough troops! You need at least ");
+            printf(UNDERSCORE);
+            printf("%d troops", minus);
+            printf(NORMAL);
+            printf("to level up.\n");
             *isSuccess = false;
         }
     }
     else
     {
-        printf("Bangunan sudah mencapai level maksimum\n");
+        printf("Building is at max level!\n");
         *isSuccess = false;
     }
 }

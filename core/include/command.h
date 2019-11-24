@@ -11,6 +11,9 @@
 #include "../../lib/include/stack.h"
 #include "../../lib/include/mesin.h"
 
+// Show building connections
+void showConnections(graph G, buildingsArray* arr, int buildingID);
+
 // Level up a building
 void levelUp(buildings * C, stack * S, boolean * isSuccess);
 

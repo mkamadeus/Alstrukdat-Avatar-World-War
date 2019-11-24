@@ -83,6 +83,7 @@ int main()
 	char SAVE[20];
 	char MOVE[20];
 	char EXIT[20];
+	char SHOW[20];
 	
 	strcpy(ATTACK,"ATTACK");
 	strcpy(LEVEL_UP,"LEVEL_UP");
@@ -92,15 +93,16 @@ int main()
 	strcpy(SAVE,"SAVE");
 	strcpy(MOVE,"MOVE");
 	strcpy(EXIT,"EXIT");
+	strcpy(SHOW,"SHOW");
 
 	createEmpty(&P1);
 	createEmpty(&P2);
 	createEmpty(&flagAttack);
 	createEmpty(&flagMove);
 
-	mainMenu();
 
 	do{
+		mainMenu();
 		readNumberSTDIN(&firstInput);
 		if(firstInput == 1){	
 			readConfigFile(&m, &bangunan, &g, &buildingCounter);
@@ -117,11 +119,11 @@ int main()
 			}
 		}
 		else{
-			printf("Masukkan inputan yang benar: ");
+			printf("Invalid input! Please enter a valid input.\n");
 		}
 	}while(firstInput != 1 && firstInput != 2);
 
-	for(int i = 1; i < buildingCounter+1; i++){
+	for(int i = 1; i <= buildingCounter; i++){
 		if(owner(*Build(bangunan,i)) == 1){
 			insertValueLast(&P1,i);
 		}
@@ -136,14 +138,15 @@ int main()
 			printf("\n");
 			writeMatrix(m);
 			printf("\n");
+
 			firstInterface(skill1, skill2, turn);
 			if (turn==1) colorPrint("Player 1",RED);
 			else if (turn==2) colorPrint("Player 2",BLUE);
 			printf("'s Turn\n");
 
 			//info skill aktif
-			if(ignore)printf("Attack Up Activated\n");
-			if(critical)printf("Critical Activated\n");
+			if(ignore) printf("Attack Up Active\n");
+			if(critical) printf("Critical Active\n");
 			if(isShieldActiveP1)
 			{
 				colorPrint("Player 1",RED);
@@ -597,7 +600,7 @@ int main()
 					printf("It's ");
 					if(turn==1) colorPrint("Player 1", BLUE);
 					else if(turn==2) colorPrint("Player 2", RED);
-					printf("'s turn!");
+					printf("'s turn!\n");
 				}
 				// Mark shield skill activated
 				if(shieldActivatedP1){
@@ -656,9 +659,24 @@ int main()
 				colorPrint("Thank you for playing!\n", GREEN);
 				exit(0);
 			}
-			else{
-				printf("\nInputan tidak valid\n");
+			else if(wordCompare(input, SHOW)){
+				int count;
+				int which;
+				printf("Input building ID: ");
+				readNumberSTDIN(&which);
+				showConnections(g, &bangunan, which);
 			}
+			else{
+				printf("\nInvalid input! Please check your input again.\n");
+			}
+
+			// Confirmation before refreshing screen
+			printf("Press ");
+			colorPrint("ENTER", UNDERSCORE);
+			printf(" to continue...\n");
+			char enter = 0;
+			while (enter != '\r' && enter != '\n') enter = getchar();
+
 		}while(!wordCompare(input, END_TURN));
 	}
 }

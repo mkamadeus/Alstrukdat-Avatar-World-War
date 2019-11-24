@@ -238,6 +238,7 @@ void createAllStack(stack * S, stack * level, stack * before, stack * troops1, s
 }
 
 void mainMenu(){
+	system("@cls||clear");
 	printf("    ___ _    _____  _________    ____     _       ______  ____  __    ____     _       _____    ____ \n");
 	printf("   /   | |  / /   |/_  __/   |  / __ \\   | |     / / __ \\/ __ \\/ /   / __ \\   | |     / /   |  / __ \\ \n");
 	printf("  / /| | | / / /| | / / / /| | / /_/ /   | | /| / / / / / /_/ / /   / / / /   | | /| / / /| | / /_/ /\n");
@@ -246,7 +247,7 @@ void mainMenu(){
 	printf("\n");
 	printf("1. Start New Game\n");
 	printf("2. Load game\n");
-	printf("Masukkan input: ");
+	printf("Enter option: ");
 }
 
 void commandInterface(){
@@ -258,7 +259,8 @@ void commandInterface(){
 	printf("4. UNDO\n");
 	printf("5. SKILL\n");
 	printf("6. END_TURN\n");
-	printf("7. EXIT (Jika anda bosan atau terlalu gampang)\n");
+	printf("7. SHOW\n");
+	printf("8. EXIT\n");
 }
 
 void buildingStatusInterface(buildingsArray bangunan)
