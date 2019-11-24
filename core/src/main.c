@@ -545,6 +545,7 @@ int main()
 			else{
 				barrage(&bangunan, turn, P1, P2);
 			}
+			printf("Berhasil Mengaktifkan Skill\n");
 		}
 
 		else if(wordCompare(input, END_TURN)){
