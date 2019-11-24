@@ -93,7 +93,7 @@ void writeMatrix (matrix M)
 */
 {
     // Prints the col coordinate
-    printf("      ");
+    colorPrint("  R\\C ",CYAN);
     for(int i=1;i<=nColEff(M)-1;i++)
     {
         printf("   ");

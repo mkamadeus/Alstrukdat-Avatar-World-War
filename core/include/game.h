@@ -47,6 +47,6 @@ void mainMenu();
 
 void commandInterface();
 
-void buildingStatusInterface(buildingsArray bangunan);
+void buildingStatusInterface(buildingsArray bangunan, linkedList flagAttack, linkedList flagMove, int turn);
 
 #endif

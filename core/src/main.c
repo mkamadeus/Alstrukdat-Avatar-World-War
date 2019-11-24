@@ -160,7 +160,7 @@ int main()
 			printf("\n");
 
 			// Building status
-			buildingStatusInterface(bangunan);
+			buildingStatusInterface(bangunan, flagAttack, flagMove, turn);
 			printf("\n");
 
 			// Command tersedia

@@ -208,13 +208,22 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
     // Output counterShieldP2
     fprintf(savefile, "%d\n", counterShieldP2);
     // Output skill queue for player 1
-    int count=0;
-    for(int i=Head(*Q1);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q1).T[i]);++count;}
-    fprintf(savefile, "\n");
+    if(isEmptyQueue(*Q1)) for(int i=1;i<=10;i++) fprintf(savefile,"0 ");
+    else
+    {
+        int count=0;
+        for(int i=Head(*Q1);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q1).T[i]);++count;}
+        fprintf(savefile, "\n");
+    }
+    
     // Output skill queue for player 2
-    count=0;
-    for(int i=Head(*Q2);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q2).T[i]);++count;}
-    fprintf(savefile, "\n");
+    if(isEmptyQueue(*Q2)) for(int i=1;i<=10;i++) fprintf(savefile,"0 ");
+    else
+    {
+        int count=0;
+        for(int i=Head(*Q2);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q2).T[i]);++count;}
+        fprintf(savefile, "\n");
+    }
     // Output buildings inside flagAttack
     fprintf(savefile, "%d\n", lengthFlagAttack);
     // Output flagAttack

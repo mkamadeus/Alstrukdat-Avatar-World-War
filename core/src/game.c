@@ -158,7 +158,6 @@ void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray banguna
 			writeBuildingCoord(*Elmt(bangunan,info(Q)));
 			printf("%d ", troops(*Build(bangunan,info(Q))));
 			printf("lv. %d\n", level(*Build(bangunan,info(Q))));
-			printf("\n");
 			counts++;
 		}
 		Q = nextChild(Q);
@@ -185,7 +184,9 @@ void firstInterface(queue skill1, queue skill2, int turn){
 		else skillId = InfoHead(skill2);
 	}
 
-	if(skillId == 1)
+	if(skillId == -1)
+		printf("No skill yet!\n");
+	else if(skillId == 1)
 		printf("Instant Upgrade\n");
 	else if(skillId == 2)
 		printf("Shield\n");
@@ -263,9 +264,9 @@ void commandInterface(){
 	printf("8. EXIT\n");
 }
 
-void buildingStatusInterface(buildingsArray bangunan)
+void buildingStatusInterface(buildingsArray bangunan, linkedList flagAttack, linkedList flagMove, int turn)
 {
-	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE\n");
+	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE | ATTACK\n");
 	for(int i=1;i<=Neff(bangunan);i++)
 	{
 		// Building ID print
@@ -304,6 +305,37 @@ void buildingStatusInterface(buildingsArray bangunan)
 		// Defense
 		if(defense(currentBuilding)) printf(CYAN);
 		printf("D");
+		printf(NORMAL);
+		printf(" | ");
+
+		// Attack Available
+		if(owner(currentBuilding)==1 && turn==1)
+		{
+			if(searchB(flagAttack,i)) printf(RED);
+			else printf(GREEN);
+		}
+		else if(owner(currentBuilding)==2 && turn==2)
+		{
+			if(searchB(flagAttack,i)) printf(RED);
+			else printf(GREEN);
+		}
+		printf("A");
+		printf(NORMAL);
+		printf(" | ");
+
+		
+		// Move Available
+		if(owner(currentBuilding)==1 && turn==1)
+		{
+			if(searchB(flagMove,i)) printf(RED);
+			else printf(GREEN);
+		}	
+		else if(owner(currentBuilding)==2 && turn==2)
+		{
+			if(searchB(flagMove,i)) printf(RED);
+			else printf(GREEN);
+		}
+		printf("M");
 		printf(NORMAL);
 
 		printf("\n");
