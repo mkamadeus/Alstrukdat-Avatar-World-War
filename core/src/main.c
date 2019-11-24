@@ -100,7 +100,6 @@ int main()
 	createEmpty(&flagAttack);
 	createEmpty(&flagMove);
 
-
 	do{
 		mainMenu();
 		readNumberSTDIN(&firstInput);
@@ -663,6 +662,10 @@ int main()
 			int which;
 			printf("Input building ID: ");
 			readNumberSTDIN(&which);
+			while(which <= buildingCounter || which > 0){
+				printf("Masukkan inputan yang valid: ");
+				readNumberSTDIN(&which);
+			}
 			showConnections(g, &bangunan, which);
 		}
 		else{

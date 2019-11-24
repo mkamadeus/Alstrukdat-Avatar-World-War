@@ -257,16 +257,16 @@ void commandInterface(){
 	printf("2. LEVEL_UP\n");
 	printf("3. MOVE\n");
 	printf("4. SAVE\n");
-	printf("4. UNDO\n");
-	printf("5. SKILL\n");
-	printf("6. END_TURN\n");
-	printf("7. SHOW\n");
-	printf("8. EXIT\n");
+	printf("5. UNDO\n");
+	printf("6. SKILL\n");
+	printf("7. END_TURN\n");
+	printf("8. SHOW\n");
+	printf("9. EXIT\n");
 }
 
 void buildingStatusInterface(buildingsArray bangunan, linkedList flagAttack, linkedList flagMove, int turn)
 {
-	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE | ATTACK\n");
+	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE | ATTACK | MOVE\n");
 	for(int i=1;i<=Neff(bangunan);i++)
 	{
 		// Building ID print
