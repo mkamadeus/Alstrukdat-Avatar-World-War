@@ -46,10 +46,11 @@ void printASCIIFile();
 void printWord(word W);
 
 // Save to file
-void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn,boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2);
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2, int lengthFlagAttack, int lengthFlagMove, int * arrFlagAttack, int * arrFlagMove);
 
 // Load from file
-void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter, boolean *criticalP1, boolean *criticalP2, boolean *isShieldActiveP1, boolean *shieldActivatedP1, boolean *isShieldActiveP2, boolean *shieldActivatedP2, int *counterShieldP1, int *counterShieldP2);
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter, boolean *criticalP1, boolean *criticalP2, boolean *isShieldActiveP1, boolean *shieldActivatedP1, boolean *isShieldActiveP2, boolean *shieldActivatedP2, int *counterShieldP1, int *counterShieldP2, int * lengthFlagAttack_, int * lengthFlagMove_, int ** arrFlagAttack, int ** arrFlagMove);
+
 // Word to int converter
 int intConverter(word W);
 

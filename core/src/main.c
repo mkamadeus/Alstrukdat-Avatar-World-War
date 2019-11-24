@@ -42,7 +42,12 @@ int main()
 	int counterShieldP2 = 0;
 	int firstInput;
 	int buildingCounter;
-	
+	int lengthFlagAttack;
+	int lengthFlagMove;
+
+	int *arrFlagAttack;
+	int *arrFlagMove;
+
 	int turn = 1;
 
 	boolean isSuccess;
@@ -103,7 +108,13 @@ int main()
 			owner(*Build(bangunan,2)) = 2;	
 		}
 		else if(firstInput == 2){
-			loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter, &criticalP1, &criticalP2, &isShieldActiveP1, &shieldActivatedP1, &isShieldActiveP2, &shieldActivatedP2, &counterShieldP1, &counterShieldP2);
+			loadFromFile(&m, &bangunan, &g, &turn, &ignore, &critical, &isExtraTurn, &skill1, &skill2, &buildingCounter, &criticalP1, &criticalP2, &isShieldActiveP1, &shieldActivatedP1, &isShieldActiveP2, &shieldActivatedP2, &counterShieldP1, &counterShieldP2, &lengthFlagAttack, &lengthFlagMove, &arrFlagAttack, &arrFlagMove);
+			for(int i = 1; i <= lengthFlagAttack; i++){
+				insertValueLast(&flagAttack, arrFlagAttack[i]);
+			}
+			for(int i = 1; i <= lengthFlagMove; i++){
+				insertValueLast(&flagMove, arrFlagMove[i]);
+			}
 		}
 		else{
 			printf("Masukkan inputan yang benar: ");
@@ -410,7 +421,25 @@ int main()
 				insertValueFirst(&flagMove,moved_);
 			}
 			else if(wordCompare(input, SAVE)){
-				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2, criticalP1, criticalP2, isShieldActiveP1, shieldActivatedP1, isShieldActiveP2, shieldActivatedP2, counterShieldP1, counterShieldP2);
+				arrFlagAttack = (int *) malloc ((length(flagAttack) + 1) * sizeof (int));
+				arrFlagMove = (int *) malloc ((length(flagMove) + 1) * sizeof(int));
+
+				int i = 1;
+				address PFlagAttack = first(flagAttack);
+				while(PFlagAttack != NULL){
+					arrFlagAttack[i] = info(PFlagAttack);
+					i++;
+					PFlagAttack = next(PFlagAttack);
+				}
+				i = 1;
+				address PFlagMove = first(flagMove);
+				while(PFlagMove != NULL){
+					arrFlagMove[i] = info(PFlagMove);
+					i++;
+					PFlagMove = next(PFlagMove);
+				}
+				
+				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2, criticalP1, criticalP2, isShieldActiveP1, shieldActivatedP1, isShieldActiveP2, shieldActivatedP2, counterShieldP1, counterShieldP2, length(flagAttack), length(flagMove), arrFlagAttack, arrFlagMove);
 				printf("\n");
 				printf("Save Successful\n");
 			}
