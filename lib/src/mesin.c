@@ -212,18 +212,34 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
     else
     {
         int count=0;
-        for(int i=Head(*Q1);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q1).T[i]);++count;}
-        fprintf(savefile, "\n");
+        for(int i=Head(*Q1);count<10;i=(i%10)+1) {
+            if((*Q1).T[i] == 1 || (*Q1).T[i] == 2 || (*Q1).T[i] == 3 || (*Q1).T[i] == 4 || (*Q1).T[i] == 5 || (*Q1).T[i] == 6 || (*Q1).T[i] == 7){
+                fprintf(savefile, "%d ", (*Q1).T[i]);
+            }
+            else{
+                fprintf(savefile, "0 ");
+            }
+            ++count;
+        }
     }
+    fprintf(savefile, "\n");
     
     // Output skill queue for player 2
     if(isEmptyQueue(*Q2)) for(int i=1;i<=10;i++) fprintf(savefile,"0 ");
     else
     {
         int count=0;
-        for(int i=Head(*Q2);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q2).T[i]);++count;}
-        fprintf(savefile, "\n");
+        for(int i=Head(*Q2);count<10;i=(i%10)+1) {
+            if((*Q2).T[i] == 1 || (*Q2).T[i] == 2 || (*Q2).T[i] == 3 || (*Q2).T[i] == 4 || (*Q2).T[i] == 5 || (*Q2).T[i] == 6 || (*Q2).T[i] == 7){
+                fprintf(savefile, "%d ", (*Q1).T[i]);
+            }
+            else{
+                fprintf(savefile, "0 ");
+            }
+            ++count;
+        }
     }
+    fprintf(savefile, "\n");
     // Output buildings inside flagAttack
     fprintf(savefile, "%d\n", lengthFlagAttack);
     // Output flagAttack
@@ -369,13 +385,16 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     int tempTail = unDef;
 
     createQueue(Q1,10);
+    int counter = 1;
     for(int i=1;i<=10;i++) 
     {
         ignoreBlank();
-        (*Q1).T[i] = readNumber();
-        if((*Q1).T[i] != 0){
+        int tempSkill1 = readNumber();
+        if(tempSkill1 != 0){
+            Add(Q1, tempSkill1);
             tempHead = 1;
-            tempTail = i;
+            tempTail = counter;
+            counter++;
         }
     }
     Head(*Q1) = tempHead;
@@ -383,13 +402,15 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
 
     // Input to queue
     createQueue(Q2, 10);
+    counter = 0;
     for(int i=1;i<=10;i++) 
     {
         ignoreBlank();
-        (*Q2).T[i] = readNumber();
-        if((*Q2).T[i] != 0){
+        int tempSkill2 = readNumber();
+        if(tempSkill2 != 0){
             tempHead = 1;
-            tempTail = i;
+            tempTail = counter;
+            counter++;
         }
     }
     Head(*Q2) = tempHead;

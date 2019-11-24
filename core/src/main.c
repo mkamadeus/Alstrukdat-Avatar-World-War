@@ -116,6 +116,13 @@ int main()
 			for(int i = 1; i <= lengthFlagMove; i++){
 				insertValueLast(&flagMove, arrFlagMove[i]);
 			}
+			int tempDelQueue;
+			if(Head(skill1) == 0){
+				Del(&skill1, &tempDelQueue);
+			}
+			if(Head(skill2) == 0){
+				Del(&skill2, &tempDelQueue);
+			}
 		}
 		else{
 			printf("Invalid input! Please enter a valid input.\n");
@@ -548,9 +555,12 @@ int main()
 				instantReinforcement(&bangunan, turn, P1, P2);
 				printf("Berhasil mengatifkan Instant Reinforcement\n");
 			}
-			else{
+			else if(skillUsed == 7){
 				barrage(&bangunan, turn, P1, P2);
 				printf("Berhasil mengatkfikan Barrage\n");
+			}
+			else{
+				printf("Tidak ada skill yang dapat digunakan\n");
 			}
 		}
 
