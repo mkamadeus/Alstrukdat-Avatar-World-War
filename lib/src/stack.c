@@ -65,7 +65,7 @@ int peek(stack * S)
 // Pops the topmost element of the stack
 void pop(stack * S, int * out)
 {
-    if(isEmpty(*S)) printf("Stack kosong\n");
+    if(isEmpty(*S)) printf("Kamu sudah tidak bisa Undo\n");
     else
     {
         address_ X;
