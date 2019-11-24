@@ -679,7 +679,7 @@ int main()
 			int which;
 			printf("Input building ID: ");
 			readNumberSTDIN(&which);
-			while(which <= buildingCounter || which > 0){
+			while(which > buildingCounter || which <= 0){
 				printf("Masukkan inputan yang valid: ");
 				readNumberSTDIN(&which);
 			}
