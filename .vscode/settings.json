@@ -17,6 +17,9 @@
         "boolean.h\u0000lean.h": "c",
         "matrix.h": "c",
         "command.h": "c",
-        "buildings.h": "c"
+        "buildings.h": "c",
+        "point.h": "c",
+        "graph.h": "c",
+        "queue.h": "c"
     }
 }

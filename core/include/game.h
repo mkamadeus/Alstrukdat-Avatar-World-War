@@ -2,17 +2,17 @@
 #define __GAME_H__
 
 #include <stdio.h>
-#include "../../lib/include/array.h"
-#include "../../lib/include/buildings.h"
-#include "../../lib/include/stack.h"
-#include "../../lib/include/linkedlist.h"
-#include "../../lib/include/point.h"
-#include "../../lib/include/mesin.h"
-#include "../../lib/include/matrix.h"
-#include "../../lib/include/graph.h"
-#include "../../lib/include/pcolor.h"
-#include "../../lib/include/queue.h"
-#include "../include/command.h"
+#include "../../array/array.h"
+#include "../../buildings/buildings.h"
+#include "../../stack/stack.h"
+#include "../../list/linkedlist.h"
+#include "../../point/point.h"
+#include "../../mesinKata/mesin.h"
+#include "../../matrix/matrix.h"
+#include "../../graph/graph.h"
+#include "../../pcolor/pcolor.h"
+#include "../../queue/queue.h"
+#include "../../command/command.h"
 #include "../include/skills.h"
 
 void changeTurn(int *turn);

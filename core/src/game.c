@@ -162,9 +162,6 @@ void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray banguna
 		}
 		Q = nextChild(Q);
 	}
-	if(counts == 1){
-		printf("Tidak ada bangunan terdekat\n");
-	}
 	*count = counts;
 }
 

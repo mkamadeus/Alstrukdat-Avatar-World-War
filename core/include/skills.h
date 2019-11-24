@@ -6,13 +6,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../lib/include/boolean.h"
-#include "../../lib/include/buildings.h"
-#include "../../lib/include/stack.h"
-#include "../../lib/include/linkedlist.h"
-#include "../../lib/include/array.h"
-#include "../../lib/include/queue.h"
-#include "../include/command.h"
+#include "../../stack/boolean.h"
+#include "../../buildings/buildings.h"
+#include "../../stack/stack.h"
+#include "../../list/linkedlist.h"
+#include "../../array/array.h"
+#include "../../queue/queue.h"
+#include "../../command/command.h"
 
 /* --------------------------------- */
 
