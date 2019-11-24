@@ -111,7 +111,7 @@ int inputToIndex(int turn, int input, linkedList P1, linkedList P2){
 int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray bangunan){
 	uAddress P = first(G);
 	vAddress prec ;
-	int i = 1;
+	int i = 0;
 	int count = 1;
 	while(P != NULL && info(P) != input1){
 		P = next(P);
