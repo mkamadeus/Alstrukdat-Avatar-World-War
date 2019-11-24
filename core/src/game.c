@@ -266,7 +266,7 @@ void commandInterface(){
 
 void buildingStatusInterface(buildingsArray bangunan, linkedList flagAttack, linkedList flagMove, int turn)
 {
-	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE | ATTACK\n");
+	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE | ATTACK | MOVE\n");
 	for(int i=1;i<=Neff(bangunan);i++)
 	{
 		// Building ID print
