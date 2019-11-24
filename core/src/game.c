@@ -209,7 +209,6 @@ void interfaceInsideAttack(int turn, linkedList P1, linkedList P2, buildingsArra
 }
 
 void levelUpInterface(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
-	printf("Daftar Bangunan: \n");
 	printBuildings(turn, P1, P2, bangunan);
 	printf("Bangunan yang akan dilevel-Up: ");
 }
