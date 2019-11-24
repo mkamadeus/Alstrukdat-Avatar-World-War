@@ -526,26 +526,32 @@ int main()
 			}
 			if(skillUsed == 1){
 				instantUpgrade(&bangunan, turn, P1, P2);
+				printf("Berhasil mengaktifkan Instant Upgrade\n");
 			}
 			else if(skillUsed == 2){
 				shield(&bangunan, turn, P1, P2, &isShieldActiveP1, &shieldActivatedP1, &isShieldActiveP2, &shieldActivatedP2);
+				printf("Berhasil mengaktifkan Shield\n");
 			}
 			else if(skillUsed == 3){
 				extraTurn(&isExtraTurn);
+				printf("Berhasil mengaktifkan Extra Turn\n");
 			}
 			else if(skillUsed == 4){
 				attackUp(&ignore);
+				printf("Berhasil mengaktifkan Attack Up\n");
 			}
 			else if(skillUsed == 5){
 				criticalHit(&critical);
+				printf("Berhasil mengaktifkan Critical\n");
 			}
 			else if(skillUsed == 6){
 				instantReinforcement(&bangunan, turn, P1, P2);
+				printf("Berhasil mengatifkan Instant Reinforcement\n");
 			}
 			else{
 				barrage(&bangunan, turn, P1, P2);
+				printf("Berhasil mengatkfikan Barrage\n");
 			}
-			printf("Berhasil Mengaktifkan Skill\n");
 		}
 
 		else if(wordCompare(input, END_TURN)){
