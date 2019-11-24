@@ -3,7 +3,6 @@
 
 #include <stdio.h>
 #include "../../lib/include/array.h"
-#include "../../lib/include/command.h"
 #include "../../lib/include/buildings.h"
 #include "../../lib/include/stack.h"
 #include "../../lib/include/linkedlist.h"
@@ -13,6 +12,7 @@
 #include "../../lib/include/graph.h"
 #include "../../lib/include/pcolor.h"
 #include "../../lib/include/queue.h"
+#include "../include/command.h"
 #include "../include/skills.h"
 
 void changeTurn(int *turn);
@@ -44,5 +44,9 @@ void deleteAllStack(stack * S, stack * level, stack * before, stack * troops1, s
 void createAllStack(stack * S, stack * level, stack * before, stack * troops1, stack * troops2, stack * crit);
 
 void mainMenu();
+
+void commandInterface();
+
+void buildingStatusInterface(buildingsArray bangunan);
 
 #endif

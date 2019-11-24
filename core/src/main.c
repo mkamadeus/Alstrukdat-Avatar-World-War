@@ -122,11 +122,14 @@ int main()
 	while(length(P1) != 0 && length(P2) != 0){
 		do{
 			// Tampilan Default
+			printf("\n");
 			writeMatrix(m);
+			printf("\n");
 			firstInterface(skill1, skill2, turn);
 			if (turn==1) colorPrint("Player 1",RED);
 			else if (turn==2) colorPrint("Player 2",BLUE);
 			printf("'s Turn\n");
+
 			//info skill aktif
 			if(ignore)printf("Attack Up Activated\n");
 			if(critical)printf("Critical Activated\n");
@@ -141,16 +144,14 @@ int main()
 				printf("'s Shield Activated\n");
 			}
 			printf("\n");
+
+			// Building status
+			buildingStatusInterface(bangunan);
+			printf("\n");
+
 			// Command tersedia
-			printf("Command yang tersedia:\n");
-			printf("1. ATTACK\n");
-			printf("2. LEVEL_UP\n");
-			printf("3. MOVE\n");
-			printf("4. SAVE\n");
-			printf("4. UNDO\n");
-			printf("5. SKILL\n");
-			printf("6. END_TURN\n");
-			printf("7. EXIT (Jika anda bosan atau terlalu gampang)\n");
+			commandInterface();
+			printf("\n");
 
 			// Command
 			printf("Masukkan Command: ");
@@ -384,6 +385,7 @@ int main()
 				}
 				
 				printNearbyMyBuildings(g, turn, moved_, bangunan, &count);
+
 				// Checker if the building can move or not
 				if(count == 1){
 					printf("Tidak ada bangunanmu yang terdekat...\n");
@@ -410,7 +412,7 @@ int main()
 			else if(wordCompare(input, SAVE)){
 				saveToFile(&m, &bangunan, &g, turn, ignore, critical, isExtraTurn, &skill1, &skill2, criticalP1, criticalP2, isShieldActiveP1, shieldActivatedP1, isShieldActiveP2, shieldActivatedP2, counterShieldP1, counterShieldP2);
 				printf("\n");
-				printf("Save Succesfull\n");
+				printf("Save Successful\n");
 			}
 			else if(wordCompare(input, UNDO)){
 				int undoCommand;
@@ -557,13 +559,16 @@ int main()
 
 				//When triggered extra turn
 				if(isExtraTurn){
-					printf("Sekarang giliranmu lagi\n");
+					printf("Extra Turn Activated!\n\n");
 					isExtraTurn = false;
 				}
 
 				else{
 					changeTurn(&turn);
-					printf("Sekarang giliran player %d\n", turn);
+					printf("It's ");
+					if(turn==1) colorPrint("Player 1", BLUE);
+					else if(turn==2) colorPrint("Player 2", RED);
+					printf("'s turn!");
 				}
 				// Mark shield skill activated
 				if(shieldActivatedP1){
@@ -619,7 +624,7 @@ int main()
 				createEmpty(&flagMove);
 			}
 			else if(wordCompare(input, EXIT)){
-				printf("Terima Kasih Telah Bermain\n");
+				colorPrint("Thank you for playing!\n", GREEN);
 				exit(0);
 			}
 			else{

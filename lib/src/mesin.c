@@ -123,6 +123,7 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
         
         // Construct and send to array
         Elmt(*arr, i) = makeBuildingCoord(ptr, buildingRow, buildingCol);
+        Neff(*arr)++;
         insertStructure(M, Elmt(*arr,i));
         
     }
@@ -140,10 +141,8 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
             if(connection) insertChild(G,i,j);
         }
     }
-    char completeMessage[] = "Configuration file loaded!";
-    int i=0;
-    while(completeMessage[i]!='\0') print_green(completeMessage[i++]);
-    printf("\n");
+    const char* completeMessage = "Configuration file loaded!\n";
+    colorPrint(completeMessage,GREEN);
     // printGraph(*G);
 }
 

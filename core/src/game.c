@@ -170,63 +170,35 @@ void printNearbyMyBuildings(graph G, int turn, int input, buildingsArray banguna
 }
 
 void firstInterface(queue skill1, queue skill2, int turn){
-	printf("Your Skills = ");
-	if(turn == 1){
-		if(isEmptyQueue(skill1)){
-			printf("Tidak ada skill\n");
-		}
-		else{
-			if(InfoHead(skill1) == 1){
-				printf("Instant Upgrade\n");
-			}
-			else if(InfoHead(skill1) == 2){
-				printf("Shield\n");
-			}
-			else if(InfoHead(skill1) == 3){
-				printf("Extra Turn\n");
-			}
-			else if(InfoHead(skill1) == 4){
-				printf("Attack Up\n");
-			}
-			else if(InfoHead(skill1) == 5){
-				printf("Critical Hit\n");
-			}
-			else if(InfoHead(skill1) == 6){
-				printf("Instant Reinforcement\n");
-			}
-			else{
-				printf("Barrage\n");
-			}
-		}
+	colorPrint("Current skill : ", CYAN);
+
+	int skillId;
+
+	if(turn==1)
+	{
+		if(isEmptyQueue(skill1)) skillId = -1;
+		else skillId = InfoHead(skill1);
 	}
-	else{
-		if(isEmptyQueue(skill2)){
-			printf("Tidak ada skill\n");
-		}
-		else{
-			if(InfoHead(skill2) == 1){
-				printf("Instant Upgrade\n");
-			}
-			else if(InfoHead(skill2) == 2){
-				printf("Shield\n");
-			}
-			else if(InfoHead(skill2) == 3){
-				printf("Extra Turn\n");
-			}
-			else if(InfoHead(skill2) == 4){
-				printf("Attack Up\n");
-			}
-			else if(InfoHead(skill2) == 5){
-				printf("Critical Hit\n");
-			}
-			else if(InfoHead(skill2) == 6){
-				printf("Instant Reinforcement\n");
-			}
-			else{
-				printf("Barrage\n");
-			}
-		}
+	else if(turn==2)
+	{
+		if(isEmptyQueue(skill2)) skillId = -1;
+		else skillId = InfoHead(skill2);
 	}
+
+	if(skillId == 1)
+		printf("Instant Upgrade\n");
+	else if(skillId == 2)
+		printf("Shield\n");
+	else if(skillId == 3)
+		printf("Extra Turn\n");
+	else if(skillId == 4)
+		printf("Attack Up\n");
+	else if(skillId == 5)
+		printf("Critical Hit\n");
+	else if(skillId == 6)
+		printf("Instant Reinforcement\n");
+	else if(skillId == 7)
+		printf("Barrage\n");
 }
 
 void interfaceInsideAttack(int turn, linkedList P1, linkedList P2, buildingsArray bangunan){
@@ -277,18 +249,61 @@ void mainMenu(){
 	printf("Masukkan input: ");
 }
 
-void commandInterace(){
-	printf(" __________________________________________\n");
-	printf("|                  COMMAND                 |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|                                          |\n");
-	printf("|__________________________________________|\n");
+void commandInterface(){
+	printf("Command yang tersedia:\n");
+	printf("1. ATTACK\n");
+	printf("2. LEVEL_UP\n");
+	printf("3. MOVE\n");
+	printf("4. SAVE\n");
+	printf("4. UNDO\n");
+	printf("5. SKILL\n");
+	printf("6. END_TURN\n");
+	printf("7. EXIT (Jika anda bosan atau terlalu gampang)\n");
+}
+
+void buildingStatusInterface(buildingsArray bangunan)
+{
+	printf(" ID. TYPE LVL | (ROW,COL) | TROOP | REGEN | DEFENSE\n");
+	for(int i=1;i<=Neff(bangunan);i++)
+	{
+		// Building ID print
+		printf(" %d. ", i);
+
+		buildingCoord currentBuildingCoord = *Elmt(bangunan, i);
+		buildings currentBuilding = *build(currentBuildingCoord);
+		
+		// Building type print
+		if(owner(currentBuilding)==1) printf(RED);
+		else if(owner(currentBuilding)==2) printf(BLUE);
+
+		if(type(currentBuilding)==1) printf("Castle");
+		else if(type(currentBuilding)==2) printf("Tower");
+		else if(type(currentBuilding)==3) printf("Fort");
+		else if(type(currentBuilding)==4) printf("Village");
+
+		printf(NORMAL);
+
+		printf(" Lv. %d", level(currentBuilding));
+
+		printf(" | ");
+
+		// Position
+		printf("(%d,%d)", row(currentBuildingCoord), col(currentBuildingCoord));
+		printf(" | ");
+
+		// Troops count
+		printf("T:%d", troops(currentBuilding));
+		printf(" | ");
+
+		// Regen rate
+		printf("R:%d", troopsRegen(currentBuilding));
+		printf(" | ");
+
+		// Defense
+		if(defense(currentBuilding)) printf(CYAN);
+		printf("D");
+		printf(NORMAL);
+
+		printf("\n");
+	}
 }

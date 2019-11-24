@@ -6,10 +6,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "boolean.h"
-#include "buildings.h"
-#include "stack.h"
-#include "mesin.h"
+#include "../../lib/include/boolean.h"
+#include "../../lib/include/buildings.h"
+#include "../../lib/include/stack.h"
+#include "../../lib/include/mesin.h"
 
 // Level up a building
 void levelUp(buildings * C, stack * S, boolean * isSuccess);

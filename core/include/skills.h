@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include "../../lib/include/boolean.h"
 #include "../../lib/include/buildings.h"
-#include "../../lib/include/command.h"
 #include "../../lib/include/stack.h"
 #include "../../lib/include/linkedlist.h"
 #include "../../lib/include/array.h"
 #include "../../lib/include/queue.h"
+#include "../include/command.h"
 
 /* --------------------------------- */
 

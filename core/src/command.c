@@ -100,20 +100,6 @@ void attack(buildings * C1, buildings * C2, boolean * isCaptured, int troopsUsed
     }
 }
 
-// void undo(buildings * C1, buildings * C2, boolean * critical ,stack * level, stack * before, stack * troops1 , stack * troops2 ,stack * S, stack * crit){
-//     int command;
-//     pop(S, &command);
-//     if(command == 1){
-//         inverseLevelUp(C1);
-//     }
-//     else if(command == 2){
-//         inverseAttack(C1, C2, critical, level, before, troops1, troops2, crit);
-//     }
-//     else if(command == 3){
-//         inverseMove(C1, C2, troops1, troops2);
-//     }
-// }
-
 // Move command
 void move(buildings * C1, buildings * C2, stack * S, stack * troops1, stack * troops2)
 {
