@@ -148,7 +148,7 @@ void readConfigFile(matrix *M, buildingsArray *arr, graph *G, int * buildingCoun
 }
 
 // Save to file
-void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2)
+void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean ignore, boolean critical, boolean extraTurn, queue *Q1, queue *Q2, boolean criticalP1, boolean criticalP2, boolean isShieldActiveP1, boolean shieldActivatedP1, boolean isShieldActiveP2, boolean shieldActivatedP2, int counterShieldP1, int counterShieldP2, int lengthFlagAttack, int lengthFlagMove, int * arrFlagAttack, int * arrFlagMove)
 {
     colorPrint("Loading ", NORMAL);
     colorPrint("savefile.dat", UNDERSCORE);
@@ -214,13 +214,26 @@ void saveToFile(matrix *M, buildingsArray *arr, graph *G, int turn, boolean igno
     count=0;
     for(int i=Head(*Q2);count<10;i=(i%10)+1) {fprintf(savefile, "%d ", (*Q2).T[i]);++count;}
     fprintf(savefile, "\n");
-
+    // Output buildings inside flagAttack
+    fprintf(savefile, "%d\n", lengthFlagAttack);
+    // Output flagAttack
+    for(int i = 1; i <= lengthFlagAttack; i++){
+        fprintf(savefile, "%d ", arrFlagAttack[i]);
+    }
+    fprintf(savefile, "\n");
+    //Output buildings inside flagMove
+    fprintf(savefile, "%d\n", lengthFlagMove);
+    // Output flagMove
+    for(int i = 1; i <= lengthFlagMove; i++){
+        fprintf(savefile, "%d ", arrFlagMove[i]);
+    }
+    fprintf(savefile, "\n");
     // Close stream
     fclose(savefile);
 }
 
 // Load from file
-void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter, boolean *criticalP1, boolean *criticalP2, boolean *isShieldActiveP1, boolean *shieldActivatedP1, boolean *isShieldActiveP2, boolean *shieldActivatedP2, int *counterShieldP1, int *counterShieldP2)
+void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *ignore, boolean *critical, boolean *extraTurn, queue *Q1, queue *Q2, int *buildingCounter, boolean *criticalP1, boolean *criticalP2, boolean *isShieldActiveP1, boolean *shieldActivatedP1, boolean *isShieldActiveP2, boolean *shieldActivatedP2, int *counterShieldP1, int *counterShieldP2, int * lengthFlagAttack_, int * lengthFlagMove_, int ** arrFlagAttack, int ** arrFlagMove)
 {
     // Start reading filename
     START(savefileFilename);
@@ -368,6 +381,23 @@ void loadFromFile(matrix *M, buildingsArray *arr, graph *G, int *turn, boolean *
     Head(*Q2) = tempHead;
     Tail(*Q2) = tempTail;
 
+    // Input to flagAttack
+    int lengthFlagAttack = readNumber();
+    *arrFlagAttack = (int *) malloc((lengthFlagAttack+1) * sizeof(int));
+    for(int i = 1; i <= lengthFlagAttack; i++){
+        ignoreBlank();
+        (*arrFlagAttack)[i] = readNumber();
+    }
+    // Input to flagMove
+    int lengthFlagMove = readNumber();
+    *arrFlagMove = (int *) malloc((lengthFlagMove+1) * sizeof(int));
+    for(int i = 1; i <= lengthFlagMove; i++){
+        ignoreBlank();
+        (*arrFlagMove)[i] = readNumber();
+    }
+    // Output
+    *lengthFlagAttack_ = lengthFlagAttack;
+    *lengthFlagMove_ = lengthFlagMove;
     colorPrint("Save file loaded, ready to play!\n", GREEN);
 }
 
