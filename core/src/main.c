@@ -679,4 +679,5 @@ int main()
 		char enter = 0;
 		while (enter != '\r' && enter != '\n') enter = getchar();
 	}
+	printf("Congrats, you Win!!!\n");
 }
