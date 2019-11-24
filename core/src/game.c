@@ -122,7 +122,6 @@ int inputToIndexMine(graph G, int turn, int input1, int input2, buildingsArray b
 			i++;
 		}
 		prec = Q;
-		printf("info(prec) = %d\n", info(prec));
 		Q = nextChild(Q);
 	}while(Q != NULL && i < input2);
 	return info(prec);
